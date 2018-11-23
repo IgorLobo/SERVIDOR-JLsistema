@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <ToolBar prefHeight="65.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <items>
+            <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="588.0" spacing="5.0">
+               <children>
+                <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Clientes" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                     <font>
+                        <Font name="Verdana" size="12.0" />
+                     </font></Button>
+               </children>
+            </HBox>
+        </items>
+      </ToolBar>
+   </top>
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
