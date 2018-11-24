@@ -1,6 +1,8 @@
 package br.model;
 
-public class Produto {
+import br.interfaces.TratamentoDeDados;
+
+public class Produto implements TratamentoDeDados{
 	private int codProduto = 0;
 	private Object[] tipo = {"Jogo", "Acessório", "Console"};
 	private String nomeProduto = "";
@@ -25,31 +27,23 @@ public class Produto {
 		this.observacao = observacao;
 	}
 	
+	public Produto() {
+		
+	}
+	
 	//-----------------METODOS--------------------
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Override
+	public void materializar(String dados) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public String desmaterializar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 		//-----------------GETS AND SETERS--------------------
 

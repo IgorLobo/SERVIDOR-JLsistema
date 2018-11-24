@@ -1,6 +1,8 @@
 package br.model;
 
-public class Cliente {
+import br.interfaces.TratamentoDeDados;
+
+public class Cliente implements TratamentoDeDados{
 	private int codCliente = 0;
 	private String nomeCliente = "";
 	private String cpfCliente = "";
@@ -28,30 +30,26 @@ public class Cliente {
 		this.email = email;
 		this.observacao = observacao;
 	}
+	
+	public Cliente() {
+		
+	}
 
 	
 	//-----------------METODOS--------------------
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Override
+	public void materializar(String dados) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public String desmaterializar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
@@ -144,6 +142,7 @@ public class Cliente {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+
 	
 	
 }

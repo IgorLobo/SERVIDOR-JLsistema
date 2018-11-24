@@ -1,6 +1,8 @@
 package br.model;
 
-public class Infraestrutura {
+import br.interfaces.TratamentoDeDados;
+
+public class Infraestrutura implements TratamentoDeDados{
 	
 	private int codInfraestrutura = 0;
 	private String nomeInfraestrutura = "";
@@ -17,31 +19,24 @@ public class Infraestrutura {
 		this.observacao = observacao;
 	}
 	
+	public Infraestrutura() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	//-----------------METODOS--------------------
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Override
+	public void materializar(String dados) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public String desmaterializar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 		//-----------------GETS AND SETERS--------------------
 
