@@ -8,12 +8,18 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+	public static Stage mainStage;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(this.getClass().getResource("/br/view/TelaPrincipal.fxml"));
 			Scene scene = new Scene(root);
+			//scene.getStylesheets().add("/br/view/application.css");
+			mainStage = primaryStage;
 			primaryStage.setScene(scene);
+			//primaryStage.setMaximized(true);
+			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
