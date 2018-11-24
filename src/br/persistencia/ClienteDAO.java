@@ -25,7 +25,7 @@ public class ClienteDAO implements ICliente {
 			// Criar o buffer do arquivo
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			// Escreve no arquivo
-			bufferedWriter.write(cliente.desmaterializar() + "\n");
+			bufferedWriter.write(cliente.desmaterializar() + "\r\n");
 			// fecha o arquivo
 			bufferedWriter.close();
 		} catch (Exception erro) {
@@ -63,7 +63,7 @@ public class ClienteDAO implements ICliente {
 			for (int posicao = 0; posicao < listaDeClientes.size(); posicao++) {
 				Cliente cliente = listaDeClientes.get(posicao);
 				if (!(cliente.getCodCliente() == (codCliente))) {
-					bufferedWriter.write(cliente.desmaterializar() + "\n");
+					bufferedWriter.write(cliente.desmaterializar() + "\r\n");
 				}
 			}
 			bufferedWriter.close();

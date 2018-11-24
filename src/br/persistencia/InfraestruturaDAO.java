@@ -24,7 +24,7 @@ public class InfraestruturaDAO implements IInfraestrutura {
 			// Criar o buffer do arquivo
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			// Escreve no arquivo
-			bufferedWriter.write(infraestrutura.desmaterializar() + "\n");
+			bufferedWriter.write(infraestrutura.desmaterializar() + "\r\n");
 			// fecha o arquivo
 			bufferedWriter.close();
 		} catch (Exception erro) {
@@ -62,7 +62,7 @@ public class InfraestruturaDAO implements IInfraestrutura {
 			for (int posicao = 0; posicao < listaDeInfraestruturas.size(); posicao++) {
 				Infraestrutura infraestrutura = listaDeInfraestruturas.get(posicao);
 				if (!(infraestrutura.getCodInfraestrutura() == (codInfraestrutura))) {
-					bufferedWriter.write(infraestrutura.desmaterializar() + "\n");
+					bufferedWriter.write(infraestrutura.desmaterializar() + "\r\n");
 				}
 			}
 			bufferedWriter.close();

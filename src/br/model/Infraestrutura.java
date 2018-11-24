@@ -27,26 +27,26 @@ public class Infraestrutura implements TratamentoDeDados{
 	
 	@Override
 	public void materializar(String dados) throws Exception {
-		String vetorString[] = dados.split("|");
-        if(vetorString.length != 6) 
+		String vetorString[] = dados.split(";");
+        if(vetorString.length != 5) 
             throw new Exception("Faltam dados na String");
-        this.codInfraestrutura = Integer.parseInt(vetorString[1]);
-        this.nomeInfraestrutura = vetorString[2];		
-		this.descricaoInfraestrutura = vetorString[3];
-		this.valorHora = Float.parseFloat(vetorString[4]);
-		this.observacao = vetorString[5];
+        this.codInfraestrutura = Integer.parseInt(vetorString[0]);
+        this.nomeInfraestrutura = vetorString[1];		
+		this.descricaoInfraestrutura = vetorString[2];
+		this.valorHora = Float.parseFloat(vetorString[3]);
+		this.observacao = vetorString[4];
 	}
 
 
 	@Override
 	public String desmaterializar() {
-		String saida = "|";
-		saida += this.codInfraestrutura + "|";
+		String saida = "";
+		saida += this.codInfraestrutura + ";";
 				 this.codInfraestrutura++;
-		saida += this.nomeInfraestrutura + "|";
-		saida += this.descricaoInfraestrutura + "|";
-		saida += this.valorHora + "|";
-		saida += this.observacao + "|";
+		saida += this.nomeInfraestrutura + ";";
+		saida += this.descricaoInfraestrutura + ";";
+		saida += this.valorHora + ";";
+		saida += this.observacao + ";";
         return saida;
 	}
 	

@@ -24,7 +24,7 @@ public class ProdutoDAO implements IProduto{
 			// Criar o buffer do arquivo
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			// Escreve no arquivo
-			bufferedWriter.write(produto.desmaterializar() + "\n");
+			bufferedWriter.write(produto.desmaterializar() + "\r\n");
 			// fecha o arquivo
 			bufferedWriter.close();
 		} catch (Exception erro) {
@@ -62,7 +62,7 @@ public class ProdutoDAO implements IProduto{
 			for (int posicao = 0; posicao < listaDeProdutos.size(); posicao++) {
 				Produto produto = listaDeProdutos.get(posicao);
 				if (!(produto.getCodProduto() == (codProduto))) {
-					bufferedWriter.write(produto.desmaterializar() + "\n");
+					bufferedWriter.write(produto.desmaterializar() + "\r\n");
 				}
 			}
 			bufferedWriter.close();
