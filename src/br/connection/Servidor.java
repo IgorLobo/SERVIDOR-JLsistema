@@ -6,7 +6,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import br.controllers.TelaPrincipalController;
+import br.model.ClientUser;
 
 public class Servidor implements Runnable {
 
@@ -14,18 +21,34 @@ public class Servidor implements Runnable {
 	private ObjectInputStream objectInputStream = null;
 	private InputStream inputStream = null;
 	private OutputStream outputStream = null;
+	private List<ClientUser> clientUserArrayList = null;
 
 	private Thread runServidor = null;
 	private ServerSocket serverSocket = null;
 	public volatile static boolean statusServidor = false;
 	private int portaServidor = 5555;
 
+	public static ClientUser clientUser = null;
 
 	public Servidor(int porta) {
 		this.runServidor = null;
 		this.serverSocket = null;
 		this.statusServidor = false;
 		this.portaServidor = porta;
+
+		clientUserArrayList = new ArrayList<ClientUser>();
+	}
+
+	public void setClientsUsers(ClientUser clientUser) {
+		this.clientUserArrayList.add(clientUser);
+	}
+	
+	public String getClientUsers() {
+		String resposta = "";
+		for (int i = 0; i < clientUserArrayList.size(); i++) {
+			resposta += clientUserArrayList.get(i) + "\r\n";
+		}
+		return resposta;
 	}
 
 	public Thread getRunServidor() {
@@ -86,7 +109,30 @@ public class Servidor implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		int id = 0;
+		String ipClientUser = "";
+		clientUser = null;
+		try {
+			while (true) {
+				Socket socket = this.serverSocket.accept();
+				System.out.println("Entrou o trodos");
+
+				/*objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+
+				objectOutputStream.writeUTF("");
+				objectOutputStream.flush();*/
+
+
+				ipClientUser = socket.getInetAddress().getHostAddress();
+				clientUser = new ClientUser(socket, id, ipClientUser);
+				TelaPrincipalController.servidor.setClientsUsers(clientUser);
+				id++;
+				/*objectInputStream.close();
+				objectOutputStream.close();
+				socket.close();*/
+			}
+		} catch (Exception erro) {
+			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
