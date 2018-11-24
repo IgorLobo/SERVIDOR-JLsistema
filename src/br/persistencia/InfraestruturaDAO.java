@@ -52,7 +52,7 @@ public class InfraestruturaDAO implements IInfraestrutura {
 	}
 
 	@Override
-	public void excluir(String nomeInfraestrutura) throws Exception {
+	public void excluir(int codInfraestrutura) throws Exception {
 		try {
 			ArrayList<Infraestrutura> listaDeInfraestruturas = this.listar();
 			// cria o arquivo
@@ -61,7 +61,7 @@ public class InfraestruturaDAO implements IInfraestrutura {
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			for (int posicao = 0; posicao < listaDeInfraestruturas.size(); posicao++) {
 				Infraestrutura infraestrutura = listaDeInfraestruturas.get(posicao);
-				if (!(infraestrutura.getNomeInfraestrutura().equals(nomeInfraestrutura))) {
+				if (!(infraestrutura.getCodInfraestrutura() == (codInfraestrutura))) {
 					bufferedWriter.write(infraestrutura.desmaterializar() + "\n");
 				}
 			}

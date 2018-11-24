@@ -27,58 +27,48 @@ public class Infraestrutura implements TratamentoDeDados{
 	
 	@Override
 	public void materializar(String dados) throws Exception {
-		// TODO Auto-generated method stub
-		
+		String vetorString[] = dados.split("|");
+        if(vetorString.length != 6) 
+            throw new Exception("Faltam dados na String");
+        this.codInfraestrutura = Integer.parseInt(vetorString[1]);
+        this.nomeInfraestrutura = vetorString[2];		
+		this.descricaoInfraestrutura = vetorString[3];
+		this.valorHora = Float.parseFloat(vetorString[4]);
+		this.observacao = vetorString[5];
 	}
 
 
 	@Override
 	public String desmaterializar() {
-		// TODO Auto-generated method stub
-		return null;
+		String saida = "|";
+		saida += this.codInfraestrutura + "|";
+				 this.codInfraestrutura++;
+		saida += this.nomeInfraestrutura + "|";
+		saida += this.descricaoInfraestrutura + "|";
+		saida += this.valorHora + "|";
+		saida += this.observacao + "|";
+        return saida;
 	}
 	
-		//-----------------GETS AND SETERS--------------------
-
+	//-----------------GETS AND SETERS--------------------
 	public int getCodInfraestrutura() {
 		return codInfraestrutura;
-	}
-
-	public void setCodInfraestrutura(int codInfraestrutura) {
-		this.codInfraestrutura = codInfraestrutura;
 	}
 
 	public String getNomeInfraestrutura() {
 		return nomeInfraestrutura;
 	}
 
-	public void setNomeInfraestrutura(String nomeInfraestrutura) {
-		this.nomeInfraestrutura = nomeInfraestrutura;
-	}
-
 	public String getDescricaoInfraestrutura() {
 		return descricaoInfraestrutura;
-	}
-
-	public void setDescricaoInfraestrutura(String descricaoInfraestrutura) {
-		this.descricaoInfraestrutura = descricaoInfraestrutura;
 	}
 
 	public float getValorHora() {
 		return valorHora;
 	}
 
-	public void setValorHora(float valorHora) {
-		this.valorHora = valorHora;
-	}
-
 	public String getObservacao() {
 		return observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
-	
+	}	
 	
 }

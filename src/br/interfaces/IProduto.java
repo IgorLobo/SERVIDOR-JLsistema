@@ -8,5 +8,5 @@ import br.model.Produto;
 public interface IProduto {
 	void incluir(Produto produto) throws Exception;
     public ArrayList<Produto> listar() throws Exception;
-    public void excluir(String nomeProduto) throws Exception;
+    public void excluir(int codProduto) throws Exception;
 }

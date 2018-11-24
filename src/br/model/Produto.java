@@ -34,15 +34,35 @@ public class Produto implements TratamentoDeDados{
 	//-----------------METODOS--------------------
 	@Override
 	public void materializar(String dados) throws Exception {
-		// TODO Auto-generated method stub
-		
+		String vetorString[] = dados.split("|");
+        if(vetorString.length != 14) 
+            throw new Exception("Faltam dados na String");
+        this.codProduto = Integer.parseInt(vetorString[1]);
+        this.nomeProduto = vetorString[2];		
+		this.descricao = vetorString[3];
+		this.fabricante = vetorString[4];
+		this.valorUnitarioVenda = Float.parseFloat(vetorString[5]);
+		this.valorUnitarioLocacao = Float.parseFloat(vetorString[6]);
+		this.numeroSerie = Integer.parseInt(vetorString[7]);
+		this.compatibilidade = vetorString[8];
+		this.observacao = vetorString[9];		
 	}
 
 
 	@Override
 	public String desmaterializar() {
-		// TODO Auto-generated method stub
-		return null;
+		String saida = "|";
+		saida += this.codProduto + "|";
+				 this.codProduto++;
+		saida += this.nomeProduto + "|";
+		saida += this.descricao + "|";
+		saida += this.fabricante + "|";
+		saida += this.valorUnitarioVenda + "|";
+		saida += this.valorUnitarioLocacao + "|";
+		saida += this.numeroSerie + "|";
+		saida += this.compatibilidade + "|";
+		saida += this.observacao + "|";
+        return saida;
 	}
 	
 		//-----------------GETS AND SETERS--------------------

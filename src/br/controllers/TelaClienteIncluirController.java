@@ -14,7 +14,8 @@ import javafx.scene.control.TextField;
 public class TelaClienteIncluirController implements Initializable{
 
 //************************ ATRIBUTOS ********************************
-
+	String nomeArquivo ="scr/br.arquivos/Cliente.csv";
+	
 
 //*********************** COMPONENTES *******************************	
 	@FXML
@@ -74,7 +75,7 @@ public class TelaClienteIncluirController implements Initializable{
 
     @FXML
     void OnClick_btn_salvar(ActionEvent event) {
-
+    	
     }
 //************************** METODOS AUXILIARES *********************
 

@@ -52,7 +52,7 @@ public class ProdutoDAO implements IProduto{
 	}
 
 	@Override
-	public void excluir(String nomeProduto) throws Exception {
+	public void excluir(int codProduto) throws Exception {
 		try {
 			ArrayList<Produto> listaDeProdutos = this.listar();
 			// cria o arquivo
@@ -61,7 +61,7 @@ public class ProdutoDAO implements IProduto{
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			for (int posicao = 0; posicao < listaDeProdutos.size(); posicao++) {
 				Produto produto = listaDeProdutos.get(posicao);
-				if (!(produto.getNomeProduto().equals(nomeProduto))) {
+				if (!(produto.getCodProduto() == (codProduto))) {
 					bufferedWriter.write(produto.desmaterializar() + "\n");
 				}
 			}

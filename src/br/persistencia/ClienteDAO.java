@@ -53,7 +53,7 @@ public class ClienteDAO implements ICliente {
 	}
 
 	@Override
-	public void excluir(String nomeCliente) throws Exception {
+	public void excluir(int codCliente) throws Exception {
 		try {
 			ArrayList<Cliente> listaDeClientes = this.listar();
 			// cria o arquivo
@@ -62,7 +62,7 @@ public class ClienteDAO implements ICliente {
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			for (int posicao = 0; posicao < listaDeClientes.size(); posicao++) {
 				Cliente cliente = listaDeClientes.get(posicao);
-				if (!(cliente.getNomeCliente().equals(nomeCliente))) {
+				if (!(cliente.getCodCliente() == (codCliente))) {
 					bufferedWriter.write(cliente.desmaterializar() + "\n");
 				}
 			}
