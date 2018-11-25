@@ -7,8 +7,6 @@ import javax.swing.JOptionPane;
 
 import br.model.Cliente;
 import br.util.Janela;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
