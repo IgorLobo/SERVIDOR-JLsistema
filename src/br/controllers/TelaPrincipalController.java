@@ -29,6 +29,9 @@ public class TelaPrincipalController implements Initializable {
 	@FXML
     private Button tbBtn_pedidos;
 
+	@FXML
+    private Button tbBtn_infra;
+
 	// --
 //*********************** ON-ACTION *********************************
 	@Override
@@ -47,6 +50,11 @@ public class TelaPrincipalController implements Initializable {
     	utilJanela.novaJanelaComOwner("/br/view/TelaPedidoEscolherCliente.fxml", true);
     }
     
+    @FXML
+    void OnClick_tbBtn_Infra(ActionEvent event) {
+    	utilJanela.novaJanelaComOwner("/br/view/TelaInfra.fxml", true);
+    }
+
 	@FXML
 	void OnClick_tbBtn_produtos(ActionEvent event) {
 		utilJanela.novaJanelaComOwner("/br/view/TelaProduto.fxml", true);
