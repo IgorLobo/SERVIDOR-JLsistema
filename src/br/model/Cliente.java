@@ -41,7 +41,7 @@ public class Cliente implements TratamentoDeDados{
 		
 	}
 
-	
+
 	//-----------------METODOS--------------------
 	@Override
 	public void materializar(String dados) throws Exception {

@@ -2,7 +2,6 @@ package br.util;
 
 import java.io.IOException;
 
-import com.sun.istack.internal.Nullable;
 
 import br.application.Main;
 import javafx.fxml.FXMLLoader;
