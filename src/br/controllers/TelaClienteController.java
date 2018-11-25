@@ -34,6 +34,9 @@ public class TelaClienteController implements Initializable {
 
 	@FXML
 	private Button btn_excluir;
+	
+	@FXML
+    private Button btn_observacao;
 
 	@FXML
 	private GridPane gridPane_clientes;
@@ -58,6 +61,11 @@ public class TelaClienteController implements Initializable {
 	void OnClick_btn_incluir(ActionEvent event) {
 		utilJanela.novaJanelaComOwner("/br/view/TelaClienteIncluir.fxml", false);
 	}
+	
+	@FXML
+    void OnClick_btn_observacao(ActionEvent event) {
+
+    }
 
 //************************** METODOS AUXILIARES *********************
 	private void listar() {

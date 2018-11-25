@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 
 public class TelaPrincipalController implements Initializable {
 //************************ ATRIBUTOS ********************************
@@ -25,7 +24,7 @@ public class TelaPrincipalController implements Initializable {
 	private Button tbBtn_clientes;
 
 	@FXML
-	private ImageView tbBtn_produtos;
+	private Button tbBtn_produtos;
 
 	// --
 //*********************** ON-ACTION *********************************
@@ -38,6 +37,11 @@ public class TelaPrincipalController implements Initializable {
 	void OnClick_tbBtn_clientes(ActionEvent event) {
 		utilJanela.novaJanelaComOwner("/br/view/TelaCliente.fxml", true);
 		//System.out.println(servidor.getClientUsers());
+	}
+	
+	@FXML
+	void OnClick_tbBtn_produtos(ActionEvent event) {
+		utilJanela.novaJanelaComOwner("/br/view/TelaProduto.fxml", true);
 	}
 
 //************************** METODOS AUXILIARES *********************
