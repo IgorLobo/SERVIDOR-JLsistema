@@ -37,6 +37,14 @@ public class Cliente implements TratamentoDeDados{
 	}
 
 
+	public Cliente(int codCliente, String nomeCliente, String telefone1Cliente, String email1Cliente) {
+		this.codCliente = codCliente;
+		this.nomeCliente = nomeCliente;
+		this.telefone1Cliente = telefone1Cliente;
+		this.email1Cliente = email1Cliente;
+	}
+
+
 	public Cliente() {
 		
 	}

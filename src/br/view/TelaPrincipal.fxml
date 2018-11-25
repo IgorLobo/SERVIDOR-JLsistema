@@ -29,7 +29,7 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/produtos.png" />
+                              <Image url="@../images/priceTag.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -38,7 +38,7 @@
                      </font>
                   </Button>
                   <Separator orientation="VERTICAL" prefHeight="63.0" prefWidth="0.0" />
-                  <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="95.0" layoutY="10.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="80.0" text="Pedidos" textAlignment="CENTER">
+                  <Button fx:id="tbBtn_pedidos" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="95.0" layoutY="10.0" mnemonicParsing="false" onAction="#OnClick_tbBtn_pedidos" prefHeight="60.0" prefWidth="80.0" text="Pedidos" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
