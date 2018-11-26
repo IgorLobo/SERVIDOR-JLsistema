@@ -18,7 +18,7 @@ public class TelaInfraController implements Initializable {
 
 //*********************** COMPONENTES *******************************	
 	@FXML
-    private TableView<Infraestrutura> tableView_cliente;
+    private TableView<Infraestrutura> tableView_infra;
 
     @FXML
     private TableColumn<Infraestrutura, Integer> tc_ID;

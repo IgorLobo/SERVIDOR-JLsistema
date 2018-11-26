@@ -3,6 +3,7 @@ package br.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.util.MaskTextfield;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,7 +34,7 @@ public class TelaInfraIncluirController implements Initializable {
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		prepararComponentes();
 	}
 
     @FXML
@@ -47,4 +48,8 @@ public class TelaInfraIncluirController implements Initializable {
     }
 
 //************************** METODOS AUXILIARES *********************
+    private void prepararComponentes() {
+    	MaskTextfield.monetaryField(txf_valor);
+    }
+    
 }

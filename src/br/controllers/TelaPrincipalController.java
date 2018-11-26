@@ -52,6 +52,7 @@ public class TelaPrincipalController implements Initializable {
     
     @FXML
     void OnClick_tbBtn_Infra(ActionEvent event) {
+    	
     	utilJanela.novaJanelaComOwner("/br/view/TelaInfra.fxml", true);
     }
 

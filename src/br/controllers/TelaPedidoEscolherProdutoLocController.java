@@ -3,7 +3,10 @@ package br.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.model.Cliente;
+import br.model.Infraestrutura;
 import br.model.Produto;
+import br.util.Janela;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class TelaPedidoEscolherProdutoVendaController implements Initializable{
+public class TelaPedidoEscolherProdutoLocController implements Initializable{
 
 //************************ ATRIBUTOS ********************************
 	
@@ -66,6 +69,21 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 
 	    @FXML
 	    private TableColumn<Produto, Double> tv_consoles_tcValLoc;
+	    
+	    @FXML
+	    private TableView<Infraestrutura> tableView_infra;
+
+	    @FXML
+	    private TableColumn<Infraestrutura, Integer> tc_ID;
+
+	    @FXML
+	    private TableColumn<Infraestrutura, String> tc_nome;
+
+	    @FXML
+	    private TableColumn<Infraestrutura, String> tc_descricao;
+
+	    @FXML
+	    private TableColumn<Infraestrutura, Float> tc_precoDia;
 	    
 	    @FXML
 	    private Button btn_adicionar;

@@ -9,7 +9,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.controllers.TelaInfraController">
    <center>
-      <TableView fx:id="tableView_cliente" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableView_infra" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="tc_ID" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" sortable="false" text="ID" />
           <TableColumn fx:id="tc_nome" prefWidth="187.0" text="Nome" />

@@ -9,12 +9,12 @@ public class Tela {
 	******    á tela/display gráfico   ********
 	*******************************************/
 	
-	public int getWidth() {
+	public static int getWidth() {
 		Dimension tamanhoDaTela = Toolkit.getDefaultToolkit().getScreenSize();
 		return (int) tamanhoDaTela.getWidth();
 	}
 	
-	public int getHeight() {
+	public static int getHeight() {
 		Dimension tamanhoDaTela = Toolkit.getDefaultToolkit().getScreenSize();
 		return (int) tamanhoDaTela.getHeight();
 	}

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -15,11 +16,11 @@ public class Main extends Application {
 		try {
 			Parent root = FXMLLoader.load(this.getClass().getResource("/br/view/TelaPrincipal.fxml"));
 			Scene scene = new Scene(root);
-			//scene.getStylesheets().add("/br/view/application.css");
 			mainStage = primaryStage;
 			primaryStage.setScene(scene);
-			//primaryStage.setMaximized(true);
-			//primaryStage.setResizable(false);
+			primaryStage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+			primaryStage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

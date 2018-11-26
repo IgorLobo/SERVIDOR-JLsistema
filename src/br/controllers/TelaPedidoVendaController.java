@@ -75,7 +75,7 @@ public class TelaPedidoVendaController implements Initializable{
 
 	@FXML
     void OnClick_btn_adicionarItem(ActionEvent event) {
-		janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoEscolherProduto.fxml", false);
+		janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoEscolherProdutoVenda.fxml", false);
     }
 
     @FXML

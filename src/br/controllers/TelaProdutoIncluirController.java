@@ -3,6 +3,7 @@ package br.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.util.MaskTextfield;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -72,6 +73,10 @@ public class TelaProdutoIncluirController implements Initializable{
 
 	 private void prepararComponentes() {
 		 cb_tipo.setItems(FXCollections.observableArrayList("Jogo","Acessorio","Console"));
+		 MaskTextfield.monetaryField(txf_precoLocacao);
+		 MaskTextfield.monetaryField(txf_precoVenda);
+		 MaskTextfield.campoNumerico(txf_nrSerie);
+		 
 	 }
 
 	    

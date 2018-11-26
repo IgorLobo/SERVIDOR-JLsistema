@@ -156,6 +156,12 @@ public class Cliente implements TratamentoDeDados{
 	public String getObservacao() {
 		return observacao;
 	}
-	//-----------------GETS AND SETERS--------------------
+
+	public String getCidadeCliente() {
+		return cidadeCliente;
+	}
+
+
+
 	
 }
