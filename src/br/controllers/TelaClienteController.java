@@ -62,12 +62,28 @@ public class TelaClienteController implements Initializable {
 
 	@FXML
 	void OnClick_btn_alterar(ActionEvent event) {
-
+		try {
+			ArrayList<Cliente> listaDeClientes;
+			ClienteDAO clienteDAO = new ClienteDAO(nomeArquivo);
+			Cliente cliente = tableView_cliente.getSelectionModel().getSelectedItem();
+			//utilJanela.novaJanelaComOwner("/br/view/TelaClienteIncluir.fxml", cliente, false);
+			listar();
+		} catch (Exception erro) {
+			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	@FXML
 	void OnClick_btn_excluir(ActionEvent event) {
-		listar();
+		try {
+			ArrayList<Cliente> listaDeClientes;
+			ClienteDAO clienteDAO = new ClienteDAO(nomeArquivo);
+			Cliente cliente = tableView_cliente.getSelectionModel().getSelectedItem();
+			clienteDAO.excluir(cliente.getCodCliente());
+			listar();
+		} catch (Exception erro) {
+			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	@FXML
@@ -77,15 +93,15 @@ public class TelaClienteController implements Initializable {
 
 	@FXML
 	void OnClick_btn_observacao(ActionEvent event) {
-		
+		listar();
 	}
 
 //************************** METODOS AUXILIARES *********************
 	private void listar() {
 		try {
 			ArrayList<Cliente> listaDeClientes;
-			ClienteDAO agenda = new ClienteDAO(nomeArquivo);
-			listaDeClientes = agenda.listar();
+			ClienteDAO clienteDAO = new ClienteDAO(nomeArquivo);
+			listaDeClientes = clienteDAO.listar();
 			tableView_cliente.setItems(FXCollections.observableArrayList(listaDeClientes));
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);

@@ -19,6 +19,7 @@ public class TelaClienteIncluirController implements Initializable {
 
 //************************ ATRIBUTOS ********************************
 	String nomeArquivo = "C:\\Projetos\\SERVIDOR-JLsistema\\src\\br\\arquivos\\Cliente.csv";
+	
 
 //*********************** COMPONENTES *******************************	
 	@FXML
