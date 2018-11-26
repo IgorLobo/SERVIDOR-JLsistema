@@ -29,14 +29,14 @@ public class Janela {
 		}
 	}
 	
-	/*public void novaJanelaComOwner(String caminhoFXML, Object tipo ,boolean resizable) {
+	public void novaJanelaComOwner(String caminhoFXML,boolean resizable,String nomeDaJanela) {
 		try {
 			Parent root;
-			FXMLLoader fxmlloader = FXMLLoader.load(getClass().getResource(caminhoFXML));
-			fxmlloader.setController(new TelaClienteIncluirController(tipo));
-			Scene scene = new Scene(fxmlloader.getRoot());
+			root = FXMLLoader.load(getClass().getResource(caminhoFXML));
+		    Scene scene = new Scene(root);
 		    Stage stage = new Stage();
 		    stage.setScene(scene);
+		    stage.setTitle(nomeDaJanela);
 		    stage.setResizable(resizable);
 		    stage.initOwner(Main.mainStage);
 		    stage.initModality(Modality.APPLICATION_MODAL);
@@ -44,8 +44,7 @@ public class Janela {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-	}*/
-	
+	}
 	
 	public void novaJanela(String caminhoFXML,boolean resizable) {
 		try {

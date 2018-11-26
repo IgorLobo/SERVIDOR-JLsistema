@@ -23,7 +23,9 @@ public class TelaClienteController implements Initializable {
 //************************ ATRIBUTOS ********************************
 	private Janela utilJanela = new Janela();
 	String nomeArquivo = "C:\\Projetos\\SERVIDOR-JLsistema\\src\\br\\arquivos\\Cliente.csv";
-
+	private ClienteDAO persistencia = new ClienteDAO(nomeArquivo);
+	static String operacao;
+	static Cliente clienteSelecionado;
 //*********************** COMPONENTES *******************************	
 
 	@FXML
@@ -63,11 +65,14 @@ public class TelaClienteController implements Initializable {
 	@FXML
 	void OnClick_btn_alterar(ActionEvent event) {
 		try {
-			ArrayList<Cliente> listaDeClientes;
-			ClienteDAO clienteDAO = new ClienteDAO(nomeArquivo);
-			Cliente cliente = tableView_cliente.getSelectionModel().getSelectedItem();
-			//utilJanela.novaJanelaComOwner("/br/view/TelaClienteIncluir.fxml", cliente, false);
-			listar();
+			if(tableView_cliente.getSelectionModel().isEmpty()) {
+				
+			}else {
+			operacao = "alterar";
+			clienteSelecionado = tableView_cliente.getSelectionModel().getSelectedItem();
+			System.out.println(clienteSelecionado.getCidadeCliente());
+			utilJanela.novaJanelaComOwner("/br/view/TelaClienteIncluir.fxml", false, "Alterar dados do cliente");
+			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 		}
@@ -76,11 +81,11 @@ public class TelaClienteController implements Initializable {
 	@FXML
 	void OnClick_btn_excluir(ActionEvent event) {
 		try {
-			ArrayList<Cliente> listaDeClientes;
-			ClienteDAO clienteDAO = new ClienteDAO(nomeArquivo);
-			Cliente cliente = tableView_cliente.getSelectionModel().getSelectedItem();
-			clienteDAO.excluir(cliente.getCodCliente());
-			listar();
+			if (tableView_cliente.getSelectionModel().isEmpty()) {
+
+			} else {
+				persistencia.excluir(tableView_cliente.getSelectionModel().getSelectedItem().getCodCliente());
+			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 		}
@@ -88,7 +93,8 @@ public class TelaClienteController implements Initializable {
 
 	@FXML
 	void OnClick_btn_incluir(ActionEvent event) {
-		utilJanela.novaJanelaComOwner("/br/view/TelaClienteIncluir.fxml", false);
+		operacao = "incluir";
+		utilJanela.novaJanelaComOwner("/br/view/TelaClienteIncluir.fxml", false, "Cadastrar novo cliente");
 	}
 
 	@FXML

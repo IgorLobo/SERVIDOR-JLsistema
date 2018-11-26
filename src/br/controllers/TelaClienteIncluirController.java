@@ -7,8 +7,10 @@ import javax.swing.JOptionPane;
 
 import br.model.Cliente;
 import br.persistencia.ClienteDAO;
+import br.util.MaskTextfield;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -38,7 +40,7 @@ public class TelaClienteIncluirController implements Initializable {
 	private TextField txf_cidade;
 
 	@FXML
-	private TextField txf_setor;
+	private TextField txf_bairro;
 
 	@FXML
 	private TextField txf_edereco;
@@ -67,8 +69,10 @@ public class TelaClienteIncluirController implements Initializable {
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		cb_estados.setItems(FXCollections.observableArrayList("AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO",
-				"MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RS", "SC", "SE", "SP", "TO"));
+		if(TelaClienteController.operacao.equals("alterar")) {
+			carregarDados();
+		}
+		prepararComponentes();
 	}
 
 	@FXML
@@ -79,12 +83,15 @@ public class TelaClienteIncluirController implements Initializable {
 	@FXML
 	void OnClick_btn_salvar(ActionEvent event) {
 		try {
+				if(TelaClienteController.operacao.equals("alterar")) {
+				
+			}else {
 			String nome = txf_nome.getText();
 			String cpf = txf_CPF.getText();
 			String cep = txf_CEP.getText();
 			String estado = cb_estados.getValue();
 			String cidade = txf_cidade.getText();
-			String setor = txf_setor.getText();
+			String setor = txf_bairro.getText();
 			String endereco = txf_edereco.getText();
 			String complemento = txf_complemento.getText();
 			String telefone1 = txf_telefone.getText();
@@ -96,6 +103,7 @@ public class TelaClienteIncluirController implements Initializable {
 			ClienteDAO arquivo = new ClienteDAO(nomeArquivo); 
 			arquivo.incluir(cliente);
 			limpar();
+			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 		}
@@ -108,12 +116,45 @@ public class TelaClienteIncluirController implements Initializable {
 		txf_CEP.setText("");
 		cb_estados.setValue(null);
 		txf_cidade.setText("");
-		txf_setor.setText("");
+		txf_bairro.setText("");
 		txf_edereco.setText("");
 		txf_complemento.setText("");
 		txf_telefone.setText("");
 		txf_telefoneSecundario.setText("");
 		txf_email.setText("");
 		txf_emailSecundario.setText("");
+	}
+	
+	private void prepararComponentes() {
+		cb_estados.setItems(FXCollections.observableArrayList("AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO",
+				"MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RS", "SC", "SE", "SP", "TO"));
+		cb_estados.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				
+			}
+		});
+		MaskTextfield.tamanhoMaximo(txf_nome, 50);
+		MaskTextfield.cpfField(txf_CPF);
+		MaskTextfield.cepField(txf_CEP);
+		MaskTextfield.foneField(txf_telefone);
+		MaskTextfield.foneField(txf_telefoneSecundario);
+	}
+
+	private void carregarDados() {
+		txf_nome.setText(TelaClienteController.clienteSelecionado.getNomeCliente());
+		txf_CEP.setText(TelaClienteController.clienteSelecionado.getCepCliente());
+		txf_cidade.setText(TelaClienteController.clienteSelecionado.getCidadeCliente());
+		txf_complemento.setText(TelaClienteController.clienteSelecionado.getComplementoCliente());
+		txf_CPF.setText(TelaClienteController.clienteSelecionado.getCpfCliente());
+		txf_edereco.setText(TelaClienteController.clienteSelecionado.getEnderecoCliente());
+		txf_email.setText(TelaClienteController.clienteSelecionado.getEmail1Cliente());
+		txf_emailSecundario.setText(TelaClienteController.clienteSelecionado.getEmail2Cliente());
+		txf_bairro.setText(TelaClienteController.clienteSelecionado.getBairroCliente());
+		txf_telefone.setText(TelaClienteController.clienteSelecionado.getTelefone1Cliente());
+		txf_telefoneSecundario.setText(TelaClienteController.clienteSelecionado.getTelefone2Cliente());
+		cb_estados.getSelectionModel().select(TelaClienteController.clienteSelecionado.getEstadoCliente());
+		txf_CPF.setDisable(true);
 	}
 }
