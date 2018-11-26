@@ -18,6 +18,7 @@ public class TelaProdutoController implements Initializable{
 
 //************************ ATRIBUTOS ********************************
 	private Janela utilJanela = new Janela();
+	String nomeArquivo = TelaPrincipalController.caminhoTxtBancoDados + "Produtos.csv";
 	
 //*********************** COMPONENTES *******************************	
 	 @FXML

@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 public class TelaInfraController implements Initializable {
 //************************ ATRIBUTOS ********************************
 	Janela utilJanela = new Janela();
+	String nomeArquivo = TelaPrincipalController.caminhoTxtBancoDados + "Infraestruturas.csv";
 
 //*********************** COMPONENTES *******************************	
 	@FXML

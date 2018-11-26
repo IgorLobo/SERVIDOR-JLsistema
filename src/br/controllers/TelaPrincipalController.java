@@ -17,6 +17,7 @@ public class TelaPrincipalController implements Initializable {
 	private Janela utilJanela = new Janela();
 	private Thread servidorON = null;
 	public static Servidor servidor = null;
+	public static String caminhoTxtBancoDados = "C:\\Projetos\\Faculdade\\SERVIDOR-JLsistema\\src\\br\\arquivos\\";
 
 //*********************** COMPONENTES *******************************	
 	// Toolbar--

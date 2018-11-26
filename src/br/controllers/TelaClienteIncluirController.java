@@ -20,7 +20,7 @@ import javafx.scene.control.TextField;
 public class TelaClienteIncluirController implements Initializable {
 
 //************************ ATRIBUTOS ********************************
-	String nomeArquivo = "C:\\Projetos\\SERVIDOR-JLsistema\\src\\br\\arquivos\\Cliente.csv";
+	String nomeArquivo = TelaPrincipalController.caminhoTxtBancoDados + "Clientes.csv";
 	
 
 //*********************** COMPONENTES *******************************	

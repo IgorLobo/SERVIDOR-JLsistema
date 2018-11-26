@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 
 public class TelaInfraIncluirController implements Initializable {
 //************************ ATRIBUTOS ********************************
-
+	String nomeArquivo = TelaPrincipalController.caminhoTxtBancoDados + "Infraestruturas.csv";
 
 //*********************** COMPONENTES *******************************	
 	@FXML

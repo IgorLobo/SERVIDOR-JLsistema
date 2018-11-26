@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 public class TelaProdutoIncluirController implements Initializable{
 	
 //************************ ATRIBUTOS ********************************
-	
+	String nomeArquivo = TelaPrincipalController.caminhoTxtBancoDados + "Produtos.csv";
 	
 //*********************** COMPONENTES *******************************	
 	@FXML
