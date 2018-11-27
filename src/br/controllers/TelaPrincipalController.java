@@ -18,6 +18,9 @@ public class TelaPrincipalController implements Initializable {
 	private Thread servidorON = null;
 	public static Servidor servidor = null;
 	public static String caminhoTxtBancoDados = "C:\\Projetos\\SERVIDOR-JLsistema\\src\\br\\arquivos\\";
+	public static String nomeArquivoJogos = caminhoTxtBancoDados + "Jogos.csv";
+	public static String nomeArquivoAcessorios = caminhoTxtBancoDados + "Acessorios.csv";
+	public static String nomeArquivoConsoles = caminhoTxtBancoDados + "Consoles.csv";
 
 //*********************** COMPONENTES *******************************	
 	// Toolbar--
