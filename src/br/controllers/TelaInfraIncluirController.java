@@ -3,6 +3,9 @@ package br.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.model.Cliente;
+import br.model.Infraestrutura;
+import br.persistencia.ClienteDAO;
 import br.util.MaskTextfield;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +42,22 @@ public class TelaInfraIncluirController implements Initializable {
 
     @FXML
     void OnClick_btn_cadastrar(ActionEvent event) {
-
+    	try {
+			if(TelaClienteController.operacao.equals("alterar")) {
+				
+			}else {
+				String nome = txf_nome.getText();
+				String valor = txf_valor.getText();
+				String descricao = txa_descricao.getText();
+				
+				Infraestrutura infra = new Infraestrutura();
+				ClienteDAO arquivo = new ClienteDAO(nomeArquivo); 
+				arquivo.incluir(cliente);
+				limpar();
+			}
+    	}catch(Exception e) {
+    		
+    	}
     }
 
     @FXML
