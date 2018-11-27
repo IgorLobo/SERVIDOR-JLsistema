@@ -32,7 +32,10 @@ public class TelaPrincipalController implements Initializable {
 
 	@FXML
 	private Button tbBtn_infra;
-
+	
+	@FXML
+	private Button btn_estoque;
+	
 	// --
 //*********************** ON-ACTION *********************************
 	@Override
@@ -42,26 +45,28 @@ public class TelaPrincipalController implements Initializable {
 
 	@FXML
 	void OnClick_tbBtn_clientes(ActionEvent event) {
-		utilJanela.novaJanelaComOwner("/br/view/TelaCliente.fxml", true);
-		// System.out.println(servidor.getClientUsers());
+		utilJanela.novaJanelaComOwner("/br/view/TelaCliente.fxml", true, "Gerenciar clientes");
 	}
 
 	@FXML
 	void OnClick_tbBtn_pedidos(ActionEvent event) {
-		utilJanela.novaJanelaComOwner("/br/view/TelaPedidoEscolherCliente.fxml", true);
+		utilJanela.novaJanelaComOwner("/br/view/TelaPedidoEscolherCliente.fxml", true, "Fazer pedido");
 	}
 
 	@FXML
 	void OnClick_tbBtn_Infra(ActionEvent event) {
-
-		utilJanela.novaJanelaComOwner("/br/view/TelaInfra.fxml", true);
+		utilJanela.novaJanelaComOwner("/br/view/TelaInfra.fxml", true, "Gerenciar infraestrutura");
 	}
 
 	@FXML
 	void OnClick_tbBtn_produtos(ActionEvent event) {
-		utilJanela.novaJanelaComOwner("/br/view/TelaProduto.fxml", true);
+		utilJanela.novaJanelaComOwner("/br/view/TelaProduto.fxml", true, "Gerenciar produtos");
 	}
 
+	@FXML
+    void OnClick_btn_estoque(ActionEvent event) {
+		utilJanela.novaJanelaComOwner("/br/view/TelaEstoque.fxml", false, "Estoque da loja");
+    }
 //************************** METODOS AUXILIARES *********************
 	private void iniciarServidor() {
 		servidor = new Servidor(5555);

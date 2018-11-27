@@ -9,10 +9,12 @@ import br.model.Produto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TelaPedidoEscolherProdutoVendaController implements Initializable{
@@ -104,7 +106,11 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 			 TelaPedidoVendaController.novoProduto = tv_consoles.getSelectionModel().getSelectedItem();
 			 br.util.Janela.fecharJanela(btn_adicionar);
 		 }else {
-			 JOptionPane.showMessageDialog(null, "selecione um produto");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Atenção");
+			alert.setHeaderText(null);
+			alert.setContentText("Escolha um produto!");
+			alert.show();
 		 }
 		 
 	 }

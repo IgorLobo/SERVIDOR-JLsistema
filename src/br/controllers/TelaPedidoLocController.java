@@ -1,25 +1,38 @@
 package br.controllers;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
+import br.model.Cliente;
+import br.model.Infraestrutura;
 import br.model.Produto;
 import br.util.Janela;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TelaPedidoLocController implements Initializable{
 
 //************************ ATRIBUTOS ********************************
 		private Janela janelaUtil = new Janela();
-		
+		static Produto novoProduto;
+		private Cliente cliente;
+		String data;
+		static ArrayList<Produto> listProdutos = new ArrayList<Produto>();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 //*********************** COMPONENTES *******************************	
 	 @FXML
 	    private Button btn_cancelar;
@@ -74,26 +87,44 @@ public class TelaPedidoLocController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableView();
+		cliente = TelaPedidoEscolherClienteController.clienteSelecionado;
+		txf_nome.setText(cliente.getNomeCliente());
+		txf_cpf.setText(cliente.getCpfCliente());
+		
+		data = dateFormat.format(new Date());
+		txf_data.setText(data);
+
 	}
 
 	@FXML
     void OnClick_btn_adicionarItem(ActionEvent event) {
-		janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoEscolherProdutoLoc.fxml", false);
+		janelaUtil.novaJanelaComOwnerWait("/br/view/TelaPedidoEscolherProdutoLoc.fxml", false, "Adicionar item ao pedido");
+		if(novoProduto != null)	listProdutos.add(novoProduto);
+		novoProduto = null;
+		if(listProdutos.size()>0)tv_produtos.setItems(FXCollections.observableArrayList(listProdutos));
     }
 
-    @FXML
+	@FXML
     void OnClick_btn_cancelar(ActionEvent event) {
-
+    	br.util.Janela.fecharJanela(btn_cancelar);
     }
 
     @FXML
     void OnClick_btn_finalizar(ActionEvent event) {
-
+    	br.util.Janela.fecharJanela(btn_finalizar);
     }
 
     @FXML
     void OnClick_btn_removerItem(ActionEvent event) {
-
+    	if(tv_produtos.getSelectionModel().isEmpty()) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Atenção");
+			alert.setHeaderText(null);
+			alert.setContentText("Selecione um produto para remover");
+			alert.show();
+    	}else {
+    	listProdutos.remove(tv_produtos.getSelectionModel().getSelectedItem());
+    	}
     }
 
 //************************** METODOS AUXILIARES *********************

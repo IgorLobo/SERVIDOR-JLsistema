@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.controllers.TelaPedidoEscolherProdutoLocController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.controllers.TelaEstoqueController">
    <center>
       <Accordion BorderPane.alignment="CENTER">
         <panes>
@@ -22,8 +22,7 @@
                           <columns>
                             <TableColumn fx:id="tv_jogos_tcNome" editable="false" prefWidth="75.0" text="Nome" />
                             <TableColumn fx:id="tv_jogos_tcCompatibilidade" editable="false" prefWidth="75.0" text="Compatibilidade" />
-                              <TableColumn fx:id="tv_jogos_tcValVenda" editable="false" prefWidth="75.0" text="Valor unid." />
-                              <TableColumn fx:id="tv_jogos_tcValLoc" editable="false" prefWidth="75.0" text="Valor loc." />
+                              <TableColumn fx:id="tv_jogos_quantidade" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Qntd." />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -44,8 +43,7 @@
                               <TableColumn fx:id="tv_acessorios_tcNome" editable="false" prefWidth="75.0" text="Nome" />
                               <TableColumn fx:id="tv_acessorios_tcCompatibilidade" editable="false" prefWidth="124.99996185302734" text="Compatibilidade" />
                               <TableColumn fx:id="tv_acessorios_fabricante" prefWidth="105.0" text="Fabricante" />
-                              <TableColumn fx:id="tv_acessorios_tcValVenda" editable="false" prefWidth="75.0" text="Valor unid." />
-                              <TableColumn fx:id="tv_acessorios_tcValLoc" editable="false" prefWidth="75.0" text="Valor loc." />
+                              <TableColumn fx:id="tv_acessorios_quantidade" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Qntd." />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -65,8 +63,7 @@
                            <columns>
                               <TableColumn fx:id="tv_consoles_tcNome" editable="false" prefWidth="75.0" text="Nome" />
                               <TableColumn fx:id="tv_consoles_fabricante" editable="false" prefWidth="105.0" text="Fabricante" />
-                              <TableColumn fx:id="tv_consoles_tcValVenda" editable="false" prefWidth="75.0" text="Valor unid." />
-                              <TableColumn fx:id="tv_consoles_tcValLoc" editable="false" prefWidth="75.0" text="Valor loc." />
+                              <TableColumn fx:id="tv_consoles_quantidade" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Qtnd." />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -78,38 +75,16 @@
                   <Font name="Verdana" size="12.0" />
                </font>
           </TitledPane>
-            <TitledPane animated="false" text="Infraestrutura" fx:id="paneInfra">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="tableView_infra" layoutX="99.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <columns>
-                              <TableColumn fx:id="tc_ID" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" sortable="false" text="ID" />
-                              <TableColumn fx:id="tc_nome" prefWidth="187.0" text="Nome" />
-                              <TableColumn fx:id="tc_descricao" prefWidth="195.0" sortable="false" text="Descrição" />
-                              <TableColumn fx:id="tc_precoDia" maxWidth="80.0" minWidth="80.0" resizable="false" text="Preço/dia" />
-                           </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-               </content>
-               <font>
-                  <Font name="Verdana" size="12.0" />
-               </font>
-            </TitledPane>
         </panes>
       </Accordion>
    </center>
    <bottom>
-      <AnchorPane BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="43.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+            <ButtonBar buttonOrder="l+r" layoutX="20.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                <buttons>
-                  <Button fx:id="btn_adicionar" mnemonicParsing="false" onAction="#OnClick_btn_adicionar" text="Adicionar" ButtonBar.buttonData="RIGHT" />
-                  <Button fx:id="btn_cancelar" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" text="Cancelar" ButtonBar.buttonData="LEFT" />
+                  <Button fx:id="btn_adicionar" mnemonicParsing="false" onAction="#OnClick_btn_adicionar" text="Adicionar produto" ButtonBar.buttonData="RIGHT"/>
+                  <Button fx:id="btn_cancelar" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" text="Cancelar" ButtonBar.buttonData="LEFT"/>
                </buttons>
             </ButtonBar>
          </children>

@@ -13,6 +13,7 @@ public class Produto implements TratamentoDeDados {
 	private int numeroSerie = 0;
 	private String compatibilidade = "";
 	private String observacao = "";
+	private int quantidade = 0;
 
 	public Produto(int codProduto, String nomeProduto, String descricao, String fabricante, float valorUnitarioVenda,
 			float valorUnitarioLocacao, int numeroSerie, String compatibilidade, String observacao) {
@@ -150,6 +151,22 @@ public class Produto implements TratamentoDeDados {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade += quantidade;
+	}
+
+	public Object[] getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Object[] tipo) {
+		this.tipo = tipo;
 	}
 
 }

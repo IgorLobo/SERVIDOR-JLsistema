@@ -69,7 +69,8 @@ public class TelaPedidoEscolherClienteController implements Initializable {
 		if(!cb_tipo.getSelectionModel().isEmpty() && !cb_pagamento.getSelectionModel().isEmpty() && !tableView_cliente.getSelectionModel().isEmpty()){
 			clienteSelecionado = tableView_cliente.getSelectionModel().getSelectedItem();
 			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Venda")) janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoVenda.fxml", false);
-			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Locação")) janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoLoc.fxml", false);	
+			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Locação")) janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoLoc.fxml", false);
+			br.util.Janela.fecharJanela(btn_abrirPedido);
 		}else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Atenção");
@@ -83,7 +84,7 @@ public class TelaPedidoEscolherClienteController implements Initializable {
 
     @FXML
     void OnClick_btn_cancelar(ActionEvent event) {
-    	JOptionPane.showMessageDialog(null, "escolha um cliente");
+    	br.util.Janela.fecharJanela(btn_cancelar);
     }
 
 

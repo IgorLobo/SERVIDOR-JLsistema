@@ -1,7 +1,10 @@
 package br.controllers;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import br.model.Cliente;
@@ -27,6 +30,8 @@ public class TelaPedidoVendaController implements Initializable{
 		static Produto novoProduto;
 		private Cliente cliente;
 		static ArrayList<Produto> listProdutos = new ArrayList<Produto>();
+		String data;
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 //*********************** COMPONENTES *******************************	
 	 @FXML
 	    private Button btn_cancelar;
@@ -81,6 +86,8 @@ public class TelaPedidoVendaController implements Initializable{
 		cliente = TelaPedidoEscolherClienteController.clienteSelecionado;
 		txf_nome.setText(cliente.getNomeCliente());
 		txf_cpf.setText(cliente.getCpfCliente());
+		data = dateFormat.format(new Date());
+		txf_data.setText(data);
 	}
 
 	@FXML

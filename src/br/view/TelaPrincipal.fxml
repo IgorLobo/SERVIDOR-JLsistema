@@ -62,7 +62,7 @@
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="191.0" layoutY="10.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="105.0" text="Relatório" textAlignment="CENTER">
+                  <Button fx:id="btn_estoque" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="191.0" layoutY="10.0" mnemonicParsing="false" onAction="#OnClick_btn_estoque" prefHeight="60.0" prefWidth="105.0" text="Estoque" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>

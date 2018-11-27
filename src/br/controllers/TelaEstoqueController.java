@@ -1,12 +1,13 @@
 package br.controllers;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-import br.model.Cliente;
-import br.model.Infraestrutura;
+import javax.swing.JOptionPane;
+
 import br.model.Produto;
-import br.util.Janela;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,14 +15,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class TelaPedidoEscolherProdutoLocController implements Initializable{
+public class TelaEstoqueController implements Initializable{
 
 //************************ ATRIBUTOS ********************************
 	
+	String nomeArquivoConsoles = TelaPrincipalController.caminhoTxtBancoDados + "Consoles.csv";
+	String nomeArquivoJogos = TelaPrincipalController.caminhoTxtBancoDados + "Jogos.csv";
+	String nomeArquivoAcessorios = TelaPrincipalController.caminhoTxtBancoDados + "Acessorios.csv";
 	
 //*********************** COMPONENTES *******************************	
 		@FXML
@@ -32,9 +37,12 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 	
 		@FXML
 	    private TitledPane paneConsoles;
-		
+
 		@FXML
-	    private TitledPane paneInfra;
+	    private Button btn_adicionar;
+
+	    @FXML
+	    private Button btn_cancelar;
 
 	    @FXML
 	    private TableView<Produto> tv_jogos;
@@ -46,10 +54,7 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 	    private TableColumn<Produto, String> tv_jogos_tcCompatibilidade;
 
 	    @FXML
-	    private TableColumn<Produto, Double> tv_jogos_tcValVenda;
-
-	    @FXML
-	    private TableColumn<Produto, Double> tv_jogos_tcValLoc;
+	    private TableColumn<Produto, Integer> tv_jogos_quantidade;
 
 	    @FXML
 	    private TableView<Produto> tv_acessorios;
@@ -64,10 +69,7 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 	    private TableColumn<Produto, String> tv_acessorios_fabricante;
 
 	    @FXML
-	    private TableColumn<Produto, Double> tv_acessorios_tcValVenda;
-
-	    @FXML
-	    private TableColumn<Produto, Double> tv_acessorios_tcValLoc;
+	    private TableColumn<Produto, Integer> tv_acessorios_quantidade;
 
 	    @FXML
 	    private TableView<Produto> tv_consoles;
@@ -79,82 +81,67 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 	    private TableColumn<Produto, String> tv_consoles_fabricante;
 
 	    @FXML
-	    private TableColumn<Produto, Double> tv_consoles_tcValVenda;
-
-	    @FXML
-	    private TableColumn<Produto, Double> tv_consoles_tcValLoc;
-	    
-	    @FXML
-	    private TableView<Infraestrutura> tableView_infra;
-
-	    @FXML
-	    private TableColumn<Infraestrutura, Integer> tc_ID;
-
-	    @FXML
-	    private TableColumn<Infraestrutura, String> tc_nome;
-
-	    @FXML
-	    private TableColumn<Infraestrutura, String> tc_descricao;
-
-	    @FXML
-	    private TableColumn<Infraestrutura, Float> tc_precoDia;
-	    
-	    @FXML
-	    private Button btn_adicionar;
-
-	    @FXML
-	    private Button btn_cancelar;
-
-
+	    private TableColumn<Produto, Integer> tv_consoles_quantidade;
 
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableViews();
 	}
+	
 
-	 @FXML
-	 void OnClick_btn_adicionar(ActionEvent event) {
-		 if(paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()) {
-			 TelaPedidoLocController.novoProduto = tv_jogos.getSelectionModel().getSelectedItem();
-			 br.util.Janela.fecharJanela(btn_adicionar);
-		 }else if(paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty()) {
-			 TelaPedidoLocController.novoProduto = tv_acessorios.getSelectionModel().getSelectedItem();
-			 br.util.Janela.fecharJanela(btn_adicionar);
-		 }else if(paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty()) {
-			 TelaPedidoLocController.novoProduto = tv_consoles.getSelectionModel().getSelectedItem();
-			 br.util.Janela.fecharJanela(btn_adicionar);
-		 }else {
-			Alert alert = new Alert(AlertType.INFORMATION);
+    @FXML
+    void OnClick_btn_adicionar(ActionEvent event) {
+    	if(getProdutoSelecionado() == null) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Atenção");
 			alert.setHeaderText(null);
 			alert.setContentText("Escolha um produto!");
 			alert.show();
-		 }
-	 }
+    	}else {
+    	TextInputDialog dialog = new TextInputDialog();
+    	dialog.setTitle("Entrada de itens no estoque");
+    	dialog.setHeaderText(null);
+    	dialog.setContentText("Digite quantos itens foram adicionados ao estoque:");
+    	Optional<String> result = dialog.showAndWait();
+    	result.ifPresent(quantidade ->  getProdutoSelecionado().setQuantidade(Integer.parseInt(quantidade)));    
+    	}
+    }
 
-	 @FXML
+    @FXML
     void OnClick_btn_cancelar(ActionEvent event) {
-		 br.util.Janela.fecharJanela(btn_cancelar);
-   }
+    	br.util.Janela.fecharJanela(btn_cancelar);
+    }
 
 //************************** METODOS AUXILIARES *********************
     private void prepararTableViews() {
     	tv_jogos_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tv_jogos_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
-    	tv_jogos_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
-    	tv_jogos_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
+    	tv_jogos_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
     	tv_acessorios_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tv_acessorios_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
     	tv_acessorios_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
-    	tv_acessorios_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
-    	tv_acessorios_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
+    	tv_acessorios_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
     	tv_consoles_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tv_consoles_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
-    	tv_consoles_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
-    	tv_consoles_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
+    	tv_consoles_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+    	/*
+    	tv_jogos.setItems(FXCollections.observableArrayList());
+    	tv_consoles.setItems(FXCollections.observableArrayList());
+    	tv_acessorios.setItems(FXCollections.observableArrayList());*/
+    }
+    
+    private Produto getProdutoSelecionado() {
+    	if(paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()) {
+    		return tv_jogos.getSelectionModel().getSelectedItem();
+		 }else if(paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty()) {
+			 return tv_acessorios.getSelectionModel().getSelectedItem();
+		 }else if(paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty()) {
+			 return tv_consoles.getSelectionModel().getSelectedItem();
+		 }
+    	return null;
     }
 
 }
