@@ -15,9 +15,11 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TelaInfraController implements Initializable {
@@ -69,10 +71,16 @@ public class TelaInfraController implements Initializable {
 		try {
 			if(tableView_infra.getSelectionModel().isEmpty()) {
 				
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Atenção");
+				alert.setHeaderText(null);
+				alert.setContentText("Selecione uma Infraestrutura para Alteração!");
+				alert.show();	
 			}else {
 			operacao = "alterar";
 			InfraSelecionada = tableView_infra.getSelectionModel().getSelectedItem();
-			utilJanela.novaJanelaComOwner("/br/view/TelaInfraIncluir.fxml", false, "Alterar dados da infraestrutura");
+			utilJanela.novaJanelaComOwnerWait("/br/view/TelaInfraIncluir.fxml", false, "Alterar dados da infraestrutura");
+			listar();
 			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -83,6 +91,12 @@ public class TelaInfraController implements Initializable {
     void OnClick_btn_excluir(ActionEvent event) {
     	try {
 			if (tableView_infra.getSelectionModel().isEmpty()) {
+
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Atenção");
+				alert.setHeaderText(null);
+				alert.setContentText("Selecione uma Infraestrutura para Exclusão!");
+				alert.show();	
 				listar();
 			} else {
 				persistencia.excluir(tableView_infra.getSelectionModel().getSelectedItem().getCodInfraestrutura());
@@ -96,7 +110,8 @@ public class TelaInfraController implements Initializable {
     @FXML
     void OnClick_btn_incluir(ActionEvent event) {
     	operacao = "incluir";
-    	utilJanela.novaJanelaComOwner("/br/view/TelaInfraIncluir.fxml", false, "Cadastrar nova infraestrutura");
+    	utilJanela.novaJanelaComOwnerWait("/br/view/TelaInfraIncluir.fxml", false, "Cadastrar nova infraestrutura");
+    	listar();
     }
 
     @FXML
