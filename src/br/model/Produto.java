@@ -53,6 +53,22 @@ public class Produto implements TratamentoDeDados {
 	}
 	
 	
+	
+	
+public Produto(Produto objeto, int quantidade) {
+	this.codProduto = objeto.getCodProduto();
+	this.tipo = objeto.getTipo();
+	this.nomeProduto = objeto.getNomeProduto();
+	this.descricao = objeto.getDescricao();
+	this.fabricante = objeto.getFabricante();
+	this.valorUnitarioVenda = objeto.getValorUnitarioVenda();
+	this.valorUnitarioLocacao = objeto.getValorUnitarioLocacao();
+	this.compatibilidade = objeto.getCompatibilidade();
+	this.quantidade = objeto.getQuantidade() + quantidade;
+}
+
+
+
 //sem id e sem qntd
 	public Produto(String tipo, String nomeProduto, String descricao, String fabricante, String compatibilidade
 			,float valorUnitarioVenda, float valorUnitarioLocacao) {
