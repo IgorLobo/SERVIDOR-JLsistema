@@ -2,9 +2,9 @@ package br.model;
 
 import br.interfaces.TratamentoDeDados;
 
-public class Produto implements TratamentoDeDados{
+public class Produto implements TratamentoDeDados {
 	private int codProduto = 0;
-	private Object[] tipo = {"Jogo", "Acessório", "Console"};
+	private Object[] tipo = { "Jogo", "Acessório", "Console" };
 	private String nomeProduto = "";
 	private String descricao = "";
 	private String fabricante = "";
@@ -26,34 +26,32 @@ public class Produto implements TratamentoDeDados{
 		this.compatibilidade = compatibilidade;
 		this.observacao = observacao;
 	}
-	
+
 	public Produto() {
-		
+
 	}
-	
-	//-----------------METODOS--------------------
+
+	// -----------------METODOS--------------------
 	@Override
 	public void materializar(String dados) throws Exception {
 		String vetorString[] = dados.split(";");
-        if(vetorString.length != 9) 
-            throw new Exception("Faltam dados na String");
-        this.codProduto = Integer.parseInt(vetorString[0]);
-        this.nomeProduto = vetorString[1];		
+		if (vetorString.length != 9)
+			throw new Exception("Faltam dados na String");
+		this.codProduto = Integer.parseInt(vetorString[0]);
+		this.nomeProduto = vetorString[1];
 		this.descricao = vetorString[2];
 		this.fabricante = vetorString[3];
 		this.valorUnitarioVenda = Float.parseFloat(vetorString[4]);
 		this.valorUnitarioLocacao = Float.parseFloat(vetorString[5]);
 		this.numeroSerie = Integer.parseInt(vetorString[6]);
 		this.compatibilidade = vetorString[7];
-		this.observacao = vetorString[8];		
+		this.observacao = vetorString[8];
 	}
-
 
 	@Override
 	public String desmaterializar() {
 		String saida = "";
 		saida += this.codProduto + ";";
-				 this.codProduto++;
 		saida += this.nomeProduto + ";";
 		saida += this.descricao + ";";
 		saida += this.fabricante + ";";
@@ -62,10 +60,25 @@ public class Produto implements TratamentoDeDados{
 		saida += this.numeroSerie + ";";
 		saida += this.compatibilidade + ";";
 		saida += this.observacao + ";";
-        return saida;
+		return saida;
 	}
-	
-		//-----------------GETS AND SETERS--------------------
+
+	public String desmaterializar(int id) {
+		id++;
+		this.codProduto = id;
+		String saida = "";
+		saida += this.codProduto + ";";
+		saida += this.nomeProduto + ";";
+		saida += this.descricao + ";";
+		saida += this.fabricante + ";";
+		saida += this.valorUnitarioVenda + ";";
+		saida += this.valorUnitarioLocacao + ";";
+		saida += this.numeroSerie + ";";
+		saida += this.compatibilidade + ";";
+		saida += this.observacao + ";";
+		return saida;
+	}
+	// -----------------GETS AND SETERS--------------------
 
 	public int getCodProduto() {
 		return codProduto;
@@ -138,7 +151,5 @@ public class Produto implements TratamentoDeDados{
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	
-	
 
 }

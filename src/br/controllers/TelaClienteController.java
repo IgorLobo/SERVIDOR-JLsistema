@@ -65,13 +65,12 @@ public class TelaClienteController implements Initializable {
 	@FXML
 	void OnClick_btn_alterar(ActionEvent event) {
 		try {
-			if(tableView_cliente.getSelectionModel().isEmpty()) {
-				
-			}else {
-			operacao = "alterar";
-			clienteSelecionado = tableView_cliente.getSelectionModel().getSelectedItem();
-			System.out.println(clienteSelecionado.getCidadeCliente());
-			utilJanela.novaJanelaComOwner("/br/view/TelaClienteIncluir.fxml", false, "Alterar dados do cliente");
+			if (tableView_cliente.getSelectionModel().isEmpty()) {
+
+			} else {
+				operacao = "alterar";
+				clienteSelecionado = tableView_cliente.getSelectionModel().getSelectedItem();
+				utilJanela.novaJanelaComOwner("/br/view/TelaClienteIncluir.fxml", false, "Alterar dados do cliente");
 			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -82,9 +81,10 @@ public class TelaClienteController implements Initializable {
 	void OnClick_btn_excluir(ActionEvent event) {
 		try {
 			if (tableView_cliente.getSelectionModel().isEmpty()) {
-
+				listar();
 			} else {
 				persistencia.excluir(tableView_cliente.getSelectionModel().getSelectedItem().getCodCliente());
+				listar();
 			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -106,8 +106,7 @@ public class TelaClienteController implements Initializable {
 	private void listar() {
 		try {
 			ArrayList<Cliente> listaDeClientes;
-			ClienteDAO clienteDAO = new ClienteDAO(nomeArquivo);
-			listaDeClientes = clienteDAO.listar();
+			listaDeClientes = persistencia.listar();
 			tableView_cliente.setItems(FXCollections.observableArrayList(listaDeClientes));
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);

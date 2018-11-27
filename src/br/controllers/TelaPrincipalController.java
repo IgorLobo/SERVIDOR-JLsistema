@@ -17,7 +17,7 @@ public class TelaPrincipalController implements Initializable {
 	private Janela utilJanela = new Janela();
 	private Thread servidorON = null;
 	public static Servidor servidor = null;
-	public static String caminhoTxtBancoDados = "C:\\Projetos\\Faculdade\\SERVIDOR-JLsistema\\src\\br\\arquivos\\";
+	public static String caminhoTxtBancoDados = "C:\\Projetos\\SERVIDOR-JLsistema\\src\\br\\arquivos\\";
 
 //*********************** COMPONENTES *******************************	
 	// Toolbar--
@@ -28,10 +28,10 @@ public class TelaPrincipalController implements Initializable {
 	private Button tbBtn_produtos;
 
 	@FXML
-    private Button tbBtn_pedidos;
+	private Button tbBtn_pedidos;
 
 	@FXML
-    private Button tbBtn_infra;
+	private Button tbBtn_infra;
 
 	// --
 //*********************** ON-ACTION *********************************
@@ -43,19 +43,19 @@ public class TelaPrincipalController implements Initializable {
 	@FXML
 	void OnClick_tbBtn_clientes(ActionEvent event) {
 		utilJanela.novaJanelaComOwner("/br/view/TelaCliente.fxml", true);
-		//System.out.println(servidor.getClientUsers());
+		// System.out.println(servidor.getClientUsers());
 	}
 
-    @FXML
-    void OnClick_tbBtn_pedidos(ActionEvent event) {
-    	utilJanela.novaJanelaComOwner("/br/view/TelaPedidoEscolherCliente.fxml", true);
-    }
-    
-    @FXML
-    void OnClick_tbBtn_Infra(ActionEvent event) {
-    	
-    	utilJanela.novaJanelaComOwner("/br/view/TelaInfra.fxml", true);
-    }
+	@FXML
+	void OnClick_tbBtn_pedidos(ActionEvent event) {
+		utilJanela.novaJanelaComOwner("/br/view/TelaPedidoEscolherCliente.fxml", true);
+	}
+
+	@FXML
+	void OnClick_tbBtn_Infra(ActionEvent event) {
+
+		utilJanela.novaJanelaComOwner("/br/view/TelaInfra.fxml", true);
+	}
 
 	@FXML
 	void OnClick_tbBtn_produtos(ActionEvent event) {
@@ -65,11 +65,11 @@ public class TelaPrincipalController implements Initializable {
 //************************** METODOS AUXILIARES *********************
 	private void iniciarServidor() {
 		servidor = new Servidor(5555);
-		servidorON = new Thread(){
+		servidorON = new Thread() {
 			@Override
 			public void run() {
-				try { 
-					servidor.startServer();					
+				try {
+					servidor.startServer();
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 					e.getMessage();

@@ -9,4 +9,5 @@ public interface IProduto {
 	void incluir(Produto produto) throws Exception;
     public ArrayList<Produto> listar() throws Exception;
     public void excluir(int codProduto) throws Exception;
+    public void alterar(int codProduto, Produto produto) throws Exception;
 }

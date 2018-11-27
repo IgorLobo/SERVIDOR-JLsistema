@@ -24,10 +24,30 @@ public class ClienteDAO implements ICliente {
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo, true);
 			// Criar o buffer do arquivo
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			int id = identity();
 			// Escreve no arquivo
-			bufferedWriter.write(cliente.desmaterializar() + "\r\n");
+			bufferedWriter.write(cliente.desmaterializar(id) + "\r\n");
 			// fecha o arquivo
 			bufferedWriter.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+	}
+
+	private int identity() throws Exception {
+		try {
+			int id = 0;
+			FileReader fileReader = new FileReader(nomeDoArquivo);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String linha = "";
+			while ((linha = bufferedReader.readLine()) != null) {
+				Cliente cliente = new Cliente();
+				cliente.materializar(linha);
+				id = cliente.getCodCliente();
+			}
+			bufferedReader.close();
+			return id;
+
 		} catch (Exception erro) {
 			throw erro;
 		}
@@ -64,6 +84,30 @@ public class ClienteDAO implements ICliente {
 				Cliente cliente = listaDeClientes.get(posicao);
 				if (!(cliente.getCodCliente() == (codCliente))) {
 					bufferedWriter.write(cliente.desmaterializar() + "\r\n");
+				}
+			}
+			bufferedWriter.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+	}
+
+	@Override
+	public void alterar(int codCliente, Cliente cliente) throws Exception {
+		try {
+			ArrayList<Cliente> listaDeClientes = this.listar();
+			// cria o arquivo
+			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
+			// Criar o buffer do arquivo
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			for (int posicao = 0; posicao < listaDeClientes.size(); posicao++) {
+				Cliente clien = listaDeClientes.get(posicao);
+				if (!(clien.getCodCliente() == (codCliente))) {
+					bufferedWriter.write(clien.desmaterializar() + "\r\n");
+				} else {
+					int id = codCliente;
+					id--;
+					bufferedWriter.write(cliente.desmaterializar(id) + "\r\n");
 				}
 			}
 			bufferedWriter.close();
