@@ -95,13 +95,13 @@ public class InfraestruturaDAO implements IInfraestrutura {
 	@Override
 	public void alterar(int codInfraestrutura, Infraestrutura infraestrutura) throws Exception {
 		try {
-			ArrayList<Infraestrutura> listaDeClientes = this.listar();
+			ArrayList<Infraestrutura> listaDeInfraestruturas = this.listar();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
 			// Criar o buffer do arquivo
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-			for (int posicao = 0; posicao < listaDeClientes.size(); posicao++) {
-				Infraestrutura infra = listaDeClientes.get(posicao);
+			for (int posicao = 0; posicao < listaDeInfraestruturas.size(); posicao++) {
+				Infraestrutura infra = listaDeInfraestruturas.get(posicao);
 				if (!(infra.getCodInfraestrutura() == (codInfraestrutura))) {
 					bufferedWriter.write(infra.desmaterializar() + "\r\n");
 				} else {

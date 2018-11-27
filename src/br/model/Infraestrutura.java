@@ -7,20 +7,17 @@ public class Infraestrutura implements TratamentoDeDados {
 	private int codInfraestrutura = 0;
 	private String nomeInfraestrutura = "";
 	private String descricaoInfraestrutura = "";
-	private float valorHora = 0;
+	private float precoDiaInfraestrutura = 0;
 	private String observacao = "";
-
-	public Infraestrutura(int codInfraestrutura, String nomeInfraestrutura, String descricaoInfraestrutura,
-			float valorHora, String observacao) {
-		this.codInfraestrutura = codInfraestrutura;
+	
+	public Infraestrutura(String nomeInfraestrutura, String descricaoInfraestrutura, Float precoDiaInfraestrutura) {
 		this.nomeInfraestrutura = nomeInfraestrutura;
 		this.descricaoInfraestrutura = descricaoInfraestrutura;
-		this.valorHora = valorHora;
-		this.observacao = observacao;
+		this.precoDiaInfraestrutura = precoDiaInfraestrutura;
 	}
 
 	public Infraestrutura() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	// -----------------METODOS--------------------
@@ -28,13 +25,12 @@ public class Infraestrutura implements TratamentoDeDados {
 	@Override
 	public void materializar(String dados) throws Exception {
 		String vetorString[] = dados.split(";");
-		if (vetorString.length != 5)
+		if (vetorString.length != 4)
 			throw new Exception("Faltam dados na String");
 		this.codInfraestrutura = Integer.parseInt(vetorString[0]);
 		this.nomeInfraestrutura = vetorString[1];
 		this.descricaoInfraestrutura = vetorString[2];
-		this.valorHora = Float.parseFloat(vetorString[3]);
-		this.observacao = vetorString[4];
+		this.precoDiaInfraestrutura = Float.parseFloat(vetorString[3]);
 	}
 
 	@Override
@@ -43,7 +39,7 @@ public class Infraestrutura implements TratamentoDeDados {
 		saida += this.codInfraestrutura + ";";
 		saida += this.nomeInfraestrutura + ";";
 		saida += this.descricaoInfraestrutura + ";";
-		saida += this.valorHora + ";";
+		saida += this.precoDiaInfraestrutura + ";";
 		saida += this.observacao + ";";
 		return saida;
 	}
@@ -55,7 +51,7 @@ public class Infraestrutura implements TratamentoDeDados {
 		saida += this.codInfraestrutura + ";";
 		saida += this.nomeInfraestrutura + ";";
 		saida += this.descricaoInfraestrutura + ";";
-		saida += this.valorHora + ";";
+		saida += this.precoDiaInfraestrutura + ";";
 		saida += this.observacao + ";";
 		return saida;
 	}
@@ -73,8 +69,8 @@ public class Infraestrutura implements TratamentoDeDados {
 		return descricaoInfraestrutura;
 	}
 
-	public float getValorHora() {
-		return valorHora;
+	public float getPrecoDiaInfraestrutura() {
+		return precoDiaInfraestrutura;
 	}
 
 	public String getObservacao() {

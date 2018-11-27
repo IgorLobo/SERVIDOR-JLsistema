@@ -3,9 +3,11 @@ package br.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.model.Cliente;
+import javax.management.monitor.MonitorSettingException;
+import javax.swing.JOptionPane;
+
 import br.model.Infraestrutura;
-import br.persistencia.ClienteDAO;
+import br.persistencia.InfraestruturaDAO;
 import br.util.MaskTextfield;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,26 +39,31 @@ public class TelaInfraIncluirController implements Initializable {
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		if (TelaInfraController.operacao.equals("alterar")) {
+			carregarDados();
+		}
 		prepararComponentes();
 	}
 
     @FXML
     void OnClick_btn_cadastrar(ActionEvent event) {
     	try {
-			if(TelaClienteController.operacao.equals("alterar")) {
-				
+    		String nome = txf_nome.getText();
+			float valor = MaskTextfield.monetaryValueFromField(txf_valor).floatValue();         //Float.parseFloat(txf_valor.getText());
+			String descricao = txa_descricao.getText();
+			
+			Infraestrutura infra = new Infraestrutura(nome, descricao, valor);
+			InfraestruturaDAO arquivo = new InfraestruturaDAO(nomeArquivo); 
+			
+			if(TelaInfraController.operacao.equals("alterar")) {
+				arquivo.alterar(TelaInfraController.InfraSelecionada.getCodInfraestrutura(), infra);
+				limpar();
 			}else {
-				String nome = txf_nome.getText();
-				String valor = txf_valor.getText();
-				String descricao = txa_descricao.getText();
-				
-				Infraestrutura infra = new Infraestrutura();
-				ClienteDAO arquivo = new ClienteDAO(nomeArquivo); 
-				arquivo.incluir(cliente);
+				arquivo.incluir(infra);
 				limpar();
 			}
-    	}catch(Exception e) {
-    		
+    	}catch(Exception erro) {
+    		JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
     	}
     }
 
@@ -69,5 +76,14 @@ public class TelaInfraIncluirController implements Initializable {
     private void prepararComponentes() {
     	MaskTextfield.monetaryField(txf_valor);
     }
-    
+    private void carregarDados() {
+		txf_nome.setText(TelaInfraController.InfraSelecionada.getNomeInfraestrutura());
+		txf_valor.setText(String.valueOf(TelaInfraController.InfraSelecionada.getPrecoDiaInfraestrutura()));
+		txa_descricao.setText(TelaInfraController.InfraSelecionada.getDescricaoInfraestrutura());
+	}
+    private void limpar() {
+    	txf_nome.setText("");
+		txf_valor.setText("");
+		txa_descricao.setText("");
+    }
 }

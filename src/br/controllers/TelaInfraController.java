@@ -22,11 +22,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TelaInfraController implements Initializable {
 //************************ ATRIBUTOS ********************************
-	Janela utilJanela = new Janela();
+	private Janela utilJanela = new Janela();
 	String nomeArquivo = TelaPrincipalController.caminhoTxtBancoDados + "Infraestruturas.csv";
 	private InfraestruturaDAO persistencia = new InfraestruturaDAO(nomeArquivo);
 	static String operacao;
-	static Infraestrutura clienteSelecionado;
+	static Infraestrutura InfraSelecionada;
 
 //*********************** COMPONENTES *******************************	
 	@FXML
@@ -71,8 +71,8 @@ public class TelaInfraController implements Initializable {
 				
 			}else {
 			operacao = "alterar";
-			clienteSelecionado = tableView_infra.getSelectionModel().getSelectedItem();
-			utilJanela.novaJanelaComOwner("/br/view/TelaInfraIncluir.fxml", false, "Alterar dados do cliente");
+			InfraSelecionada = tableView_infra.getSelectionModel().getSelectedItem();
+			utilJanela.novaJanelaComOwner("/br/view/TelaInfraIncluir.fxml", false, "Alterar dados da infraestrutura");
 			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -83,9 +83,10 @@ public class TelaInfraController implements Initializable {
     void OnClick_btn_excluir(ActionEvent event) {
     	try {
 			if (tableView_infra.getSelectionModel().isEmpty()) {
-
+				listar();
 			} else {
 				persistencia.excluir(tableView_infra.getSelectionModel().getSelectedItem().getCodInfraestrutura());
+				listar();
 			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -94,7 +95,8 @@ public class TelaInfraController implements Initializable {
 
     @FXML
     void OnClick_btn_incluir(ActionEvent event) {
-    	utilJanela.novaJanelaComOwner("/br/view/TelaInfraIncluir.fxml", false);
+    	operacao = "incluir";
+    	utilJanela.novaJanelaComOwner("/br/view/TelaInfraIncluir.fxml", false, "Cadastrar nova infraestrutura");
     }
 
     @FXML
@@ -108,9 +110,9 @@ public class TelaInfraController implements Initializable {
     private void listar() {
 		try {
 			ArrayList<Infraestrutura> listaDeInfra;
-			InfraestruturaDAO infraestruturaDAO = new InfraestruturaDAO(nomeArquivo);
-			listaDeInfra = infraestruturaDAO.listar();
+			listaDeInfra = persistencia.listar();
 			tableView_infra.setItems(FXCollections.observableArrayList(listaDeInfra));
+			
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 		}
