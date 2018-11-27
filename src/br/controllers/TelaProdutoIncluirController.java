@@ -31,6 +31,7 @@ public class TelaProdutoIncluirController implements Initializable {
 	@FXML
 	private ComboBox<String> cb_tipo;
 
+
 	@FXML
 	private ComboBox<Produto> cb_compatibilidade;
 
@@ -73,7 +74,7 @@ public class TelaProdutoIncluirController implements Initializable {
 	void OnClick_btn_cancelar(ActionEvent event) {
 		br.util.Janela.fecharJanela(btn_cancelar);
 	}
-
+	
 	@FXML
 	void OnClick_btn_salvar(ActionEvent event) {
 		if (txa_descricao.getText().isEmpty() || txf_fabricante.getText().isEmpty() || txf_nome.getText().isEmpty()
@@ -92,7 +93,6 @@ public class TelaProdutoIncluirController implements Initializable {
 				String nome = txf_nome.getText();
 				Float precoVenda = br.util.MaskTextfield.monetaryValueFromField(txf_precoVenda).floatValue();
 				Float precoLoc = br.util.MaskTextfield.monetaryValueFromField(txf_precoLocacao).floatValue();
-				;
 				String descricao = txa_descricao.getText();
 				String fabricante = txf_fabricante.getText();
 				if (!cb_tipo.getSelectionModel().getSelectedItem().equals("Console")) {
@@ -100,7 +100,6 @@ public class TelaProdutoIncluirController implements Initializable {
 				} else {
 					compatibilidade = " ";
 				}
-
 				if (TelaProdutoController.operacao.equals("alterar")) {
 					cb_tipo.setDisable(true);
 					switch (TelaProdutoController.produtoSelecionado.getTipo()) {
@@ -175,8 +174,12 @@ public class TelaProdutoIncluirController implements Initializable {
 					.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listar()));
 			MaskTextfield.monetaryField(txf_precoLocacao);
 			MaskTextfield.monetaryField(txf_precoVenda);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception erro) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Atenção");
+			alert.setHeaderText(null);
+			alert.setContentText(erro.getMessage());
+			alert.show();
 		}
 	}
 

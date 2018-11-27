@@ -25,8 +25,6 @@ public class Produto implements TratamentoDeDados {
 		this.compatibilidade = compatibilidade;
 		this.quantidade = quantidade;
 	}
-	
-	
 
 	public Produto(int codProduto, String tipo, String nomeProduto, String descricao, String fabricante,
 			float valorUnitarioVenda, float valorUnitarioLocacao, String compatibilidade) {
@@ -39,9 +37,10 @@ public class Produto implements TratamentoDeDados {
 		this.valorUnitarioLocacao = valorUnitarioLocacao;
 		this.compatibilidade = compatibilidade;
 	}
+
 //sem id
-	public Produto( String tipo, String nomeProduto, String descricao, String fabricante, String compatibilidade
-			,float valorUnitarioVenda, float valorUnitarioLocacao, int quantidade) {
+	public Produto(String tipo, String nomeProduto, String descricao, String fabricante, String compatibilidade,
+			float valorUnitarioVenda, float valorUnitarioLocacao, int quantidade) {
 		this.setTipo(tipo);
 		this.nomeProduto = nomeProduto;
 		this.descricao = descricao;
@@ -51,27 +50,22 @@ public class Produto implements TratamentoDeDados {
 		this.compatibilidade = compatibilidade;
 		this.quantidade = quantidade;
 	}
-	
-	
-	
-	
-public Produto(Produto objeto, int quantidade) {
-	this.codProduto = objeto.getCodProduto();
-	this.tipo = objeto.getTipo();
-	this.nomeProduto = objeto.getNomeProduto();
-	this.descricao = objeto.getDescricao();
-	this.fabricante = objeto.getFabricante();
-	this.valorUnitarioVenda = objeto.getValorUnitarioVenda();
-	this.valorUnitarioLocacao = objeto.getValorUnitarioLocacao();
-	this.compatibilidade = objeto.getCompatibilidade();
-	this.quantidade = objeto.getQuantidade() + quantidade;
-}
 
-
+	public Produto(Produto objeto, int quantidade) {
+		this.codProduto = objeto.getCodProduto();
+		this.tipo = objeto.getTipo();
+		this.nomeProduto = objeto.getNomeProduto();
+		this.descricao = objeto.getDescricao();
+		this.fabricante = objeto.getFabricante();
+		this.valorUnitarioVenda = objeto.getValorUnitarioVenda();
+		this.valorUnitarioLocacao = objeto.getValorUnitarioLocacao();
+		this.compatibilidade = objeto.getCompatibilidade();
+		this.quantidade = objeto.getQuantidade() + quantidade;
+	}
 
 //sem id e sem qntd
-	public Produto(String tipo, String nomeProduto, String descricao, String fabricante, String compatibilidade
-			,float valorUnitarioVenda, float valorUnitarioLocacao) {
+	public Produto(String tipo, String nomeProduto, String descricao, String fabricante, String compatibilidade,
+			float valorUnitarioVenda, float valorUnitarioLocacao) {
 		this.setTipo(tipo);
 		this.nomeProduto = nomeProduto;
 		this.descricao = descricao;
@@ -106,12 +100,14 @@ public Produto(Produto objeto, int quantidade) {
 	public String desmaterializar() {
 		String saida = "";
 		saida += this.codProduto + ";";
+		saida += this.tipo + ";";
 		saida += this.nomeProduto + ";";
 		saida += this.descricao + ";";
 		saida += this.fabricante + ";";
+		saida += this.compatibilidade + ";";
 		saida += this.valorUnitarioVenda + ";";
 		saida += this.valorUnitarioLocacao + ";";
-		saida += this.compatibilidade + ";";
+		saida += this.quantidade + ";";
 		return saida;
 	}
 
@@ -130,7 +126,7 @@ public Produto(Produto objeto, int quantidade) {
 		saida += this.quantidade + ";";
 		return saida;
 	}
-	
+
 	// -----------------GETS AND SETERS--------------------
 
 	public int getCodProduto() {
@@ -201,17 +197,13 @@ public Produto(Produto objeto, int quantidade) {
 		return tipo;
 	}
 
-
-
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
-
 
 	@Override
 	public String toString() {
 		return nomeProduto;
 	}
-	
+
 }
