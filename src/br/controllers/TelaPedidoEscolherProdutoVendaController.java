@@ -3,6 +3,8 @@ package br.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import br.model.Produto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TelaPedidoEscolherProdutoVendaController implements Initializable{
@@ -17,8 +20,16 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 //************************ ATRIBUTOS ********************************
 	
 	
-//*********************** COMPONENTES *******************************	
-	 
+//*********************** COMPONENTES *******************************
+		@FXML
+	    private TitledPane paneAcessorios;
+
+		@FXML
+	    private TitledPane paneJogos;
+
+		@FXML
+	    private TitledPane paneConsoles;
+
 	    @FXML
 	    private TableView<Produto> tv_jogos;
 
@@ -83,12 +94,24 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 
 	 @FXML
 	 void OnClick_btn_adicionar(ActionEvent event) {
-
+		 if(paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()) {
+			 TelaPedidoVendaController.novoProduto = tv_jogos.getSelectionModel().getSelectedItem();
+			 br.util.Janela.fecharJanela(btn_adicionar);
+		 }else if(paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty()) {
+			 TelaPedidoVendaController.novoProduto = tv_acessorios.getSelectionModel().getSelectedItem();
+			 br.util.Janela.fecharJanela(btn_adicionar);
+		 }else if(paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty()) {
+			 TelaPedidoVendaController.novoProduto = tv_consoles.getSelectionModel().getSelectedItem();
+			 br.util.Janela.fecharJanela(btn_adicionar);
+		 }else {
+			 JOptionPane.showMessageDialog(null, "selecione um produto");
+		 }
+		 
 	 }
 
 	 @FXML
     void OnClick_btn_cancelar(ActionEvent event) {
-
+		 br.util.Janela.fecharJanela(btn_cancelar);
    }
 
 //************************** METODOS AUXILIARES *********************

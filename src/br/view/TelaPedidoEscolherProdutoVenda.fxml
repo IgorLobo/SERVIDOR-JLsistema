@@ -14,7 +14,7 @@
    <center>
       <Accordion BorderPane.alignment="CENTER">
         <panes>
-          <TitledPane animated="false" text="Jogos">
+          <TitledPane fx:id="paneJogos" animated="false" text="Jogos">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -35,7 +35,7 @@
                   <Font name="Verdana" size="12.0" />
                </font>
           </TitledPane>
-          <TitledPane animated="false" text="Acessórios">
+          <TitledPane fx:id="paneAcessorios" animated="false" text="Acessórios">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -57,7 +57,7 @@
                   <Font name="Verdana" size="12.0" />
                </font>
           </TitledPane>
-          <TitledPane animated="false" text="Consoles">
+          <TitledPane fx:id="paneConsoles" animated="false" text="Consoles">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

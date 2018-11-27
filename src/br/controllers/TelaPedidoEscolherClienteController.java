@@ -1,17 +1,20 @@
 package br.controllers;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
 import br.model.Cliente;
+import br.persistencia.ClienteDAO;
 import br.util.Janela;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -22,6 +25,9 @@ import javafx.stage.Stage;
 public class TelaPedidoEscolherClienteController implements Initializable {
 //************************ ATRIBUTOS ********************************
 	private Janela janelaUtil = new Janela();
+	String nomeArquivo = TelaPrincipalController.caminhoTxtBancoDados + "Clientes.csv";
+	ClienteDAO clienteDAO = new ClienteDAO(nomeArquivo);
+	static Cliente clienteSelecionado;
 //*********************** COMPONENTES *******************************	
 			
 	 @FXML
@@ -59,19 +65,25 @@ public class TelaPedidoEscolherClienteController implements Initializable {
 	
 	@FXML
     void OnClick_btn_abrirPedido(ActionEvent event) {
-		if(!cb_tipo.getSelectionModel().isEmpty() && !cb_pagamento.getSelectionModel().isEmpty()){
+		
+		if(!cb_tipo.getSelectionModel().isEmpty() && !cb_pagamento.getSelectionModel().isEmpty() && !tableView_cliente.getSelectionModel().isEmpty()){
+			clienteSelecionado = tableView_cliente.getSelectionModel().getSelectedItem();
 			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Venda")) janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoVenda.fxml", false);
-			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Locação")) janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoLoc.fxml", false);
-			Stage stage = (Stage)btn_abrirPedido.getScene().getWindow();
-			stage.close();
+			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Locação")) janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoLoc.fxml", false);	
 		}else {
-			
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Atenção");
+			alert.setHeaderText(null);
+			if(cb_tipo.getSelectionModel().isEmpty())alert.setContentText("Escolha o tipo do pedido!");
+			if(cb_pagamento.getSelectionModel().isEmpty())alert.setContentText("Escolha o tipo do pagamento!");
+			if(tableView_cliente.getSelectionModel().isEmpty())alert.setContentText("Escolha um cliente para abrir o pedido!");
+			alert.show();
 		}
 	}
 
     @FXML
     void OnClick_btn_cancelar(ActionEvent event) {
-
+    	JOptionPane.showMessageDialog(null, "escolha um cliente");
     }
 
 
@@ -81,5 +93,13 @@ public class TelaPedidoEscolherClienteController implements Initializable {
 		tc_nome.setCellValueFactory(new PropertyValueFactory<>("nomeCliente"));
 		tc_email.setCellValueFactory(new PropertyValueFactory<>("email1Cliente"));
 		tc_telefone.setCellValueFactory(new PropertyValueFactory<>("telefone1Cliente"));
+		
+		try {
+			ArrayList<Cliente> listaDeClientes;
+			listaDeClientes = clienteDAO.listar();
+			tableView_cliente.setItems(FXCollections.observableArrayList(listaDeClientes));
+		} catch (Exception erro) {
+			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
