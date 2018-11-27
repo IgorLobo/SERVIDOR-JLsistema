@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import br.model.Cliente;
 import br.model.Produto;
+import br.persistencia.ProdutoDAO;
 import br.util.Janela;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -27,7 +28,8 @@ public class TelaPedidoVendaController implements Initializable{
 
 //************************ ATRIBUTOS ********************************
 		private Janela janelaUtil = new Janela();
-		static Produto novoProduto;
+		static int codNovoProduto;
+		static String tipo;
 		private Cliente cliente;
 		static ArrayList<Produto> listProdutos = new ArrayList<Produto>();
 		String data;
@@ -93,8 +95,6 @@ public class TelaPedidoVendaController implements Initializable{
 	@FXML
     void OnClick_btn_adicionarItem(ActionEvent event) {
 		janelaUtil.novaJanelaComOwnerWait("/br/view/TelaPedidoEscolherProdutoVenda.fxml", false, "Adicionar item ao pedido");
-		if(novoProduto != null)	listProdutos.add(novoProduto);
-		novoProduto = null;
 		if(listProdutos.size()>0)tv_produtos.setItems(FXCollections.observableArrayList(listProdutos));
     }
 

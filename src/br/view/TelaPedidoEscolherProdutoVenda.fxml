@@ -3,8 +3,10 @@
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -20,6 +22,7 @@
                      <children>
                         <TableView fx:id="tv_jogos" layoutX="144.0" layoutY="35.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
+                              <TableColumn fx:id="tv_jogos_tcID" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="ID" />
                             <TableColumn fx:id="tv_jogos_tcNome" editable="false" prefWidth="75.0" text="Nome" />
                             <TableColumn fx:id="tv_jogos_tcCompatibilidade" editable="false" prefWidth="75.0" text="Compatibilidade" />
                               <TableColumn fx:id="tv_jogos_tcValVenda" editable="false" prefWidth="75.0" text="Valor unid." />
@@ -41,6 +44,7 @@
                      <children>
                         <TableView fx:id="tv_acessorios" layoutX="151.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
+                              <TableColumn fx:id="tv_acessorios_tcID" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="ID" />
                               <TableColumn fx:id="tv_acessorios_tcNome" editable="false" prefWidth="75.0" text="Nome" />
                               <TableColumn fx:id="tv_acessorios_tcCompatibilidade" editable="false" prefWidth="124.99996185302734" text="Compatibilidade" />
                               <TableColumn fx:id="tv_acessorios_fabricante" prefWidth="105.0" text="Fabricante" />
@@ -63,6 +67,7 @@
                      <children>
                         <TableView fx:id="tv_consoles" layoutX="82.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
+                              <TableColumn fx:id="tv_consoles_tcID" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="ID" />
                               <TableColumn fx:id="tv_consoles_tcNome" editable="false" prefWidth="75.0" text="Nome" />
                               <TableColumn fx:id="tv_consoles_fabricante" editable="false" prefWidth="105.0" text="Fabricante" />
                               <TableColumn fx:id="tv_consoles_tcValVenda" editable="false" prefWidth="75.0" text="Valor unid." />
@@ -84,10 +89,12 @@
    <bottom>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+            <ButtonBar buttonMinWidth="0.0" buttonOrder="l+r" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                <buttons>
-                  <Button fx:id="btn_adicionar" mnemonicParsing="false" onAction="#OnClick_btn_adicionar" text="Adicionar" ButtonBar.buttonData="RIGHT" />
                   <Button fx:id="btn_cancelar" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" text="Cancelar" ButtonBar.buttonData="LEFT" />
+                  <Label alignment="CENTER_RIGHT" maxWidth="66.0" minWidth="66.0" prefHeight="17.0" prefWidth="60.0" text="Quantidade:" ButtonBar.buttonData="RIGHT" />
+                  <TextField fx:id="txf_qnt" maxWidth="55.0" minWidth="55.0" prefHeight="25.0" prefWidth="50.0" ButtonBar.buttonData="RIGHT" />
+                  <Button fx:id="btn_adicionar" mnemonicParsing="false" onAction="#OnClick_btn_adicionar" text="Adicionar" ButtonBar.buttonData="RIGHT" />
                </buttons>
             </ButtonBar>
          </children>
