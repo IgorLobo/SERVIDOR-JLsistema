@@ -7,9 +7,10 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 import br.interfaces.IProduto;
+import br.model.Cliente;
 import br.model.Produto;
 
-public class ProdutoDAO implements IProduto{
+public class ProdutoDAO implements IProduto {
 	private String nomeDoArquivo = "";
 
 	public ProdutoDAO(String nomeDoArquivo) {
@@ -23,10 +24,30 @@ public class ProdutoDAO implements IProduto{
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo, true);
 			// Criar o buffer do arquivo
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			int id = identity();
 			// Escreve no arquivo
-			bufferedWriter.write(produto.desmaterializar() + "\r\n");
+			bufferedWriter.write(produto.desmaterializar(id) + "\r\n");
 			// fecha o arquivo
 			bufferedWriter.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+	}
+
+	private int identity() throws Exception {
+		try {
+			int id = 0;
+			FileReader fileReader = new FileReader(nomeDoArquivo);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String linha = "";
+			while ((linha = bufferedReader.readLine()) != null) {
+				Produto produto = new Produto();
+				produto.materializar(linha);
+				id = produto.getCodProduto();
+			}
+			bufferedReader.close();
+			return id;
+
 		} catch (Exception erro) {
 			throw erro;
 		}
@@ -63,6 +84,30 @@ public class ProdutoDAO implements IProduto{
 				Produto produto = listaDeProdutos.get(posicao);
 				if (!(produto.getCodProduto() == (codProduto))) {
 					bufferedWriter.write(produto.desmaterializar() + "\r\n");
+				}
+			}
+			bufferedWriter.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+	}
+
+	@Override
+	public void alterar(int codProduto, Produto produto) throws Exception {
+		try {
+			ArrayList<Produto> listaDeClientes = this.listar();
+			// cria o arquivo
+			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
+			// Criar o buffer do arquivo
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			for (int posicao = 0; posicao < listaDeClientes.size(); posicao++) {
+				Produto produt = listaDeClientes.get(posicao);
+				if (!(produt.getCodProduto() == (codProduto))) {
+					bufferedWriter.write(produt.desmaterializar() + "\r\n");
+				} else {
+					int id = codProduto;
+					id--;
+					bufferedWriter.write(produto.desmaterializar(id) + "\r\n");
 				}
 			}
 			bufferedWriter.close();

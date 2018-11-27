@@ -21,7 +21,6 @@ public class TelaClienteIncluirController implements Initializable {
 
 //************************ ATRIBUTOS ********************************
 	String nomeArquivo = TelaPrincipalController.caminhoTxtBancoDados + "Clientes.csv";
-	
 
 //*********************** COMPONENTES *******************************	
 	@FXML
@@ -69,7 +68,7 @@ public class TelaClienteIncluirController implements Initializable {
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if(TelaClienteController.operacao.equals("alterar")) {
+		if (TelaClienteController.operacao.equals("alterar")) {
 			carregarDados();
 		}
 		prepararComponentes();
@@ -83,9 +82,6 @@ public class TelaClienteIncluirController implements Initializable {
 	@FXML
 	void OnClick_btn_salvar(ActionEvent event) {
 		try {
-				if(TelaClienteController.operacao.equals("alterar")) {
-				
-			}else {
 			String nome = txf_nome.getText();
 			String cpf = txf_CPF.getText();
 			String cep = txf_CEP.getText();
@@ -98,11 +94,15 @@ public class TelaClienteIncluirController implements Initializable {
 			String telefone2 = txf_telefoneSecundario.getText();
 			String email1 = txf_email.getText();
 			String email2 = txf_emailSecundario.getText();
-			
-			Cliente cliente = new Cliente(nome, cpf, cep, estado, cidade, setor, endereco, complemento, telefone1, telefone2, email1, email2);
-			ClienteDAO arquivo = new ClienteDAO(nomeArquivo); 
-			arquivo.incluir(cliente);
-			limpar();
+			Cliente cliente = new Cliente(nome, cpf, cep, estado, cidade, setor, endereco, complemento, telefone1,
+					telefone2, email1, email2);
+			ClienteDAO arquivo = new ClienteDAO(nomeArquivo);
+			if (TelaClienteController.operacao.equals("alterar")) {
+				arquivo.alterar(TelaClienteController.clienteSelecionado.getCodCliente(), cliente);
+				limpar();
+			} else {
+				arquivo.incluir(cliente);
+				limpar();
 			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -124,15 +124,15 @@ public class TelaClienteIncluirController implements Initializable {
 		txf_email.setText("");
 		txf_emailSecundario.setText("");
 	}
-	
+
 	private void prepararComponentes() {
 		cb_estados.setItems(FXCollections.observableArrayList("AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO",
 				"MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RS", "SC", "SE", "SP", "TO"));
 		cb_estados.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent event) {
-				
+
 			}
 		});
 		MaskTextfield.tamanhoMaximo(txf_nome, 50);
