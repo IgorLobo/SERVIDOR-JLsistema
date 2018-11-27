@@ -4,19 +4,34 @@ import br.interfaces.TratamentoDeDados;
 
 public class Produto implements TratamentoDeDados {
 	private int codProduto = 0;
-	private Object[] tipo = { "Jogo", "Acessório", "Console" };
+	private String tipo = "";
 	private String nomeProduto = "";
 	private String descricao = "";
 	private String fabricante = "";
 	private float valorUnitarioVenda = 0;
 	private float valorUnitarioLocacao = 0;
 	private String compatibilidade = "";
-	private String observacao = " ";
 	private int quantidade = 0;
 
-	public Produto(int codProduto, String nomeProduto, String descricao, String fabricante, float valorUnitarioVenda,
-			float valorUnitarioLocacao,  String compatibilidade) {
+	public Produto(int codProduto, String tipo, String nomeProduto, String descricao, String fabricante,
+			float valorUnitarioVenda, float valorUnitarioLocacao, String compatibilidade, int quantidade) {
 		this.codProduto = codProduto;
+		this.setTipo(tipo);
+		this.nomeProduto = nomeProduto;
+		this.descricao = descricao;
+		this.fabricante = fabricante;
+		this.valorUnitarioVenda = valorUnitarioVenda;
+		this.valorUnitarioLocacao = valorUnitarioLocacao;
+		this.compatibilidade = compatibilidade;
+		this.quantidade = quantidade;
+	}
+	
+	
+
+	public Produto(int codProduto, String tipo, String nomeProduto, String descricao, String fabricante,
+			float valorUnitarioVenda, float valorUnitarioLocacao, String compatibilidade) {
+		this.codProduto = codProduto;
+		this.setTipo(tipo);
 		this.nomeProduto = nomeProduto;
 		this.descricao = descricao;
 		this.fabricante = fabricante;
@@ -24,8 +39,31 @@ public class Produto implements TratamentoDeDados {
 		this.valorUnitarioLocacao = valorUnitarioLocacao;
 		this.compatibilidade = compatibilidade;
 	}
+//sem id
+	public Produto( String tipo, String nomeProduto, String descricao, String fabricante, String compatibilidade
+			,float valorUnitarioVenda, float valorUnitarioLocacao, int quantidade) {
+		this.setTipo(tipo);
+		this.nomeProduto = nomeProduto;
+		this.descricao = descricao;
+		this.fabricante = fabricante;
+		this.valorUnitarioVenda = valorUnitarioVenda;
+		this.valorUnitarioLocacao = valorUnitarioLocacao;
+		this.compatibilidade = compatibilidade;
+		this.quantidade = quantidade;
+	}
 	
 	
+//sem id e sem qntd
+	public Produto(String tipo, String nomeProduto, String descricao, String fabricante, String compatibilidade
+			,float valorUnitarioVenda, float valorUnitarioLocacao) {
+		this.setTipo(tipo);
+		this.nomeProduto = nomeProduto;
+		this.descricao = descricao;
+		this.fabricante = fabricante;
+		this.valorUnitarioVenda = valorUnitarioVenda;
+		this.valorUnitarioLocacao = valorUnitarioLocacao;
+		this.compatibilidade = compatibilidade;
+	}
 
 	public Produto() {
 
@@ -35,16 +73,17 @@ public class Produto implements TratamentoDeDados {
 	@Override
 	public void materializar(String dados) throws Exception {
 		String vetorString[] = dados.split(";");
-		if (vetorString.length != 8)
+		if (vetorString.length != 9)
 			throw new Exception("Faltam dados na String");
 		this.codProduto = Integer.parseInt(vetorString[0]);
-		this.nomeProduto = vetorString[1];
-		this.descricao = vetorString[2];
-		this.fabricante = vetorString[3];
-		this.valorUnitarioVenda = Float.parseFloat(vetorString[4]);
-		this.valorUnitarioLocacao = Float.parseFloat(vetorString[5]);
-		this.compatibilidade = vetorString[6];
-		this.observacao = vetorString[7];
+		this.tipo = vetorString[1];
+		this.nomeProduto = vetorString[2];
+		this.descricao = vetorString[3];
+		this.fabricante = vetorString[4];
+		this.compatibilidade = vetorString[5];
+		this.valorUnitarioVenda = Float.parseFloat(vetorString[6]);
+		this.valorUnitarioLocacao = Float.parseFloat(vetorString[7]);
+		this.quantidade = Integer.parseInt(vetorString[8]);
 	}
 
 	@Override
@@ -57,7 +96,6 @@ public class Produto implements TratamentoDeDados {
 		saida += this.valorUnitarioVenda + ";";
 		saida += this.valorUnitarioLocacao + ";";
 		saida += this.compatibilidade + ";";
-		saida += this.observacao + ";";
 		return saida;
 	}
 
@@ -66,15 +104,17 @@ public class Produto implements TratamentoDeDados {
 		this.codProduto = id;
 		String saida = "";
 		saida += this.codProduto + ";";
+		saida += this.tipo + ";";
 		saida += this.nomeProduto + ";";
 		saida += this.descricao + ";";
 		saida += this.fabricante + ";";
+		saida += this.compatibilidade + ";";
 		saida += this.valorUnitarioVenda + ";";
 		saida += this.valorUnitarioLocacao + ";";
-		saida += this.compatibilidade + ";";
-		saida += this.observacao + ";";
+		saida += this.quantidade + ";";
 		return saida;
 	}
+	
 	// -----------------GETS AND SETERS--------------------
 
 	public int getCodProduto() {
@@ -133,14 +173,6 @@ public class Produto implements TratamentoDeDados {
 		this.compatibilidade = compatibilidade;
 	}
 
-	public String getObservacao() {
-		return observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
-
 	public int getQuantidade() {
 		return quantidade;
 	}
@@ -149,14 +181,18 @@ public class Produto implements TratamentoDeDados {
 		this.quantidade += quantidade;
 	}
 
-	public Object[] getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(Object[] tipo) {
+
+
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
+
+
+
 	@Override
 	public String toString() {
 		return nomeProduto;

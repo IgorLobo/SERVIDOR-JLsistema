@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import br.model.Produto;
+import br.persistencia.ProdutoDAO;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -87,11 +88,13 @@ public class TelaEstoqueController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableViews();
+		listar();
 	}
 	
 
     @FXML
     void OnClick_btn_adicionar(ActionEvent event) {
+    	try {
     	if(getProdutoSelecionado() == null) {
     		Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Atenção");
@@ -99,13 +102,15 @@ public class TelaEstoqueController implements Initializable{
 			alert.setContentText("Escolha um produto!");
 			alert.show();
     	}else {
-    	TextInputDialog dialog = new TextInputDialog();
-    	dialog.setTitle("Entrada de itens no estoque");
-    	dialog.setHeaderText(null);
-    	dialog.setContentText("Digite quantos itens foram adicionados ao estoque:");
-    	Optional<String> result = dialog.showAndWait();
-    	result.ifPresent(quantidade ->  getProdutoSelecionado().setQuantidade(Integer.parseInt(quantidade)));    
+    	if(getProdutoSelecionado().getTipo().equals("Jogo"))new ProdutoDAO(nomeArquivoJogos).alterar(getProdutoSelecionado().getCodProduto(), getProdutoSelecionado());
+    	if(getProdutoSelecionado().getTipo().equals("Acessorios"))new ProdutoDAO(nomeArquivoAcessorios).alterar(getProdutoSelecionado().getCodProduto(), getProdutoSelecionado());
+    	if(getProdutoSelecionado().getTipo().equals("Consoles"))new ProdutoDAO(nomeArquivoConsoles).alterar(getProdutoSelecionado().getCodProduto(), getProdutoSelecionado());
+    	listar();
+    	
     	}
+    }catch(Exception e) {
+    	e.printStackTrace();
+    }
     }
 
     @FXML
@@ -127,12 +132,20 @@ public class TelaEstoqueController implements Initializable{
     	tv_consoles_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tv_consoles_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
     	tv_consoles_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-    	/*
-    	tv_jogos.setItems(FXCollections.observableArrayList());
-    	tv_consoles.setItems(FXCollections.observableArrayList());
-    	tv_acessorios.setItems(FXCollections.observableArrayList());*/
+    	
+    	
     }
     
+    private void listar() {
+    	try {
+        	tv_jogos.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoJogos).listar()));
+        	tv_consoles.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoConsoles).listar()));
+        	tv_acessorios.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoAcessorios).listar()));
+        	
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
+    }
     private Produto getProdutoSelecionado() {
     	if(paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()) {
     		return tv_jogos.getSelectionModel().getSelectedItem();

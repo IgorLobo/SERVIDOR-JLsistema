@@ -12,11 +12,13 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 
 public class TelaProdutoIncluirController implements Initializable{
@@ -73,6 +75,16 @@ public class TelaProdutoIncluirController implements Initializable{
 
     @FXML
     void OnClick_btn_salvar(ActionEvent event) {
+    	if(txa_descricao.getText().isEmpty() || txf_fabricante.getText().isEmpty() || txf_nome.getText().isEmpty() || txf_precoLocacao.getText().isEmpty()
+    			|| txf_precoVenda.getText().isEmpty() || cb_tipo.getSelectionModel().isEmpty() 
+    			||(!cb_tipo.getSelectionModel().getSelectedItem().equals("Console") && cb_compatibilidade.getSelectionModel().isEmpty())) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Atenção");
+			alert.setHeaderText(null);
+			alert.setContentText("Preencha todos os campos!");
+			alert.show();
+			
+    	}else {
     	try {
     	String nome = txf_nome.getText();
     	Float precoVenda = br.util.MaskTextfield.monetaryValueFromField(txf_precoVenda).floatValue();
@@ -85,18 +97,18 @@ public class TelaProdutoIncluirController implements Initializable{
     	
     	if(TelaProdutoController.operacao.equals("alterar")) {
     		cb_tipo.setDisable(true);
-    		switch (cb_tipo.getSelectionModel().getSelectedItem()) {
+    		switch (TelaProdutoController.produtoSelecionado.getTipo()) {
 			case "Jogo":
 				new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).alterar(TelaProdutoController.produtoSelecionado.getCodProduto(),
-						new Produto(1, nome, descricao, fabricante, precoVenda, precoLoc, compatibilidade));	
+						new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(),"Jogo", nome, descricao, fabricante, precoVenda, precoLoc, compatibilidade));	
 				break;
 			case "Acessorio":
 				new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).alterar(TelaProdutoController.produtoSelecionado.getCodProduto(),
-						new Produto(1, nome, descricao, fabricante, precoVenda, precoLoc, compatibilidade));	
+						new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(), "Acessorio",nome, descricao, fabricante, precoVenda, precoLoc, compatibilidade));	
 				break;
 			case "Console":
 				new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).alterar(TelaProdutoController.produtoSelecionado.getCodProduto(),
-						new Produto(1, nome, descricao, fabricante, precoVenda, precoLoc, compatibilidade));	
+						new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(), "Console",nome, descricao, fabricante, precoVenda, precoLoc, compatibilidade));	
 				break;
 
 			}
@@ -106,15 +118,15 @@ public class TelaProdutoIncluirController implements Initializable{
 
 				case "Jogo":
 					new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos)
-							.incluir( new Produto(1, nome,descricao, fabricante, precoVenda, precoLoc, compatibilidade));
+							.incluir( new Produto( "Jogo",nome,descricao, fabricante, compatibilidade, precoVenda, precoLoc));
 					break;
 				case "Acessorio":
 					new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios)
-							.incluir( new Produto(1, nome,descricao, fabricante, precoVenda, precoLoc, compatibilidade));
+							.incluir( new Produto( "Acessorio",nome,descricao, fabricante,compatibilidade, precoVenda, precoLoc));
 					break;
 				case "Console":
 					new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles)
-							.incluir( new Produto(1, nome,descricao, fabricante, precoVenda, precoLoc, compatibilidade));
+							.incluir( new Produto("Console", nome,descricao, fabricante, compatibilidade,precoVenda, precoLoc));
 					break;
     		}
 			
@@ -124,6 +136,7 @@ public class TelaProdutoIncluirController implements Initializable{
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
+    	}
     }
 
 //************************** METODOS AUXILIARES *********************
@@ -132,7 +145,7 @@ public class TelaProdutoIncluirController implements Initializable{
 		 try {
 		 cb_tipo.setItems(FXCollections.observableArrayList("Jogo","Acessorio","Console"));
 		 
-		 /*cb_tipo.valueProperty().addListener(new ChangeListener<String>() {
+		 cb_tipo.valueProperty().addListener(new ChangeListener<String>() {
 			 @Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if(newValue.equals("Console")) {
@@ -144,8 +157,8 @@ public class TelaProdutoIncluirController implements Initializable{
 					vboxCompatibilidade.setDisable(false);
 				}
 			}
-		});*/
-		 //cb_compatibilidade.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listar()));
+		});
+		 cb_compatibilidade.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listar()));
 		 MaskTextfield.monetaryField(txf_precoLocacao);
 		 MaskTextfield.monetaryField(txf_precoVenda);
 		 }catch(Exception e) {
@@ -155,6 +168,8 @@ public class TelaProdutoIncluirController implements Initializable{
 
 
 	private void carregarDados() {
+		cb_tipo.getSelectionModel().select(TelaProdutoController.produtoSelecionado.getTipo());
+		cb_tipo.setDisable(true);
 		txa_descricao.setText(TelaProdutoController.produtoSelecionado.getDescricao());
 		txf_fabricante.setText(TelaProdutoController.produtoSelecionado.getFabricante());
 		txf_nome.setText(TelaProdutoController.produtoSelecionado.getNomeProduto());

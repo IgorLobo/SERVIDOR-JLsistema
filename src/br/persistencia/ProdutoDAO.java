@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 import br.interfaces.IProduto;
-import br.model.Cliente;
 import br.model.Produto;
 
 public class ProdutoDAO implements IProduto {
@@ -115,4 +114,6 @@ public class ProdutoDAO implements IProduto {
 			throw erro;
 		}
 	}
+
+	
 }
