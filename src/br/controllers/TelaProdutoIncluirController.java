@@ -21,151 +21,180 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 
-public class TelaProdutoIncluirController implements Initializable{
-	
+public class TelaProdutoIncluirController implements Initializable {
+
 //************************ ATRIBUTOS ********************************
 
 	String compatibilidade;
-	
+
 //*********************** COMPONENTES *******************************	
 	@FXML
-    private ComboBox<String> cb_tipo;
+	private ComboBox<String> cb_tipo;
 
-    @FXML
-    private ComboBox<Produto> cb_compatibilidade;
-	
 	@FXML
-    private TextField txf_nome;
-	
-    @FXML
-    private VBox vboxCompatibilidade;
-    
-    @FXML
-    private TextField txf_fabricante;
+	private ComboBox<Produto> cb_compatibilidade;
 
-    @FXML
-    private TextField txf_precoVenda;
+	@FXML
+	private TextField txf_nome;
 
-    @FXML
-    private TextField txf_precoLocacao;
+	@FXML
+	private VBox vboxCompatibilidade;
 
-    @FXML
-    private Label lb_nrSerie;
+	@FXML
+	private TextField txf_fabricante;
 
-    @FXML
-    private TextArea txa_descricao;
+	@FXML
+	private TextField txf_precoVenda;
 
-    @FXML
-    private Button btn_cancelar;
+	@FXML
+	private TextField txf_precoLocacao;
 
-    @FXML
-    private Button btn_salvar;
+	@FXML
+	private Label lb_nrSerie;
+
+	@FXML
+	private TextArea txa_descricao;
+
+	@FXML
+	private Button btn_cancelar;
+
+	@FXML
+	private Button btn_salvar;
 
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararComponentes();
-		if(TelaProdutoController.operacao.equals("alterar"))carregarDados();
+		if (TelaProdutoController.operacao.equals("alterar"))
+			carregarDados();
 	}
-	
+
 	@FXML
-    void OnClick_btn_cancelar(ActionEvent event) {
+	void OnClick_btn_cancelar(ActionEvent event) {
 		br.util.Janela.fecharJanela(btn_cancelar);
-    }
+	}
 
-    @FXML
-    void OnClick_btn_salvar(ActionEvent event) {
-    	if(txa_descricao.getText().isEmpty() || txf_fabricante.getText().isEmpty() || txf_nome.getText().isEmpty() || txf_precoLocacao.getText().isEmpty()
-    			|| txf_precoVenda.getText().isEmpty() || cb_tipo.getSelectionModel().isEmpty() 
-    			||(!cb_tipo.getSelectionModel().getSelectedItem().equals("Console") && cb_compatibilidade.getSelectionModel().isEmpty())) {
-    		Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Atenção");
-			alert.setHeaderText(null);
-			alert.setContentText("Preencha todos os campos!");
-			alert.show();
-			
-    	}else {
-    	try {
-    	String nome = txf_nome.getText();
-    	Float precoVenda = br.util.MaskTextfield.monetaryValueFromField(txf_precoVenda).floatValue();
-    	Float precoLoc = br.util.MaskTextfield.monetaryValueFromField(txf_precoLocacao).floatValue();;
-    	String descricao = txa_descricao.getText();
-    	String fabricante = txf_fabricante.getText();
-    	if(!cb_tipo.getSelectionModel().getSelectedItem().equals("Console")) {
-    	compatibilidade = cb_compatibilidade.getSelectionModel().getSelectedItem().toString();
-    	}else {compatibilidade = " ";}
-    	
-    	if(TelaProdutoController.operacao.equals("alterar")) {
-    		cb_tipo.setDisable(true);
-    		switch (TelaProdutoController.produtoSelecionado.getTipo()) {
-			case "Jogo":
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).alterar(TelaProdutoController.produtoSelecionado.getCodProduto(),
-						new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(),"Jogo", nome, descricao, fabricante, precoVenda, precoLoc, compatibilidade));	
-				break;
-			case "Acessorio":
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).alterar(TelaProdutoController.produtoSelecionado.getCodProduto(),
-						new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(), "Acessorio",nome, descricao, fabricante, precoVenda, precoLoc, compatibilidade));	
-				break;
-			case "Console":
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).alterar(TelaProdutoController.produtoSelecionado.getCodProduto(),
-						new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(), "Console",nome, descricao, fabricante, precoVenda, precoLoc, compatibilidade));	
-				break;
-
+	@FXML
+	void OnClick_btn_salvar(ActionEvent event) {
+		if (txa_descricao.getText().isEmpty() || txf_fabricante.getText().isEmpty() || txf_nome.getText().isEmpty()
+				|| txf_precoLocacao.getText().isEmpty() || txf_precoVenda.getText().isEmpty()
+				|| cb_tipo.getSelectionModel().isEmpty()
+				|| (!cb_tipo.getSelectionModel().getSelectedItem().equals("Console")
+						&& cb_compatibilidade.getSelectionModel().isEmpty())) {
+			try {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Atenção");
+				alert.setHeaderText(null);
+				alert.setContentText("Preencha todos os campos!");
+				alert.show();
+			} catch (Exception erro) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Atenção");
+				alert.setHeaderText(null);
+				alert.setContentText(erro.getMessage());
+				alert.show();
 			}
-    		br.util.Janela.fecharJanela(btn_salvar);
-    	}else {
-				switch (cb_tipo.getSelectionModel().getSelectedItem()) {
 
-				case "Jogo":
-					new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos)
-							.incluir( new Produto( "Jogo",nome,descricao, fabricante, compatibilidade, precoVenda, precoLoc));
-					break;
-				case "Acessorio":
-					new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios)
-							.incluir( new Produto( "Acessorio",nome,descricao, fabricante,compatibilidade, precoVenda, precoLoc));
-					break;
-				case "Console":
-					new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles)
-							.incluir( new Produto("Console", nome,descricao, fabricante, compatibilidade,precoVenda, precoLoc));
-					break;
-    		}
-			
-    	}
-    	TelaProdutoController.operacao = "ok";
-    	br.util.Janela.fecharJanela(btn_salvar);
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    	}
-    	}
-    }
+		} else {
+			try {
+				String nome = txf_nome.getText();
+				Float precoVenda = br.util.MaskTextfield.monetaryValueFromField(txf_precoVenda).floatValue();
+				Float precoLoc = br.util.MaskTextfield.monetaryValueFromField(txf_precoLocacao).floatValue();
+				;
+				String descricao = txa_descricao.getText();
+				String fabricante = txf_fabricante.getText();
+				if (!cb_tipo.getSelectionModel().getSelectedItem().equals("Console")) {
+					compatibilidade = cb_compatibilidade.getSelectionModel().getSelectedItem().toString();
+				} else {
+					compatibilidade = " ";
+				}
+
+				if (TelaProdutoController.operacao.equals("alterar")) {
+					cb_tipo.setDisable(true);
+					switch (TelaProdutoController.produtoSelecionado.getTipo()) {
+					case "Jogo":
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).alterar(
+								TelaProdutoController.produtoSelecionado.getCodProduto(),
+								new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(), "Jogo", nome,
+										descricao, fabricante, precoVenda, precoLoc, compatibilidade));
+						break;
+					case "Acessorio":
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios)
+								.alterar(TelaProdutoController.produtoSelecionado.getCodProduto(),
+										new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(),
+												"Acessorio", nome, descricao, fabricante, precoVenda, precoLoc,
+												compatibilidade));
+						break;
+					case "Console":
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).alterar(
+								TelaProdutoController.produtoSelecionado.getCodProduto(),
+								new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(), "Console", nome,
+										descricao, fabricante, precoVenda, precoLoc, compatibilidade));
+						break;
+
+					}
+					br.util.Janela.fecharJanela(btn_salvar);
+				} else {
+					switch (cb_tipo.getSelectionModel().getSelectedItem()) {
+
+					case "Jogo":
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).incluir(new Produto("Jogo", nome,
+								descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						break;
+					case "Acessorio":
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).incluir(new Produto("Acessorio",
+								nome, descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						break;
+					case "Console":
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).incluir(new Produto("Console", nome,
+								descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						break;
+					}
+
+				}
+				TelaProdutoController.operacao = "ok";
+				br.util.Janela.fecharJanela(btn_salvar);
+			} catch (Exception erro) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Atenção");
+				alert.setHeaderText(null);
+				alert.setContentText(erro.getMessage());
+				alert.show();
+			}
+		}
+	}
 
 //************************** METODOS AUXILIARES *********************
 
-	 private void prepararComponentes() {
-		 try {
-		 cb_tipo.setItems(FXCollections.observableArrayList("Jogo","Acessorio","Console"));
-		 
-		 cb_tipo.valueProperty().addListener(new ChangeListener<String>() {
-			 @Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(newValue.equals("Console")) {
-					vboxCompatibilidade.setVisible(false);
-					vboxCompatibilidade.setDisable(true);
-					compatibilidade = "";
-				}else {
-					vboxCompatibilidade.setVisible(true);
-					vboxCompatibilidade.setDisable(false);
-				}
-			}
-		});
-		 cb_compatibilidade.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listar()));
-		 MaskTextfield.monetaryField(txf_precoLocacao);
-		 MaskTextfield.monetaryField(txf_precoVenda);
-		 }catch(Exception e) {
-			 e.printStackTrace();
-		 }
-	 }
+	private void prepararComponentes() {
+		try {
+			cb_tipo.setItems(FXCollections.observableArrayList("Jogo", "Acessorio", "Console"));
 
+			cb_tipo.valueProperty().addListener(new ChangeListener<String>() {
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (newValue.equals("Console")) {
+						vboxCompatibilidade.setVisible(false);
+						vboxCompatibilidade.setDisable(true);
+						compatibilidade = "";
+					} else {
+						vboxCompatibilidade.setVisible(true);
+						vboxCompatibilidade.setDisable(false);
+					}
+				}
+			});
+			cb_compatibilidade.setItems(FXCollections
+					.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listar()));
+			MaskTextfield.monetaryField(txf_precoLocacao);
+			MaskTextfield.monetaryField(txf_precoVenda);
+		} catch (Exception erro) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Atenção");
+			alert.setHeaderText(null);
+			alert.setContentText(erro.getMessage());
+			alert.show();
+		}
+	}
 
 	private void carregarDados() {
 		cb_tipo.getSelectionModel().select(TelaProdutoController.produtoSelecionado.getTipo());
