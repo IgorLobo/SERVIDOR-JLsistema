@@ -115,5 +115,25 @@ public class ProdutoDAO implements IProduto {
 		}
 	}
 
+	@Override
+	public Produto getProduto(int codProduto) throws Exception {
+		try {
+			FileReader fileReader = new FileReader(nomeDoArquivo);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String linha = "";
+			while ((linha = bufferedReader.readLine()) != null) {
+				Produto produto = new Produto();
+				produto.materializar(linha);
+				if(produto.getCodProduto() == codProduto) return produto;
+			}
+			bufferedReader.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+		
+		
+		return null;
+	}
+
 	
 }

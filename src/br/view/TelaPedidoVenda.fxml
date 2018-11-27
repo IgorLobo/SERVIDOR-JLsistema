@@ -79,7 +79,7 @@
                       <TableColumn fx:id="tc_tipo" editable="false" prefWidth="75.0" text="Tipo" />
                         <TableColumn fx:id="tc_compatibilidade" editable="false" prefWidth="75.0" text="Compatibilidade" />
                         <TableColumn fx:id="tc_precoUnid" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" text="Preço/Unid." />
-                        <TableColumn fx:id="tc_qnt" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Qtd." />
+                        <TableColumn fx:id="tc_qnt" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Qtd." />
                         <TableColumn fx:id="tc_precoTotal" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" text="Preço total" />
                     </columns>
                      <columnResizePolicy>

@@ -72,7 +72,8 @@ public class TelaInfraController implements Initializable {
 			}else {
 			operacao = "alterar";
 			InfraSelecionada = tableView_infra.getSelectionModel().getSelectedItem();
-			utilJanela.novaJanelaComOwner("/br/view/TelaInfraIncluir.fxml", false, "Alterar dados da infraestrutura");
+			utilJanela.novaJanelaComOwnerWait("/br/view/TelaInfraIncluir.fxml", false, "Alterar dados da infraestrutura");
+			listar();
 			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -96,7 +97,8 @@ public class TelaInfraController implements Initializable {
     @FXML
     void OnClick_btn_incluir(ActionEvent event) {
     	operacao = "incluir";
-    	utilJanela.novaJanelaComOwner("/br/view/TelaInfraIncluir.fxml", false, "Cadastrar nova infraestrutura");
+    	utilJanela.novaJanelaComOwnerWait("/br/view/TelaInfraIncluir.fxml", false, "Cadastrar nova infraestrutura");
+    	listar();
     }
 
     @FXML
