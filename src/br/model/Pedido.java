@@ -1,6 +1,7 @@
 package br.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import br.interfaces.ICliente;
 import br.interfaces.IInfraestrutura;
@@ -12,6 +13,7 @@ public class Pedido {
 	private int quantidadeProdutos = 0;
 	private int quantidadeInfraestrutura = 0;
 	private String tipoPedido = "Venda";
+	private Date dataLocal = null;
 	private boolean pedidoConfirmado = false;
 
 	private String formaPagamento = "";
@@ -26,11 +28,22 @@ public class Pedido {
 		this.formaPagamento = formaPagamento;
 	}
 
+	// tipo especifico para aluguel produto
 	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento, String tipoPedido) {
 		this.cliente = cliente;
 		this.produtos = produtos;
 		this.formaPagamento = formaPagamento;
 		this.tipoPedido = tipoPedido;
+	}
+
+	// tipo especifico para aluguel infra
+	public Pedido(Cliente cliente, ArrayList<Infraestrutura> infraestrutura, String formaPagamento, String tipoPedido,
+			Date dataLocal) {
+		this.cliente = cliente;
+		this.infraestrutura = infraestrutura;
+		this.formaPagamento = formaPagamento;
+		this.tipoPedido = tipoPedido;
+		this.dataLocal = dataLocal;
 	}
 
 	public Pedido() {
@@ -53,7 +66,7 @@ public class Pedido {
 		return infraSelecionada;
 	}
 
-	// TRATAMENTO DE DADOS--------------------------------------------------------------------
+	// TRATAMENTO_DE_DADOS--------------------------------------------------------------------
 
 	public void materializarPedidoVenda(String dados) throws Exception {
 		Produto produto = null;
@@ -71,7 +84,6 @@ public class Pedido {
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
-	
 
 	public void materializarPedidoAluguelProduto(String dados) throws Exception {
 		Produto produto = null;
@@ -90,7 +102,6 @@ public class Pedido {
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
 
-	
 	public void materializarPedidoAluguelInfra(String dados) throws Exception {
 		Infraestrutura infra = null;
 		String vetorString[] = dados.split(";");
@@ -106,7 +117,6 @@ public class Pedido {
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
 
-	
 	public String desmaterializar() throws Exception {
 		String saida = "";
 		saida += cliente.desmaterializar();
@@ -118,7 +128,6 @@ public class Pedido {
 		return saida;
 	}
 
-	
 	public String desmaterializarVenda(int id) throws Exception {
 		id++;
 		this.codPedido = id;
@@ -135,7 +144,6 @@ public class Pedido {
 		return saida;
 	}
 
-	
 	public String desmaterializarAluguelProduto(int id) throws Exception {
 		id++;
 		this.codPedido = id;
@@ -150,7 +158,6 @@ public class Pedido {
 		return saida;
 	}
 
-	
 	public String desmaterializarAluguelInfra(int id) throws Exception {
 		id++;
 		this.codPedido = id;
