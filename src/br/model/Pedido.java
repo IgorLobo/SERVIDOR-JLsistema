@@ -33,11 +33,9 @@ public class Pedido {
 		this.tipoPedido = tipoPedido;
 	}
 
-	/*
-	 * public Pedido() {
-	 * 
-	 * }
-	 */
+	public Pedido() {
+
+	}
 
 	// -----------------METODOS--------------------
 	private Produto getProdutoArrayList(int posicao) throws Exception {
@@ -64,22 +62,16 @@ public class Pedido {
 		this.codPedido = Integer.parseInt(vetorString[0]);
 		this.quantidadeProdutos = Integer.parseInt(vetorString[1]);
 		for (int i = 0; i < this.quantidadeProdutos; i++) {
-			if (i == 0) {
-				produto = new Produto(Integer.parseInt(vetorString[2]), vetorString[3], vetorString[4], vetorString[5],
-						vetorString[6], Float.parseFloat(vetorString[7]), Float.parseFloat(vetorString[8]),
-						vetorString[9], Integer.parseInt(vetorString[10]));
-				produtos.add(produto);
-			} else {
-				produto = new Produto(Integer.parseInt(vetorString[2 + (i * 9)]), vetorString[3 + (i * 9)],
-						vetorString[4 + (i * 9)], vetorString[5 + (i * 9)], vetorString[6 + (i * 9)],
-						Float.parseFloat(vetorString[7 + (i * 9)]), Float.parseFloat(vetorString[8 + (i * 9)]),
-						vetorString[9 + (i * 9)], Integer.parseInt(vetorString[10 + (i * 9)]));
-				produtos.add(produto);
-			}
+			produto = new Produto(Integer.parseInt(vetorString[2 + (i * 9)]), vetorString[3 + (i * 9)],
+					vetorString[4 + (i * 9)], vetorString[5 + (i * 9)], vetorString[6 + (i * 9)],
+					Float.parseFloat(vetorString[7 + (i * 9)]), Float.parseFloat(vetorString[8 + (i * 9)]),
+					vetorString[9 + (i * 9)], Integer.parseInt(vetorString[10 + (i * 9)]));
+			produtos.add(produto);
 		}
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
+	
 
 	public void materializarPedidoAluguelProduto(String dados) throws Exception {
 		Produto produto = null;
@@ -88,44 +80,33 @@ public class Pedido {
 		this.codPedido = Integer.parseInt(vetorString[0]);
 		this.quantidadeProdutos = Integer.parseInt(vetorString[1]);
 		for (int i = 0; i < this.quantidadeProdutos; i++) {
-			if (i == 0) {
-				produto = new Produto(Integer.parseInt(vetorString[2]), vetorString[3], vetorString[4], vetorString[5],
-						vetorString[6], Float.parseFloat(vetorString[7]), Float.parseFloat(vetorString[8]),
-						vetorString[9], Integer.parseInt(vetorString[10]));
-				produtos.add(produto);
-			} else {
-				produto = new Produto(Integer.parseInt(vetorString[2 + (i * 9)]), vetorString[3 + (i * 9)],
-						vetorString[4 + (i * 9)], vetorString[5 + (i * 9)], vetorString[6 + (i * 9)],
-						Float.parseFloat(vetorString[7 + (i * 9)]), Float.parseFloat(vetorString[8 + (i * 9)]),
-						vetorString[9 + (i * 9)], Integer.parseInt(vetorString[10 + (i * 9)]));
-				produtos.add(produto);
-			}
+			produto = new Produto(Integer.parseInt(vetorString[2 + (i * 9)]), vetorString[3 + (i * 9)],
+					vetorString[4 + (i * 9)], vetorString[5 + (i * 9)], vetorString[6 + (i * 9)],
+					Float.parseFloat(vetorString[7 + (i * 9)]), Float.parseFloat(vetorString[8 + (i * 9)]),
+					vetorString[9 + (i * 9)], Integer.parseInt(vetorString[10 + (i * 9)]));
+			produtos.add(produto);
 		}
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
 
+	
 	public void materializarPedidoAluguelInfra(String dados) throws Exception {
 		Infraestrutura infra = null;
 		String vetorString[] = dados.split(";");
 
 		this.codPedido = Integer.parseInt(vetorString[0]);
-		this.quantidadeProdutos = Integer.parseInt(vetorString[1]);
-		for (int i = 0; i < this.quantidadeProdutos; i++) {
-			if (i == 0) {
-				infra = new Infraestrutura(Integer.parseInt(vetorString[2]), vetorString[3], vetorString[4],
-						Float.parseFloat(vetorString[5]), vetorString[6]);
-				infraestrutura.add(infra);
-			} else {
-				infra = new Infraestrutura(Integer.parseInt(vetorString[2 + (i * 5)]), vetorString[3 + (i * 5)],
-						vetorString[4 + (i * 5)], Float.parseFloat(vetorString[5 + (i * 5)]), vetorString[6 + (i * 5)]);
-				infraestrutura.add(infra);
-			}
+		this.quantidadeInfraestrutura = Integer.parseInt(vetorString[1]);
+		for (int i = 0; i < this.quantidadeInfraestrutura; i++) {
+			infra = new Infraestrutura(Integer.parseInt(vetorString[2 + (i * 5)]), vetorString[3 + (i * 5)],
+					vetorString[4 + (i * 5)], Float.parseFloat(vetorString[5 + (i * 5)]), vetorString[6 + (i * 5)]);
+			infraestrutura.add(infra);
 		}
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
 
+	
 	public String desmaterializar() throws Exception {
 		String saida = "";
 		saida += cliente.desmaterializar();
@@ -137,6 +118,7 @@ public class Pedido {
 		return saida;
 	}
 
+	
 	public String desmaterializarVenda(int id) throws Exception {
 		id++;
 		this.codPedido = id;
@@ -153,6 +135,7 @@ public class Pedido {
 		return saida;
 	}
 
+	
 	public String desmaterializarAluguelProduto(int id) throws Exception {
 		id++;
 		this.codPedido = id;
@@ -167,6 +150,7 @@ public class Pedido {
 		return saida;
 	}
 
+	
 	public String desmaterializarAluguelInfra(int id) throws Exception {
 		id++;
 		this.codPedido = id;
