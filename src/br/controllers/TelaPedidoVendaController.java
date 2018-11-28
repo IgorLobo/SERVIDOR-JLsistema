@@ -84,7 +84,6 @@ public class TelaPedidoVendaController implements Initializable{
 		txf_nome.setText(cliente.getNomeCliente());
 		txf_cpf.setText(cliente.getCpfCliente());
 		txf_data.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-		
 	}
 
 	@FXML
