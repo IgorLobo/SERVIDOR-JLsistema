@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import br.model.Produto;
 import br.persistencia.ProdutoDAO;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,15 +23,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 
 //************************ ATRIBUTOS ********************************
-	private ArrayList<Produto> listJogos;
-	private ArrayList<Produto> listAcessorios;
-	private ArrayList<Produto> listConsoles;
+	private ObservableList<Produto> listJogos;
+	private ObservableList<Produto> listAcessorios;
+	private ObservableList<Produto> listConsoles;
 //*********************** COMPONENTES *******************************
 		@FXML
 	    private TitledPane paneAcessorios;
 		
-		 @FXML
-		    private TextField txf_qnt;
+		@FXML
+		private TextField txf_qnt;
 
 		@FXML
 	    private TitledPane paneJogos;
@@ -55,6 +56,9 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 
 	    @FXML
 	    private TableColumn<Produto, Double> tv_jogos_tcValLoc;
+	    
+	    @FXML
+	    private TableColumn<Produto, Integer> tv_jogos_tcQntd;
 
 	    @FXML
 	    private TableView<Produto> tv_acessorios;
@@ -78,6 +82,9 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 	    private TableColumn<Produto, Double> tv_acessorios_tcValLoc;
 
 	    @FXML
+	    private TableColumn<Produto, Integer> tv_acessorios_tcQntd;
+	    
+	    @FXML
 	    private TableView<Produto> tv_consoles;
 	    
 	    @FXML
@@ -96,6 +103,9 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 	    private TableColumn<Produto, Double> tv_consoles_tcValLoc;
 	    
 	    @FXML
+	    private TableColumn<Produto, Integer> tv_consoles_tcQntd;
+	    
+	    @FXML
 	    private Button btn_adicionar;
 
 	    @FXML
@@ -107,24 +117,23 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableViews();
-		listar();
+		
 	}
 
 	 @FXML
 	 void OnClick_btn_adicionar(ActionEvent event) {
 		 try {
-		 String nome;
 		 if(paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()) {
-			 nome = tv_jogos.getSelectionModel().getSelectedItem().getNomeProduto();
-			 TelaPedidoVendaController.listProdutos.add(getObjetoDaLista(listJogos, nome));
+			 TelaPedidoVendaController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos)
+					 .getProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto()));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 		 }else if(paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty()) {
-			 nome = tv_acessorios.getSelectionModel().getSelectedItem().getNomeProduto();
-			 TelaPedidoVendaController.listProdutos.add(getObjetoDaLista(listAcessorios, nome));
+			 TelaPedidoVendaController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios)
+					 .getProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto()));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 		 }else if(paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty()) {
-			 nome = tv_consoles.getSelectionModel().getSelectedItem().getNomeProduto();
-			 TelaPedidoVendaController.listProdutos.add(getObjetoDaLista(listConsoles, nome));
+			 TelaPedidoVendaController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles)
+					 .getProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto()));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 		 }else {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -141,7 +150,7 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 
 	 @FXML
     void OnClick_btn_cancelar(ActionEvent event) {
-		// br.util.Janela.fecharJanela(btn_cancelar);
+		br.util.Janela.fecharJanela(btn_cancelar);
    }
 
 //************************** METODOS AUXILIARES *********************
@@ -151,6 +160,7 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
     	tv_jogos_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
     	tv_jogos_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
     	tv_jogos_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
+    	tv_jogos_tcQntd.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
     	tv_acessorios_tcID.setCellValueFactory(new PropertyValueFactory<>("codProduto"));
     	tv_acessorios_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
@@ -158,32 +168,26 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
     	tv_acessorios_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
     	tv_acessorios_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
     	tv_acessorios_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
+    	tv_acessorios_tcQntd.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
     	tv_consoles_tcID.setCellValueFactory(new PropertyValueFactory<>("codProduto"));
     	tv_consoles_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tv_consoles_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
     	tv_consoles_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
     	tv_consoles_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
+    	tv_consoles_tcQntd.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+    	
+    	try {
+    	listJogos = FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).listar());
+		listAcessorios = FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).listar());
+		listConsoles =  FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listar());
+		tv_jogos.setItems(FXCollections.observableArrayList(listJogos));
+		tv_acessorios.setItems(FXCollections.observableArrayList(listAcessorios));
+		tv_consoles.setItems(FXCollections.observableArrayList(listConsoles));
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
     }
     
-    private void listar() {
-    	try {
-    		listJogos = new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).listar();
-    		listAcessorios = new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).listar();
-    		listConsoles = new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listar();
-    		tv_jogos.setItems(FXCollections.observableArrayList(listJogos));
-    		tv_acessorios.setItems(FXCollections.observableArrayList(listAcessorios));
-    		tv_consoles.setItems(FXCollections.observableArrayList(listConsoles));
-    	} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
 
-    private Produto getObjetoDaLista(ArrayList<Produto> lista ,String nome) {
-    	for (Produto produto : lista) {
-			if(produto.getNomeProduto().equals(nome))return produto;
-		}
-    	return null;
-    }
 }

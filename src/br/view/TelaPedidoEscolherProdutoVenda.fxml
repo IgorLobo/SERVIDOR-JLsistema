@@ -20,13 +20,14 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tv_jogos" layoutX="144.0" layoutY="35.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="tv_jogos" layoutX="144.0" layoutY="35.0" maxWidth="1.7976931348623157E308" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                               <TableColumn fx:id="tv_jogos_tcID" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="ID" />
                             <TableColumn fx:id="tv_jogos_tcNome" editable="false" prefWidth="75.0" text="Nome" />
                             <TableColumn fx:id="tv_jogos_tcCompatibilidade" editable="false" prefWidth="75.0" text="Compatibilidade" />
-                              <TableColumn fx:id="tv_jogos_tcValVenda" editable="false" prefWidth="75.0" text="Valor unid." />
-                              <TableColumn fx:id="tv_jogos_tcValLoc" editable="false" prefWidth="75.0" text="Valor loc." />
+                              <TableColumn fx:id="tv_jogos_tcValVenda" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Valor unid." />
+                              <TableColumn fx:id="tv_jogos_tcValLoc" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" text="Valor loc." />
+                              <TableColumn fx:id="tv_jogos_tcQntd" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Qntd" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -48,8 +49,9 @@
                               <TableColumn fx:id="tv_acessorios_tcNome" editable="false" prefWidth="75.0" text="Nome" />
                               <TableColumn fx:id="tv_acessorios_tcCompatibilidade" editable="false" prefWidth="124.99996185302734" text="Compatibilidade" />
                               <TableColumn fx:id="tv_acessorios_fabricante" prefWidth="105.0" text="Fabricante" />
-                              <TableColumn fx:id="tv_acessorios_tcValVenda" editable="false" prefWidth="75.0" text="Valor unid." />
-                              <TableColumn fx:id="tv_acessorios_tcValLoc" editable="false" prefWidth="75.0" text="Valor loc." />
+                              <TableColumn fx:id="tv_acessorios_tcValVenda" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Valor unid." />
+                              <TableColumn fx:id="tv_acessorios_tcValLoc" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" text="Valor loc." />
+                              <TableColumn fx:id="tv_acessorios_tcQntd" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Qntd" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -70,8 +72,9 @@
                               <TableColumn fx:id="tv_consoles_tcID" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="ID" />
                               <TableColumn fx:id="tv_consoles_tcNome" editable="false" prefWidth="75.0" text="Nome" />
                               <TableColumn fx:id="tv_consoles_fabricante" editable="false" prefWidth="105.0" text="Fabricante" />
-                              <TableColumn fx:id="tv_consoles_tcValVenda" editable="false" prefWidth="75.0" text="Valor unid." />
-                              <TableColumn fx:id="tv_consoles_tcValLoc" editable="false" prefWidth="75.0" text="Valor loc." />
+                              <TableColumn fx:id="tv_consoles_tcValVenda" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Valor unid." />
+                              <TableColumn fx:id="tv_consoles_tcValLoc" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" text="Valor loc." />
+                              <TableColumn fx:id="tv_consoles_tcQntd" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Qntd" />
                            </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

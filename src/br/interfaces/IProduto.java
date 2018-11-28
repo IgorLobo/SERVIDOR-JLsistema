@@ -3,6 +3,7 @@ package br.interfaces;
 import java.util.ArrayList;
 
 import br.model.Produto;
+import br.model.ProdutoGenerico;
 
 
 public interface IProduto {
