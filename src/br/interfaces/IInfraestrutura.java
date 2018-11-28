@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import br.model.Infraestrutura;
 
 public interface IInfraestrutura {
-	void incluir(Infraestrutura infraestrutura) throws Exception;
-    public ArrayList<Infraestrutura> listar() throws Exception;
-    public void excluir(int codInfraestrutura) throws Exception;
-    public void alterar(int codInfraestrutura, Infraestrutura infraestrutura) throws Exception;
+	void incluirInfraestrutura(Infraestrutura infraestrutura) throws Exception;
+    public ArrayList<Infraestrutura> listarInfraestruturas() throws Exception;
+    public void excluirInfraestrutura(int codInfraestrutura) throws Exception;
+    public void alterarInfraestrutura(int codInfraestrutura, Infraestrutura infraestrutura) throws Exception;
 }

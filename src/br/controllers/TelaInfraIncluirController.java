@@ -75,10 +75,10 @@ public class TelaInfraIncluirController implements Initializable {
 			InfraestruturaDAO arquivo = new InfraestruturaDAO(nomeArquivo); 
 			
 			if(TelaInfraController.operacao.equals("alterar")) {
-				arquivo.alterar(TelaInfraController.InfraSelecionada.getCodInfraestrutura(), infra);
+				arquivo.alterarInfraestrutura(TelaInfraController.InfraSelecionada.getCodInfraestrutura(), infra);
 				limpar();
 			}else {
-				arquivo.incluir(infra);
+				arquivo.incluirInfraestrutura(infra);
 				limpar();
 			}
 			br.util.Janela.fecharJanela(btn_cadastrar);

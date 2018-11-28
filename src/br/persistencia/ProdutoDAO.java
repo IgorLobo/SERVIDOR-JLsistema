@@ -17,7 +17,7 @@ public class ProdutoDAO implements IProduto {
 	}
 
 	@Override
-	public void incluir(Produto produto) throws Exception {
+	public void incluirProduto(Produto produto) throws Exception {
 		try {
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo, true);
@@ -53,7 +53,7 @@ public class ProdutoDAO implements IProduto {
 	}
 
 	@Override
-	public ArrayList<Produto> listar() throws Exception {
+	public ArrayList<Produto> listarProdutos() throws Exception {
 		try {
 			ArrayList<Produto> listaDeProdutos = new ArrayList<Produto>();
 			FileReader fileReader = new FileReader(nomeDoArquivo);
@@ -72,9 +72,9 @@ public class ProdutoDAO implements IProduto {
 	}
 
 	@Override
-	public void excluir(int codProduto) throws Exception {
+	public void excluirProduto(int codProduto) throws Exception {
 		try {
-			ArrayList<Produto> listaDeProdutos = this.listar();
+			ArrayList<Produto> listaDeProdutos = this.listarProdutos();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
 			// Criar o buffer do arquivo
@@ -92,9 +92,9 @@ public class ProdutoDAO implements IProduto {
 	}
 
 	@Override
-	public void alterar(int codProduto, Produto produto) throws Exception {
+	public void alterarProduto(int codProduto, Produto produto) throws Exception {
 		try {
-			ArrayList<Produto> listaDeClientes = this.listar();
+			ArrayList<Produto> listaDeClientes = this.listarProdutos();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
 			// Criar o buffer do arquivo

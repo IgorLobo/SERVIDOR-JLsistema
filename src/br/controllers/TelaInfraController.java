@@ -99,7 +99,7 @@ public class TelaInfraController implements Initializable {
 				alert.show();	
 				listar();
 			} else {
-				persistencia.excluir(tableView_infra.getSelectionModel().getSelectedItem().getCodInfraestrutura());
+				persistencia.excluirInfraestrutura(tableView_infra.getSelectionModel().getSelectedItem().getCodInfraestrutura());
 				listar();
 			}
 		} catch (Exception erro) {
@@ -125,7 +125,7 @@ public class TelaInfraController implements Initializable {
     private void listar() {
 		try {
 			ArrayList<Infraestrutura> listaDeInfra;
-			listaDeInfra = persistencia.listar();
+			listaDeInfra = persistencia.listarInfraestruturas();
 			tableView_infra.setItems(FXCollections.observableArrayList(listaDeInfra));
 			
 		} catch (Exception erro) {

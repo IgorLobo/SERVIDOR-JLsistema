@@ -83,7 +83,7 @@ public class TelaClienteController implements Initializable {
 			if (tableView_cliente.getSelectionModel().isEmpty()) {
 				listar();
 			} else {
-				persistencia.excluir(tableView_cliente.getSelectionModel().getSelectedItem().getCodCliente());
+				persistencia.excluirCliente(tableView_cliente.getSelectionModel().getSelectedItem().getCodCliente());
 				listar();
 			}
 		} catch (Exception erro) {
@@ -106,7 +106,7 @@ public class TelaClienteController implements Initializable {
 	private void listar() {
 		try {
 			ArrayList<Cliente> listaDeClientes;
-			listaDeClientes = persistencia.listar();
+			listaDeClientes = persistencia.listarClientes();
 			tableView_cliente.setItems(FXCollections.observableArrayList(listaDeClientes));
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);

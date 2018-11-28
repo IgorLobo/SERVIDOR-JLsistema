@@ -18,7 +18,7 @@ public class InfraestruturaDAO implements IInfraestrutura {
 	}
 
 	@Override
-	public void incluir(Infraestrutura infraestrutura) throws Exception {
+	public void incluirInfraestrutura(Infraestrutura infraestrutura) throws Exception {
 		try {
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo, true);
@@ -54,7 +54,7 @@ public class InfraestruturaDAO implements IInfraestrutura {
 	}
 
 	@Override
-	public ArrayList<Infraestrutura> listar() throws Exception {
+	public ArrayList<Infraestrutura> listarInfraestruturas() throws Exception {
 		try {
 			ArrayList<Infraestrutura> listaDeInfraestruturas = new ArrayList<Infraestrutura>();
 			FileReader fileReader = new FileReader(nomeDoArquivo);
@@ -73,9 +73,9 @@ public class InfraestruturaDAO implements IInfraestrutura {
 	}
 
 	@Override
-	public void excluir(int codInfraestrutura) throws Exception {
+	public void excluirInfraestrutura(int codInfraestrutura) throws Exception {
 		try {
-			ArrayList<Infraestrutura> listaDeInfraestruturas = this.listar();
+			ArrayList<Infraestrutura> listaDeInfraestruturas = this.listarInfraestruturas();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
 			// Criar o buffer do arquivo
@@ -93,9 +93,9 @@ public class InfraestruturaDAO implements IInfraestrutura {
 	}
 
 	@Override
-	public void alterar(int codInfraestrutura, Infraestrutura infraestrutura) throws Exception {
+	public void alterarInfraestrutura(int codInfraestrutura, Infraestrutura infraestrutura) throws Exception {
 		try {
-			ArrayList<Infraestrutura> listaDeInfraestruturas = this.listar();
+			ArrayList<Infraestrutura> listaDeInfraestruturas = this.listarInfraestruturas();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
 			// Criar o buffer do arquivo

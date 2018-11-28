@@ -18,7 +18,7 @@ public class ClienteDAO implements ICliente {
 	}
 
 	@Override
-	public void incluir(Cliente cliente) throws Exception {
+	public void incluirCliente(Cliente cliente) throws Exception {
 		try {
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo, true);
@@ -54,7 +54,7 @@ public class ClienteDAO implements ICliente {
 	}
 
 	@Override
-	public ArrayList<Cliente> listar() throws Exception {
+	public ArrayList<Cliente> listarClientes() throws Exception {
 		try {
 			ArrayList<Cliente> listaDeClientes = new ArrayList<Cliente>();
 			FileReader fileReader = new FileReader(nomeDoArquivo);
@@ -73,9 +73,9 @@ public class ClienteDAO implements ICliente {
 	}
 
 	@Override
-	public void excluir(int codCliente) throws Exception {
+	public void excluirCliente(int codCliente) throws Exception {
 		try {
-			ArrayList<Cliente> listaDeClientes = this.listar();
+			ArrayList<Cliente> listaDeClientes = this.listarClientes();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
 			// Criar o buffer do arquivo
@@ -93,9 +93,9 @@ public class ClienteDAO implements ICliente {
 	}
 
 	@Override
-	public void alterar(int codCliente, Cliente cliente) throws Exception {
+	public void alterarCliente(int codCliente, Cliente cliente) throws Exception {
 		try {
-			ArrayList<Cliente> listaDeClientes = this.listar();
+			ArrayList<Cliente> listaDeClientes = this.listarClientes();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
 			// Criar o buffer do arquivo

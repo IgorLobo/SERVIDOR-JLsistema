@@ -98,10 +98,10 @@ public class TelaClienteIncluirController implements Initializable {
 					telefone2, email1, email2);
 			ClienteDAO arquivo = new ClienteDAO(nomeArquivo);
 			if (TelaClienteController.operacao.equals("alterar")) {
-				arquivo.alterar(TelaClienteController.clienteSelecionado.getCodCliente(), cliente);
+				arquivo.alterarCliente(TelaClienteController.clienteSelecionado.getCodCliente(), cliente);
 				limpar();
 			} else {
-				arquivo.incluir(cliente);
+				arquivo.incluirCliente(cliente);
 				limpar();
 			}
 		} catch (Exception erro) {

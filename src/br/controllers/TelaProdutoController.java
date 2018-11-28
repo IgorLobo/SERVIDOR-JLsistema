@@ -134,13 +134,13 @@ public class TelaProdutoController implements Initializable{
     void OnClick_btn_excluir(ActionEvent event) {
     	try {
 			if (paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()) {
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).excluir(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).excluirProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto());
 				listar();
 			} else if (paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty()) {
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).excluir(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).excluirProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto());
 				listar();
 			} else if (paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty()) {
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).excluir(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).excluirProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto());
 				listar();
 			} else {
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -189,9 +189,9 @@ public class TelaProdutoController implements Initializable{
 
     private void listar() {
     	try {
-    	tv_jogos.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).listar()));
-    	tv_acessorios.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).listar()));
-    	tv_consoles.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listar()));
+    	tv_jogos.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).listarProdutos()));
+    	tv_acessorios.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).listarProdutos()));
+    	tv_consoles.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listarProdutos()));
     	} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

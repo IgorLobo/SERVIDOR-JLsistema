@@ -109,9 +109,9 @@ public class TelaEstoqueController implements Initializable{
 			alert.show();
     	}else{
     		Produto novoProduto = new Produto(getProdutoSelecionado(),Integer.parseInt(txf_qnt.getText()));
-    	if(getProdutoSelecionado().getTipo().equals("Jogo"))new ProdutoDAO(nomeArquivoJogos).alterar(getProdutoSelecionado().getCodProduto(), novoProduto);
-    	if(getProdutoSelecionado().getTipo().equals("Acessorio"))new ProdutoDAO(nomeArquivoAcessorios).alterar(getProdutoSelecionado().getCodProduto(), novoProduto);
-    	if(getProdutoSelecionado().getTipo().equals("Console"))new ProdutoDAO(nomeArquivoConsoles).alterar(getProdutoSelecionado().getCodProduto(), novoProduto);
+    	if(getProdutoSelecionado().getTipo().equals("Jogo"))new ProdutoDAO(nomeArquivoJogos).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
+    	if(getProdutoSelecionado().getTipo().equals("Acessorio"))new ProdutoDAO(nomeArquivoAcessorios).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
+    	if(getProdutoSelecionado().getTipo().equals("Console"))new ProdutoDAO(nomeArquivoConsoles).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
     	listar();
     	txf_qnt.clear();
     	}
@@ -145,9 +145,9 @@ public class TelaEstoqueController implements Initializable{
     
     private void listar() {
     	try {
-        	tv_jogos.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoJogos).listar()));
-        	tv_consoles.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoConsoles).listar()));
-        	tv_acessorios.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoAcessorios).listar()));
+        	tv_jogos.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoJogos).listarProdutos()));
+        	tv_consoles.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoConsoles).listarProdutos()));
+        	tv_acessorios.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoAcessorios).listarProdutos()));
         	
         	}catch(Exception e) {
         		e.printStackTrace();

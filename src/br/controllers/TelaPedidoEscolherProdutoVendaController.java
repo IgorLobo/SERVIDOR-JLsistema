@@ -187,9 +187,9 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
     	tv_consoles_tcQntd.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
     	try {
-    	listJogos = FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).listar());
-		listAcessorios = FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).listar());
-		listConsoles =  FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listar());
+    	listJogos = FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).listarProdutos());
+		listAcessorios = FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).listarProdutos());
+		listConsoles =  FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listarProdutos());
 		tv_jogos.setItems(FXCollections.observableArrayList(listJogos));
 		tv_acessorios.setItems(FXCollections.observableArrayList(listAcessorios));
 		tv_consoles.setItems(FXCollections.observableArrayList(listConsoles));

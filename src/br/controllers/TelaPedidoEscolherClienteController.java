@@ -97,7 +97,7 @@ public class TelaPedidoEscolherClienteController implements Initializable {
 		
 		try {
 			ArrayList<Cliente> listaDeClientes;
-			listaDeClientes = clienteDAO.listar();
+			listaDeClientes = clienteDAO.listarClientes();
 			tableView_cliente.setItems(FXCollections.observableArrayList(listaDeClientes));
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
