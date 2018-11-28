@@ -134,6 +134,28 @@ public class ProdutoDAO implements IProduto {
 		
 		return null;
 	}
+	
+	public Produto getProduto(int codProduto, int novoQnt) throws Exception {
+		try {
+			FileReader fileReader = new FileReader(nomeDoArquivo);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String linha = "";
+			while ((linha = bufferedReader.readLine()) != null) {
+				Produto produto = new Produto();
+				produto.materializar(linha);
+				if(produto.getCodProduto() == codProduto) {
+					produto.definirQuantidade(novoQnt);
+					return produto;
+				}
+			}
+			bufferedReader.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+		
+		
+		return null;
+	}
 
 	
 }

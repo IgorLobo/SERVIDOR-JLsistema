@@ -192,6 +192,10 @@ public class Produto implements TratamentoDeDados {
 	public void setQuantidade(int quantidade) {
 		this.quantidade += quantidade;
 	}
+	
+	public void definirQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
 
 	public String getTipo() {
 		return tipo;
