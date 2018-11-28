@@ -5,88 +5,180 @@ import java.util.ArrayList;
 import br.interfaces.ICliente;
 import br.interfaces.IInfraestrutura;
 import br.interfaces.IProduto;
+import br.interfaces.TratamentoDeDados;
 
-public class Pedido implements ICliente, IInfraestrutura, IProduto{
+public class Pedido {
+	private int codPedido = 0;
+	private int quantidadeProdutos = 0;
+	private int quantidadeInfraestrutura = 0;
+	private String tipoPedido = "Venda";
+	private boolean pedidoConfirmado = false;
 
+	private String formaPagamento = "";
+	private Cliente cliente = new Cliente();
+	private ArrayList<Infraestrutura> infraestrutura = null;
 	private ArrayList<Produto> produtos = null;
-	
-	public Pedido(ArrayList<Produto> produtos) {
+
+	// sem tipo especifico vamos usar para venda
+	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento) {
+		this.cliente = cliente;
 		this.produtos = produtos;
+		this.formaPagamento = formaPagamento;
 	}
-	
+
+	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento, String tipoPedido) {
+		this.cliente = cliente;
+		this.produtos = produtos;
+		this.formaPagamento = formaPagamento;
+		this.tipoPedido = tipoPedido;
+	}
+
 	/*
-	public Pedido() {
-	
-	}*/
-	
-	
-	//PRODUTO---------------------------------------------------------------------------------------
-	@Override
-	public void incluirProduto(Produto produto) throws Exception {
-			
+	 * public Pedido() {
+	 * 
+	 * }
+	 */
+
+	// -----------------METODOS--------------------
+	private Produto getProdutoArrayList(int posicao) throws Exception {
+		Produto produtoSelecionado = produtos.get(posicao);
+		return produtoSelecionado;
 	}
 
-	@Override
-	public ArrayList<Produto> listarProdutos() throws Exception {
-		return null;
+	private int getTamanhoArray(ArrayList arrayList) {
+		int tamanho = arrayList.size();
+		return tamanho;
 	}
 
-	@Override
-	public void excluirProduto(int codProduto) throws Exception {
-
+	private Infraestrutura getInfraArrayList(int posicao) throws Exception {
+		Infraestrutura infraSelecionada = infraestrutura.get(posicao);
+		return infraSelecionada;
 	}
 
-	@Override
-	public void alterarProduto(int codProduto, Produto produto) throws Exception {
+	// TRATAMENTO DE DADOS--------------------------------------------------------------------
 
+	public void materializarPedidoVenda(String dados) throws Exception {
+		Produto produto = null;
+		String vetorString[] = dados.split(";");
+
+		this.codPedido = Integer.parseInt(vetorString[0]);
+		this.quantidadeProdutos = Integer.parseInt(vetorString[1]);
+		for (int i = 0; i < this.quantidadeProdutos; i++) {
+			if (i == 0) {
+				produto = new Produto(Integer.parseInt(vetorString[2]), vetorString[3], vetorString[4], vetorString[5],
+						vetorString[6], Float.parseFloat(vetorString[7]), Float.parseFloat(vetorString[8]),
+						vetorString[9], Integer.parseInt(vetorString[10]));
+				produtos.add(produto);
+			} else {
+				produto = new Produto(Integer.parseInt(vetorString[2 + (i * 9)]), vetorString[3 + (i * 9)],
+						vetorString[4 + (i * 9)], vetorString[5 + (i * 9)], vetorString[6 + (i * 9)],
+						Float.parseFloat(vetorString[7 + (i * 9)]), Float.parseFloat(vetorString[8 + (i * 9)]),
+						vetorString[9 + (i * 9)], Integer.parseInt(vetorString[10 + (i * 9)]));
+				produtos.add(produto);
+			}
+		}
+		this.formaPagamento = vetorString[vetorString.length - 2];
+		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
 
-	@Override
-	public Produto getProduto(int codProduto) throws Exception {
+	public void materializarPedidoAluguelProduto(String dados) throws Exception {
+		Produto produto = null;
+		String vetorString[] = dados.split(";");
 
-		return null;
+		this.codPedido = Integer.parseInt(vetorString[0]);
+		this.quantidadeProdutos = Integer.parseInt(vetorString[1]);
+		for (int i = 0; i < this.quantidadeProdutos; i++) {
+			if (i == 0) {
+				produto = new Produto(Integer.parseInt(vetorString[2]), vetorString[3], vetorString[4], vetorString[5],
+						vetorString[6], Float.parseFloat(vetorString[7]), Float.parseFloat(vetorString[8]),
+						vetorString[9], Integer.parseInt(vetorString[10]));
+				produtos.add(produto);
+			} else {
+				produto = new Produto(Integer.parseInt(vetorString[2 + (i * 9)]), vetorString[3 + (i * 9)],
+						vetorString[4 + (i * 9)], vetorString[5 + (i * 9)], vetorString[6 + (i * 9)],
+						Float.parseFloat(vetorString[7 + (i * 9)]), Float.parseFloat(vetorString[8 + (i * 9)]),
+						vetorString[9 + (i * 9)], Integer.parseInt(vetorString[10 + (i * 9)]));
+				produtos.add(produto);
+			}
+		}
+		this.formaPagamento = vetorString[vetorString.length - 2];
+		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
 
-	//INFRAESTRUTURA--------------------------------------------------------------------------------
-	@Override
-	public void incluirInfraestrutura(Infraestrutura infraestrutura) throws Exception {
+	public void materializarPedidoAluguelInfra(String dados) throws Exception {
+		Infraestrutura infra = null;
+		String vetorString[] = dados.split(";");
 
+		this.codPedido = Integer.parseInt(vetorString[0]);
+		this.quantidadeProdutos = Integer.parseInt(vetorString[1]);
+		for (int i = 0; i < this.quantidadeProdutos; i++) {
+			if (i == 0) {
+				infra = new Infraestrutura(Integer.parseInt(vetorString[2]), vetorString[3], vetorString[4],
+						Float.parseFloat(vetorString[5]), vetorString[6]);
+				infraestrutura.add(infra);
+			} else {
+				infra = new Infraestrutura(Integer.parseInt(vetorString[2 + (i * 5)]), vetorString[3 + (i * 5)],
+						vetorString[4 + (i * 5)], Float.parseFloat(vetorString[5 + (i * 5)]), vetorString[6 + (i * 5)]);
+				infraestrutura.add(infra);
+			}
+		}
+		this.formaPagamento = vetorString[vetorString.length - 2];
+		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
 
-	@Override
-	public ArrayList<Infraestrutura> listarInfraestruturas() throws Exception {
-		return null;
+	public String desmaterializar() throws Exception {
+		String saida = "";
+		saida += cliente.desmaterializar();
+		for (int posicao = 0; posicao < produtos.size(); posicao++) {
+			saida += getProdutoArrayList(posicao).desmaterializar();
+		}
+		saida += this.formaPagamento + ";";
+		saida += this.pedidoConfirmado + ";";
+		return saida;
 	}
 
-	@Override
-	public void excluirInfraestrutura(int codInfraestrutura) throws Exception {
-
+	public String desmaterializarVenda(int id) throws Exception {
+		id++;
+		this.codPedido = id;
+		String saida = "";
+		saida += this.codPedido + ";";
+		this.quantidadeProdutos = getTamanhoArray(produtos);
+		saida += this.quantidadeProdutos + ";";
+		saida += cliente.desmaterializar();
+		for (int posicao = 0; posicao < produtos.size(); posicao++) {
+			saida += getProdutoArrayList(posicao).desmaterializar();
+		}
+		saida += this.formaPagamento + ";";
+		saida += this.pedidoConfirmado + ";";
+		return saida;
 	}
 
-	@Override
-	public void alterarInfraestrutura(int codInfraestrutura, Infraestrutura infraestrutura) throws Exception {
-
+	public String desmaterializarAluguelProduto(int id) throws Exception {
+		id++;
+		this.codPedido = id;
+		String saida = "";
+		saida += this.codPedido + ";";
+		saida += cliente.desmaterializar();
+		for (int posicao = 0; posicao < produtos.size(); posicao++) {
+			saida += getProdutoArrayList(posicao).desmaterializar();
+		}
+		saida += this.formaPagamento + ";";
+		saida += this.pedidoConfirmado + ";";
+		return saida;
 	}
 
-	//CLIENTE----------------------------------------------------------------------------------------
-	@Override
-	public void incluirCliente(Cliente cliente) throws Exception {
-
-	}
-
-	@Override
-	public ArrayList<Cliente> listarClientes() throws Exception {
-		return null;
-	}
-
-	@Override
-	public void excluirCliente(int codCliente) throws Exception {
-
-	}
-
-	@Override
-	public void alterarCliente(int codCliente, Cliente cliente) throws Exception {
-
+	public String desmaterializarAluguelInfra(int id) throws Exception {
+		id++;
+		this.codPedido = id;
+		String saida = "";
+		saida += this.codPedido + ";";
+		saida += cliente.desmaterializar();
+		for (int posicao = 0; posicao < produtos.size(); posicao++) {
+			saida += getProdutoArrayList(posicao).desmaterializar();
+		}
+		saida += this.formaPagamento + ";";
+		saida += this.pedidoConfirmado + ";";
+		return saida;
 	}
 
 }
