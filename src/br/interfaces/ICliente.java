@@ -9,4 +9,5 @@ public interface ICliente {
     public ArrayList<Cliente> listarClientes() throws Exception;
     public void excluirCliente(int codCliente) throws Exception;
     public void alterarCliente(int codCliente, Cliente cliente) throws Exception;
+    public int identity() throws Exception;
 }

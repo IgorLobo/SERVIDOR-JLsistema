@@ -6,9 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import br.interfaces.IPedidos;
 import br.model.Pedido;
 
-public class PedidoAluguelProdutoDAO {
+public class PedidoAluguelProdutoDAO implements IPedidos {
 
 	private String nomeDoArquivo = "";
 
@@ -16,7 +17,8 @@ public class PedidoAluguelProdutoDAO {
 		this.nomeDoArquivo = nomeDoArquivo;
 	}
 
-	public void incluirPedidoAluguelProduto(Pedido pedido) throws Exception {
+	@Override
+	public void incluirPedido(Pedido pedido) throws Exception {
 		try {
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo, true);
@@ -32,26 +34,8 @@ public class PedidoAluguelProdutoDAO {
 		}
 	}
 
-	private int identity() throws Exception {
-		try {
-			int id = 0;
-			FileReader fileReader = new FileReader(nomeDoArquivo);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			String linha = "";
-			while ((linha = bufferedReader.readLine()) != null) {
-				Pedido pedido = new Pedido();
-				pedido.materializarPedidoAluguelProduto(linha);
-				id = pedido.getCodPedido();
-			}
-			bufferedReader.close();
-			return id;
-
-		} catch (Exception erro) {
-			throw erro;
-		}
-	}
-
-	public ArrayList<Pedido> listarPedidosAluguelProdutos() throws Exception {
+	@Override
+	public ArrayList<Pedido> listarPedidos() throws Exception {
 		try {
 			ArrayList<Pedido> listaDePedidosAluguelProdutos = new ArrayList<Pedido>();
 			FileReader fileReader = new FileReader(nomeDoArquivo);
@@ -70,9 +54,10 @@ public class PedidoAluguelProdutoDAO {
 		}
 	}
 
-	public void excluirPedidoAluguelProduto(int codPedidoAluguelProd) throws Exception {
+	@Override
+	public void excluirPedido(int codPedidoAluguelProd) throws Exception {
 		try {
-			ArrayList<Pedido> listaDePedidosAluguelProdutos = this.listarPedidosAluguelProdutos();
+			ArrayList<Pedido> listaDePedidosAluguelProdutos = this.listarPedidos();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
 			// Criar o buffer do arquivo
@@ -89,9 +74,10 @@ public class PedidoAluguelProdutoDAO {
 		}
 	}
 
-	public void alterarPedidoAluguelProduto(int codPedidoAluguelProd, Pedido pedidoAluguelProd) throws Exception {
+	@Override
+	public void alterarPedido(int codPedidoAluguelProd, Pedido pedidoAluguelProd) throws Exception {
 		try {
-			ArrayList<Pedido> listaDePedidosAluguelProduto = this.listarPedidosAluguelProdutos();
+			ArrayList<Pedido> listaDePedidosAluguelProduto = this.listarPedidos();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
 			// Criar o buffer do arquivo
@@ -107,6 +93,26 @@ public class PedidoAluguelProdutoDAO {
 				}
 			}
 			bufferedWriter.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+	}
+
+	@Override
+	public int identity() throws Exception {
+		try {
+			int id = 0;
+			FileReader fileReader = new FileReader(nomeDoArquivo);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String linha = "";
+			while ((linha = bufferedReader.readLine()) != null) {
+				Pedido pedido = new Pedido();
+				pedido.materializarPedidoAluguelProduto(linha);
+				id = pedido.getCodPedido();
+			}
+			bufferedReader.close();
+			return id;
+
 		} catch (Exception erro) {
 			throw erro;
 		}

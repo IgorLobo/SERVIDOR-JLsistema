@@ -6,16 +6,18 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import br.interfaces.IPedidos;
 import br.model.Pedido;
 
-public class PedidoAluguelInfraDAO {
+public class PedidoAluguelInfraDAO implements IPedidos {
 	private String nomeDoArquivo = "";
 
 	public PedidoAluguelInfraDAO(String nomeDoArquivo) {
 		this.nomeDoArquivo = nomeDoArquivo;
 	}
 
-	public void incluirPedidoAluguelInfra(Pedido pedido) throws Exception {
+	@Override
+	public void incluirPedido(Pedido pedido) throws Exception {
 		try {
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo, true);
@@ -31,26 +33,8 @@ public class PedidoAluguelInfraDAO {
 		}
 	}
 
-	private int identity() throws Exception {
-		try {
-			int id = 0;
-			FileReader fileReader = new FileReader(nomeDoArquivo);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			String linha = "";
-			while ((linha = bufferedReader.readLine()) != null) {
-				Pedido pedido = new Pedido();
-				pedido.materializarPedidoAluguelInfra(linha);
-				id = pedido.getCodPedido();
-			}
-			bufferedReader.close();
-			return id;
-
-		} catch (Exception erro) {
-			throw erro;
-		}
-	}
-
-	public ArrayList<Pedido> listarPedidosAluguelInfra() throws Exception {
+	@Override
+	public ArrayList<Pedido> listarPedidos() throws Exception {
 		try {
 			ArrayList<Pedido> listaDePedidosAluguelInfra = new ArrayList<Pedido>();
 			FileReader fileReader = new FileReader(nomeDoArquivo);
@@ -69,9 +53,10 @@ public class PedidoAluguelInfraDAO {
 		}
 	}
 
-	public void excluirPedidoAluguelInfra(int codPedidoAluguelInfra) throws Exception {
+	@Override
+	public void excluirPedido(int codPedidoAluguelInfra) throws Exception {
 		try {
-			ArrayList<Pedido> listaDePedidosAluguelInfra = this.listarPedidosAluguelInfra();
+			ArrayList<Pedido> listaDePedidosAluguelInfra = this.listarPedidos();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
 			// Criar o buffer do arquivo
@@ -88,9 +73,10 @@ public class PedidoAluguelInfraDAO {
 		}
 	}
 
-	public void alterarPedidoAluguelInfra(int codPedidoAluguelInfra, Pedido pedidoAluguelInfra) throws Exception {
+	@Override
+	public void alterarPedido(int codPedidoAluguelInfra, Pedido pedidoAluguelInfra) throws Exception {
 		try {
-			ArrayList<Pedido> listaDePedidosAluguelProduto = this.listarPedidosAluguelInfra();
+			ArrayList<Pedido> listaDePedidosAluguelProduto = this.listarPedidos();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
 			// Criar o buffer do arquivo
@@ -106,6 +92,26 @@ public class PedidoAluguelInfraDAO {
 				}
 			}
 			bufferedWriter.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+	}
+
+	@Override
+	public int identity() throws Exception {
+		try {
+			int id = 0;
+			FileReader fileReader = new FileReader(nomeDoArquivo);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String linha = "";
+			while ((linha = bufferedReader.readLine()) != null) {
+				Pedido pedido = new Pedido();
+				pedido.materializarPedidoAluguelInfra(linha);
+				id = pedido.getCodPedido();
+			}
+			bufferedReader.close();
+			return id;
+
 		} catch (Exception erro) {
 			throw erro;
 		}

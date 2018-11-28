@@ -9,4 +9,5 @@ public interface IInfraestrutura {
     public ArrayList<Infraestrutura> listarInfraestruturas() throws Exception;
     public void excluirInfraestrutura(int codInfraestrutura) throws Exception;
     public void alterarInfraestrutura(int codInfraestrutura, Infraestrutura infraestrutura) throws Exception;
+    public int identity() throws Exception;
 }

@@ -33,7 +33,8 @@ public class ProdutoDAO implements IProduto {
 		}
 	}
 
-	private int identity() throws Exception {
+	@Override
+	public int identity() throws Exception {
 		try {
 			int id = 0;
 			FileReader fileReader = new FileReader(nomeDoArquivo);

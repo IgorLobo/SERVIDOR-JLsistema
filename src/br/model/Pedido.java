@@ -15,6 +15,7 @@ public class Pedido {
 	private String tipoPedido = "Venda";
 	private Date dataLocal = null;
 	private boolean pedidoConfirmado = false;
+	private float valorTotal = 0;
 
 	private String formaPagamento = "";
 	private Cliente cliente = new Cliente();
@@ -86,6 +87,7 @@ public class Pedido {
 					vetorString[9 + (i * 9)], Integer.parseInt(vetorString[10 + (i * 9)]));
 			produtos.add(produto);
 		}
+		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
@@ -103,6 +105,7 @@ public class Pedido {
 					vetorString[9 + (i * 9)], Integer.parseInt(vetorString[10 + (i * 9)]));
 			produtos.add(produto);
 		}
+		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
@@ -118,6 +121,7 @@ public class Pedido {
 					vetorString[4 + (i * 5)], Float.parseFloat(vetorString[5 + (i * 5)]), vetorString[6 + (i * 5)]);
 			infraestrutura.add(infra);
 		}
+		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
@@ -128,6 +132,7 @@ public class Pedido {
 		for (int posicao = 0; posicao < produtos.size(); posicao++) {
 			saida += getProdutoArrayList(posicao).desmaterializar();
 		}
+		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
 		return saida;
@@ -144,6 +149,7 @@ public class Pedido {
 		for (int posicao = 0; posicao < produtos.size(); posicao++) {
 			saida += getProdutoArrayList(posicao).desmaterializar();
 		}
+		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
 		return saida;
@@ -158,6 +164,7 @@ public class Pedido {
 		for (int posicao = 0; posicao < produtos.size(); posicao++) {
 			saida += getProdutoArrayList(posicao).desmaterializar();
 		}
+		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
 		return saida;
@@ -172,6 +179,7 @@ public class Pedido {
 		for (int posicao = 0; posicao < produtos.size(); posicao++) {
 			saida += getProdutoArrayList(posicao).desmaterializar();
 		}
+		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
 		return saida;
