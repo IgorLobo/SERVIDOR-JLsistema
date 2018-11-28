@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import br.model.Pedido;
+import br.persistencia.PedidoVendaDAO;
+import br.persistencia.ProdutoDAO;
 import br.util.Janela;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class TelaPedidoInicial implements Initializable{
 //************************ ATRIBUTOS ********************************
 	private Janela janelaUtil = new Janela();
-	ObservableList<Pedido> obsPedidos = FXCollections.observableArrayList();
+	ObservableList<Pedido> obsPedidos;
 //*********************** COMPONENTES *******************************	
     @FXML
     private TableView<Pedido> tableView_pedidos;
@@ -66,6 +68,13 @@ public class TelaPedidoInicial implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararComponentes();
+		try {
+			//obsPedidos =  FXCollections.observableArrayList(new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).listarPedidos());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
     @FXML
@@ -85,14 +94,12 @@ public class TelaPedidoInicial implements Initializable{
 
     @FXML
     void OnClick_btn_incluir(ActionEvent event) {
-    	janelaUtil.novaJanelaComOwner("TelaPedidoEscolherCliente.fxml", false,"Escolha um cliente");
+    	janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoEscolherCliente.fxml", false,"Escolha um cliente");
+    	br.util.Janela.fecharJanela(btn_incluir);
     }
 
 //************************** METODOS AUXILIARES *********************
     private void prepararComponentes() {
-    	cb_tipo.setItems(FXCollections.observableArrayList("Venda","Locação"));
-		cb_pagamento.setItems(FXCollections.observableArrayList("Dinheiro","Cartão"));
-		
 		tc_ID.setCellValueFactory(new PropertyValueFactory<>("codPedido"));
 		tc_data.setCellValueFactory(new PropertyValueFactory<>("dataLocal"));
 		tc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));

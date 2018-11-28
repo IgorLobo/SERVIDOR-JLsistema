@@ -21,6 +21,7 @@ public class TelaPrincipalController implements Initializable {
 	public static String nomeArquivoJogos = caminhoTxtBancoDados + "Jogos.csv";
 	public static String nomeArquivoAcessorios = caminhoTxtBancoDados + "Acessorios.csv";
 	public static String nomeArquivoConsoles = caminhoTxtBancoDados + "Consoles.csv";
+	public static String nomeArquivoPedidoVenda = caminhoTxtBancoDados + "PedidosVenda.csv";
 
 //*********************** COMPONENTES *******************************	
 	// Toolbar--
@@ -53,7 +54,7 @@ public class TelaPrincipalController implements Initializable {
 
 	@FXML
 	void OnClick_tbBtn_pedidos(ActionEvent event) {
-		utilJanela.novaJanelaComOwner("/br/view/TelaPedidoEscolherCliente.fxml", true, "Fazer pedido");
+		utilJanela.novaJanelaComOwner("/br/view/TelaPedidoInicial.fxml", true, "Fazer pedido");
 	}
 
 	@FXML

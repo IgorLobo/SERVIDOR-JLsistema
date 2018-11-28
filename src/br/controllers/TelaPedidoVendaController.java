@@ -1,22 +1,25 @@
 package br.controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import br.model.Cliente;
+import br.model.Pedido;
 import br.model.Produto;
+import br.persistencia.PedidoVendaDAO;
 import br.util.Janela;
-import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -34,6 +37,7 @@ public class TelaPedidoVendaController implements Initializable{
 		static Cliente cliente;
 		static ObservableList<Produto> obsProdutos = FXCollections.observableArrayList();
 		static ObservableList<Float> obsPreco = FXCollections.observableArrayList();
+		DecimalFormat df = new DecimalFormat("#.00");
 
 //*********************** COMPONENTES *******************************	
 		@FXML
@@ -82,10 +86,10 @@ public class TelaPedidoVendaController implements Initializable{
 	    private TableColumn<Produto, Float> tc_precoUnid;
 
 	    @FXML
-	    private TableColumn<Integer, Integer> tc_qnt;
+	    private TableColumn<Produto, Integer> tc_qnt;
 
 	    @FXML
-	    private TableColumn<Float, Float> tc_precoTotal;
+	    private TableColumn<Produto, Float> tc_precoTotal;
 
 	    @FXML
 	    private Label lb_precoTotalPedido;
@@ -95,7 +99,9 @@ public class TelaPedidoVendaController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableView();
-		
+		cb_tipo.setPromptText("Venda");
+		cb_tipo.setDisable(true);
+		cb_pagamento.setItems(FXCollections.observableArrayList("Cartão","Dinheiro"));
 		cliente = TelaPedidoEscolherClienteController.clienteSelecionado;
 		txf_nome.setText(cliente.getNomeCliente());
 		txf_cpf.setText(cliente.getCpfCliente());
@@ -114,7 +120,13 @@ public class TelaPedidoVendaController implements Initializable{
 
     @FXML
     void OnClick_btn_finalizar(ActionEvent event) {
+    	try{
+    	Pedido pedido = new Pedido(cliente, new ArrayList<Produto>(obsProdutos), cb_pagamento.getSelectionModel().getSelectedItem().toString());
+    	new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).incluirPedido(pedido);
     	br.util.Janela.fecharJanela(btn_finalizar);
+    	}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção", JOptionPane.INFORMATION_MESSAGE);
+    	}
     }
 
     @FXML
@@ -145,16 +157,16 @@ public class TelaPedidoVendaController implements Initializable{
     	tc_precoTotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
     	tv_produtos.setItems(obsProdutos);
     	
-    	/*obsProdutos.addListener(new ListChangeListener<Produto>() {
+    	obsProdutos.addListener(new ListChangeListener<Produto>() {
     		@Override
     		public void onChanged(Change<? extends Produto> c) {
-    			ObservableList<Float> temp = FXCollections.observableArrayList();
+    			Float temp = 0f;
 	    			for (Produto p : obsProdutos) {
-	    				temp.add(p.getQuantidade()*p.getValorUnitarioVenda());
+	    				temp+= p.getSubtotal();
 					}
-	    			obsPreco = temp;
+	    			lb_precoTotalPedido.setText(df.format(temp));
     		}
-		});*/
+		});
     }
     
     

@@ -129,19 +129,19 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 			alert.setHeaderText(null);
 			
 		 if(paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty() && !txf_qnt.getText().isEmpty()) {
-			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_jogos.getSelectionModel().getSelectedItem().getQuantidade())) {
+			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_jogos.getSelectionModel().getSelectedItem().getQuantidade()) && validaProduto(tv_jogos.getSelectionModel().getSelectedItem())) {
 			 TelaPedidoVendaController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos)
 					 .getProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto(),Integer.parseInt(txf_qnt.getText())));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 			 }
 		 }else if(paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty() && !txf_qnt.getText().isEmpty()) {
-			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_acessorios.getSelectionModel().getSelectedItem().getQuantidade())) {
+			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_acessorios.getSelectionModel().getSelectedItem().getQuantidade())&& validaProduto(tv_acessorios.getSelectionModel().getSelectedItem())) {
 			 TelaPedidoVendaController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios)
 					 .getProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto(),Integer.parseInt(txf_qnt.getText())));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 			 }
 		 }else if(paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty() && !txf_qnt.getText().isEmpty()) {
-			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_consoles.getSelectionModel().getSelectedItem().getQuantidade())) {
+			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_consoles.getSelectionModel().getSelectedItem().getQuantidade())&& validaProduto(tv_consoles.getSelectionModel().getSelectedItem())) {
 			 TelaPedidoVendaController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles)
 					 .getProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto(),Integer.parseInt(txf_qnt.getText())));
 			 br.util.Janela.fecharJanela(btn_adicionar);
@@ -199,10 +199,7 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
     }
     
     private boolean validaQnt(int qntDesejada,int qntEstoque) {
-    	if(qntDesejada < (qntEstoque-1)) {
-    		
-    		
-    		
+    	if(qntDesejada <= (qntEstoque-1)) {
     		return true;
     	}
     	
@@ -213,6 +210,20 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 		if(qntEstoque == 1)alert.setContentText("A quantidade do produto não pode ser menor que 1!");
 		alert.show();
     	return false;
+    }
+    
+    private boolean validaProduto(Produto p) {
+    	for (Produto produto : TelaPedidoVendaController.obsProdutos) {
+			if(produto.getNomeProduto().equals(p.getNomeProduto())) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Atenção");
+				alert.setHeaderText(null);
+				alert.setContentText("O produto já está na lista de pedidos!");
+				alert.show();
+				return false;
+			}
+		}
+    	return true;
     }
     
 }
