@@ -146,6 +146,7 @@ public class ProdutoDAO implements IProduto {
 				produto.materializar(linha);
 				if(produto.getCodProduto() == codProduto) {
 					produto.definirQuantidade(novoQnt);
+					produto.setSubtotal(produto.getValorUnitarioVenda() * produto.getQuantidade());
 					return produto;
 				}
 			}

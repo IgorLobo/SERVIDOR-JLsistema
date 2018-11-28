@@ -131,19 +131,19 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 		 if(paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty() && !txf_qnt.getText().isEmpty()) {
 			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_jogos.getSelectionModel().getSelectedItem().getQuantidade())) {
 			 TelaPedidoVendaController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos)
-					 .getProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto()));
+					 .getProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto(),Integer.parseInt(txf_qnt.getText())));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 			 }
 		 }else if(paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty() && !txf_qnt.getText().isEmpty()) {
 			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_acessorios.getSelectionModel().getSelectedItem().getQuantidade())) {
 			 TelaPedidoVendaController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios)
-					 .getProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto()));
+					 .getProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto(),Integer.parseInt(txf_qnt.getText())));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 			 }
 		 }else if(paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty() && !txf_qnt.getText().isEmpty()) {
 			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_consoles.getSelectionModel().getSelectedItem().getQuantidade())) {
 			 TelaPedidoVendaController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles)
-					 .getProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto()));
+					 .getProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto(),Integer.parseInt(txf_qnt.getText())));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 			 }
 		 }else {

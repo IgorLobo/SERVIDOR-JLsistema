@@ -31,8 +31,7 @@
               <buttons>
                   <Button fx:id="btn_cancelar" maxWidth="70.0" minWidth="70.0" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" prefHeight="25.0" prefWidth="70.0" text="Cancelar" ButtonBar.buttonData="LEFT" />
                   <ComboBox fx:id="cb_tipo" prefHeight="25.0" prefWidth="150.0" promptText="Tipo do pedido" ButtonBar.buttonData="RIGHT" />
-                  <ComboBox fx:id="cb_pagamento" maxWidth="120.0" minWidth="120.0" prefHeight="25.0" prefWidth="120.0" promptText="Pagamento" ButtonBar.buttonData="RIGHT" />
-                <Button fx:id="btn_abrirPedido" mnemonicParsing="false" onAction="#OnClick_btn_abrirPedido" text="Abrir pedido" ButtonBar.buttonData="RIGHT" />
+                <Button fx:id="btn_abrirPedido" mnemonicParsing="false" onAction="#OnClick_btn_abrirPedido" text="Escolher cliente" ButtonBar.buttonData="RIGHT" />
               </buttons>
             </ButtonBar>
          </children>

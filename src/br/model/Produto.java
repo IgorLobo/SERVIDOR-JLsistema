@@ -12,6 +12,7 @@ public class Produto implements TratamentoDeDados {
 	private float valorUnitarioLocacao = 0;
 	private String compatibilidade = "";
 	private int quantidade = 0;
+	private float subtotal;
 
 	public Produto(int codProduto, String tipo, String nomeProduto, String descricao, String fabricante,
 			float valorUnitarioVenda, float valorUnitarioLocacao, String compatibilidade, int quantidade) {
@@ -208,6 +209,14 @@ public class Produto implements TratamentoDeDados {
 	@Override
 	public String toString() {
 		return nomeProduto;
+	}
+
+	public float getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(float subtotal) {
+		this.subtotal = subtotal;
 	}
 
 }

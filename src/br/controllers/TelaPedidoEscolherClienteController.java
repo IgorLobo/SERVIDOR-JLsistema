@@ -47,8 +47,6 @@ public class TelaPedidoEscolherClienteController implements Initializable {
 
 	    @FXML
 	    private ComboBox<String> cb_tipo;
-	    @FXML
-	    private ComboBox<String> cb_pagamento;
 
 	    @FXML
 	    private Button btn_abrirPedido;
@@ -60,23 +58,26 @@ public class TelaPedidoEscolherClienteController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableView();
 		cb_tipo.setItems(FXCollections.observableArrayList("Venda","Locação"));
-		cb_pagamento.setItems(FXCollections.observableArrayList("Dinheiro","Cartão"));
 	}
 	
 	@FXML
     void OnClick_btn_abrirPedido(ActionEvent event) {
 		
-		if(!cb_tipo.getSelectionModel().isEmpty() && !cb_pagamento.getSelectionModel().isEmpty() && !tableView_cliente.getSelectionModel().isEmpty()){
+		if(!cb_tipo.getSelectionModel().isEmpty() && !tableView_cliente.getSelectionModel().isEmpty()){
 			clienteSelecionado = tableView_cliente.getSelectionModel().getSelectedItem();
-			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Venda")) janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoVenda.fxml", false);
-			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Locação")) janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoLoc.fxml", false);
+			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Venda")) {
+				janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoVenda.fxml", false);
+				TelaPedidoVendaController.cliente = tableView_cliente.getSelectionModel().getSelectedItem();
+			}
+			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Locação")) {
+				janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoLoc.fxml", false);
+			}
 			br.util.Janela.fecharJanela(btn_abrirPedido);
 		}else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Atenção");
 			alert.setHeaderText(null);
 			if(cb_tipo.getSelectionModel().isEmpty())alert.setContentText("Escolha o tipo do pedido!");
-			if(cb_pagamento.getSelectionModel().isEmpty())alert.setContentText("Escolha o tipo do pagamento!");
 			if(tableView_cliente.getSelectionModel().isEmpty())alert.setContentText("Escolha um cliente para abrir o pedido!");
 			alert.show();
 		}
