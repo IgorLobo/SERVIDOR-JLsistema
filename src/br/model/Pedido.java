@@ -21,7 +21,7 @@ public class Pedido {
 	private ArrayList<Infraestrutura> infraestrutura = null;
 	private ArrayList<Produto> produtos = null;
 
-	// sem tipo especifico vamos usar para venda
+	// tipo especifico para venda  de produto
 	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento) {
 		this.cliente = cliente;
 		this.produtos = produtos;
@@ -51,6 +51,10 @@ public class Pedido {
 	}
 
 	// -----------------METODOS--------------------
+	public int getCodPedido() {
+		return codPedido;
+	}
+
 	private Produto getProdutoArrayList(int posicao) throws Exception {
 		Produto produtoSelecionado = produtos.get(posicao);
 		return produtoSelecionado;
@@ -65,7 +69,8 @@ public class Pedido {
 		Infraestrutura infraSelecionada = infraestrutura.get(posicao);
 		return infraSelecionada;
 	}
-
+	
+	
 	// TRATAMENTO_DE_DADOS--------------------------------------------------------------------
 
 	public void materializarPedidoVenda(String dados) throws Exception {
