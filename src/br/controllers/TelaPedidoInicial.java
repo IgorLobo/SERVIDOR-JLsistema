@@ -5,10 +5,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import br.model.Pedido;
-import br.persistencia.PedidoVendaDAO;
-import br.persistencia.ProdutoDAO;
 import br.util.Janela;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

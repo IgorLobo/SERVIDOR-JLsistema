@@ -135,12 +135,15 @@ public class TelaProdutoController implements Initializable{
     	try {
 			if (paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()) {
 				new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).excluirProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc).excluirProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto());
 				listar();
 			} else if (paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty()) {
 				new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).excluirProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc).excluirProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto());
 				listar();
 			} else if (paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty()) {
 				new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).excluirProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc).excluirProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto());
 				listar();
 			} else {
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -157,7 +160,7 @@ public class TelaProdutoController implements Initializable{
     @FXML
     void OnClick_btn_incluir(ActionEvent event) {
     	operacao = "incluir";
-    	utilJanela.novaJanelaComOwnerWait("/br/view/TelaProdutoIncluir.fxml", false, "Cadastrar novo produto");
+    	utilJanela.novaJanelaComOwnerWait("/br/view/TelaProdutoIncluir.fxml", false, "Cadastrar produto");
     	if(operacao.equals("ok"))listar();
     }
 

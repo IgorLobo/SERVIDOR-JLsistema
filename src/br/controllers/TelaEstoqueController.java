@@ -31,17 +31,9 @@ public class TelaEstoqueController implements Initializable{
 	String nomeArquivoAcessorios = TelaPrincipalController.caminhoTxtBancoDados + "Acessorios.csv";
 	
 //*********************** COMPONENTES *******************************	
-		@FXML
-	    private TitledPane paneAcessorios;
-	
-		@FXML
-	    private TitledPane paneJogos;
-		
+	  	
 		@FXML
 		private TextField txf_qnt;
-	
-		@FXML
-	    private TitledPane paneConsoles;
 
 		@FXML
 	    private Button btn_adicionar;
@@ -49,44 +41,110 @@ public class TelaEstoqueController implements Initializable{
 	    @FXML
 	    private Button btn_cancelar;
 
+//TABELA DE VENDAS
 	    @FXML
-	    private TableView<Produto> tv_jogos;
+	    private TitledPane paneVenda;
 
 	    @FXML
-	    private TableColumn<Produto, String> tv_jogos_tcNome;
+	    private TitledPane paneVendaJogos;
+	    
+	    @FXML
+	    private TitledPane paneVendaAcessorios;
+	    
+	    @FXML
+	    private TitledPane paneVendaConsoles;
+	    
+	    @FXML
+	    private TableView<Produto> venda_tvJogos;
 
 	    @FXML
-	    private TableColumn<Produto, String> tv_jogos_tcCompatibilidade;
+	    private TableColumn<Produto, String> venda_tvJogos_tcNome;
 
 	    @FXML
-	    private TableColumn<Produto, Integer> tv_jogos_quantidade;
+	    private TableColumn<Produto, String> venda_tvJogos_tcCompatibilidade;
 
 	    @FXML
-	    private TableView<Produto> tv_acessorios;
+	    private TableColumn<Produto, Integer> venda_tvJogos_quantidade;
 
 	    @FXML
-	    private TableColumn<Produto, String> tv_acessorios_tcNome;
+	    private TableView<Produto> venda_tvAcessorios;
 
 	    @FXML
-	    private TableColumn<Produto, String> tv_acessorios_tcCompatibilidade;
+	    private TableColumn<Produto, String> venda_tvAcessorios_tcNome;
 
 	    @FXML
-	    private TableColumn<Produto, String> tv_acessorios_fabricante;
+	    private TableColumn<Produto, String> venda_tvAcessorios_tcCompatibilidade;
 
 	    @FXML
-	    private TableColumn<Produto, Integer> tv_acessorios_quantidade;
+	    private TableColumn<Produto, String> venda_tvAcessorios_fabricante;
 
 	    @FXML
-	    private TableView<Produto> tv_consoles;
+	    private TableColumn<Produto, Integer> venda_tvAcessorios_quantidade;
 
 	    @FXML
-	    private TableColumn<Produto, String> tv_consoles_tcNome;
+	    private TableView<Produto> venda_tvConsoles;
 
 	    @FXML
-	    private TableColumn<Produto, String> tv_consoles_fabricante;
+	    private TableColumn<Produto, String> venda_tvConsoles_tcNome;
 
 	    @FXML
-	    private TableColumn<Produto, Integer> tv_consoles_quantidade;
+	    private TableColumn<Produto, String> venda_tvConsoles_fabricante;
+
+	    @FXML
+	    private TableColumn<Produto, Integer> venda_tvConsoles_quantidade;
+	   
+//TABELAS DE LOCAÇÃO
+	    
+	    @FXML
+	    private TitledPane paneLoc;
+
+	    @FXML
+	    private TitledPane paneLocJogos;
+	    
+	    @FXML
+	    private TitledPane paneLocAcessorios;
+	    
+	    @FXML
+	    private TitledPane paneLocConsoles;
+	    
+	    @FXML
+	    private TableView<Produto> loc_tvJogos;
+
+	    @FXML
+	    private TableColumn<Produto, String> loc_tvJogos_tcNome;
+
+	    @FXML
+	    private TableColumn<Produto, String> loc_tvJogos_tcCompatibilidade;
+
+	    @FXML
+	    private TableColumn<Produto, Integer> loc_tvJogos_quantidade;
+
+	    @FXML
+	    private TableView<Produto> loc_tvAcessorios;
+
+	    @FXML
+	    private TableColumn<Produto, String> loc_tvAcessorios_tcNome;
+
+	    @FXML
+	    private TableColumn<Produto, String> loc_tvAcessorios_tcCompatibilidade;
+
+	    @FXML
+	    private TableColumn<Produto, String> loc_tvAcessorios_fabricante;
+
+	    @FXML
+	    private TableColumn<Produto, Integer> loc_tvAcessorios_quantidade;
+
+	    @FXML
+	    private TableView<Produto> loc_tvConsoles;
+
+	    @FXML
+	    private TableColumn<Produto, String> loc_tvConsoles_tcNome;
+
+	    @FXML
+	    private TableColumn<Produto, String> loc_tvConsoles_fabricante;
+
+	    @FXML
+	    private TableColumn<Produto, Integer> loc_tvConsoles_quantidade;
 
 //*********************** ON-ACTION *********************************
 	@Override
@@ -127,39 +185,39 @@ public class TelaEstoqueController implements Initializable{
 
 //************************** METODOS AUXILIARES *********************
     private void prepararTableViews() {
-    	tv_jogos_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
-    	tv_jogos_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
-    	tv_jogos_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+    	venda_tvJogos_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
+    	venda_tvJogos_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
+    	venda_tvJogos_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
-    	tv_acessorios_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
-    	tv_acessorios_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
-    	tv_acessorios_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
-    	tv_acessorios_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+    	venda_tvAcessorios_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
+    	venda_tvAcessorios_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+    	venda_tvAcessorios_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
+    	venda_tvAcessorios_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
-    	tv_consoles_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
-    	tv_consoles_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
-    	tv_consoles_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+    	venda_tvConsoles_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
+    	venda_tvConsoles_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+    	venda_tvConsoles_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
     	
     }
     
     private void listar() {
     	try {
-        	tv_jogos.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoJogos).listarProdutos()));
-        	tv_consoles.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoConsoles).listarProdutos()));
-        	tv_acessorios.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoAcessorios).listarProdutos()));
+        	venda_tvJogos.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoJogos).listarProdutos()));
+        	venda_tvConsoles.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoConsoles).listarProdutos()));
+        	venda_tvAcessorios.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoAcessorios).listarProdutos()));
         	
         	}catch(Exception e) {
         		e.printStackTrace();
         	}
     }
     private Produto getProdutoSelecionado() {
-    	if(paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()) {
-    		return tv_jogos.getSelectionModel().getSelectedItem();
-		 }else if(paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty()) {
-			 return tv_acessorios.getSelectionModel().getSelectedItem();
-		 }else if(paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty()) {
-			 return tv_consoles.getSelectionModel().getSelectedItem();
+    	if(paneJogos.isExpanded() && !venda_tvJogos.getSelectionModel().isEmpty()) {
+    		return venda_tvJogos.getSelectionModel().getSelectedItem();
+		 }else if(paneAcessorios.isExpanded() && !venda_tvAcessorios.getSelectionModel().isEmpty()) {
+			 return venda_tvAcessorios.getSelectionModel().getSelectedItem();
+		 }else if(paneConsoles.isExpanded() && !venda_tvConsoles.getSelectionModel().isEmpty()) {
+			 return venda_tvConsoles.getSelectionModel().getSelectedItem();
 		 }
     	return null;
     }

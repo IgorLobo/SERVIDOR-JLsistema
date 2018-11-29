@@ -108,6 +108,10 @@ public class TelaProdutoIncluirController implements Initializable {
 								TelaProdutoController.produtoSelecionado.getCodProduto(),
 								new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(), "Jogo", nome,
 										descricao, fabricante, precoVenda, precoLoc, compatibilidade));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc).alterarProduto(
+								TelaProdutoController.produtoSelecionado.getCodProduto(),
+								new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(), "Jogo", nome,
+										descricao, fabricante, precoVenda, precoLoc, compatibilidade));
 						break;
 					case "Acessorio":
 						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios)
@@ -115,9 +119,18 @@ public class TelaProdutoIncluirController implements Initializable {
 										new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(),
 												"Acessorio", nome, descricao, fabricante, precoVenda, precoLoc,
 												compatibilidade));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc)
+						.alterarProduto(TelaProdutoController.produtoSelecionado.getCodProduto(),
+								new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(),
+										"Acessorio", nome, descricao, fabricante, precoVenda, precoLoc,
+										compatibilidade));
 						break;
 					case "Console":
 						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).alterarProduto(
+								TelaProdutoController.produtoSelecionado.getCodProduto(),
+								new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(), "Console", nome,
+										descricao, fabricante, precoVenda, precoLoc, compatibilidade));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc).alterarProduto(
 								TelaProdutoController.produtoSelecionado.getCodProduto(),
 								new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(), "Console", nome,
 										descricao, fabricante, precoVenda, precoLoc, compatibilidade));
@@ -131,13 +144,19 @@ public class TelaProdutoIncluirController implements Initializable {
 					case "Jogo":
 						new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).incluirProduto(new Produto("Jogo", nome,
 								descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc).incluirProduto(new Produto("Jogo", nome,
+								descricao, fabricante, compatibilidade, precoVenda, precoLoc));
 						break;
 					case "Acessorio":
 						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).incluirProduto(new Produto("Acessorio",
 								nome, descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc).incluirProduto(new Produto("Acessorio",
+								nome, descricao, fabricante, compatibilidade, precoVenda, precoLoc));
 						break;
 					case "Console":
 						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).incluirProduto(new Produto("Console", nome,
+								descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc).incluirProduto(new Produto("Console", nome,
 								descricao, fabricante, compatibilidade, precoVenda, precoLoc));
 						break;
 					}

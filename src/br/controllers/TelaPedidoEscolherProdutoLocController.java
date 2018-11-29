@@ -3,25 +3,27 @@ package br.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import br.model.Cliente;
 import br.model.Infraestrutura;
 import br.model.Produto;
-import br.util.Janela;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TelaPedidoEscolherProdutoLocController implements Initializable{
 
 //************************ ATRIBUTOS ********************************
-	
+	private ObservableList<Produto> listJogos;
+	private ObservableList<Produto> listAcessorios;
+	private ObservableList<Produto> listConsoles;
 	
 //*********************** COMPONENTES *******************************	
 		@FXML
@@ -83,21 +85,12 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 
 	    @FXML
 	    private TableColumn<Produto, Double> tv_consoles_tcValLoc;
-	    
+	   
 	    @FXML
-	    private TableView<Infraestrutura> tableView_infra;
+	    private DatePicker date_inicio;
 
 	    @FXML
-	    private TableColumn<Infraestrutura, Integer> tc_ID;
-
-	    @FXML
-	    private TableColumn<Infraestrutura, String> tc_nome;
-
-	    @FXML
-	    private TableColumn<Infraestrutura, String> tc_descricao;
-
-	    @FXML
-	    private TableColumn<Infraestrutura, Float> tc_precoDia;
+	    private DatePicker date_final;
 	    
 	    @FXML
 	    private Button btn_adicionar;
