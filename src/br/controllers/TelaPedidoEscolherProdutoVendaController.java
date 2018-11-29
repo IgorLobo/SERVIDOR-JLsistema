@@ -118,7 +118,6 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableViews();
 		br.util.MaskTextfield.campoNumerico(txf_qnt);
-		
 	}
 
 	 @FXML

@@ -2,37 +2,39 @@ package br.controllers;
 
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
 import br.model.Cliente;
-import br.model.Infraestrutura;
 import br.model.Produto;
 import br.util.Janela;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener.Change;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TelaPedidoLocController implements Initializable{
 
 //************************ ATRIBUTOS ********************************
 		private Janela janelaUtil = new Janela();
-		static Produto novoProduto;
-		private Cliente cliente;
-		String data;
-		static ArrayList<Produto> listProdutos = new ArrayList<Produto>();
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		static Cliente cliente;
+		static  ObservableList<Produto> obsProdutos = FXCollections.observableArrayList();
+		DecimalFormat df = new DecimalFormat("#.00");
 //*********************** COMPONENTES *******************************	
 	 @FXML
 	    private Button btn_cancelar;
@@ -81,27 +83,26 @@ public class TelaPedidoLocController implements Initializable{
 
 	    @FXML
 	    private Label lb_precoTotalPedido;
+	    @FXML
+	    private ComboBox<String> cb_pagamento;
 
 
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableView();
+		cb_pagamento.setItems(FXCollections.observableArrayList("Cartão","Dinheiro"));
 		cliente = TelaPedidoEscolherClienteController.clienteSelecionado;
 		txf_nome.setText(cliente.getNomeCliente());
 		txf_cpf.setText(cliente.getCpfCliente());
 		
-		data = dateFormat.format(new Date());
-		txf_data.setText(data);
+		txf_data.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 
 	}
 
 	@FXML
     void OnClick_btn_adicionarItem(ActionEvent event) {
 		janelaUtil.novaJanelaComOwnerWait("/br/view/TelaPedidoEscolherProdutoLoc.fxml", false, "Adicionar item ao pedido");
-		if(novoProduto != null)	listProdutos.add(novoProduto);
-		novoProduto = null;
-		if(listProdutos.size()>0)tv_produtos.setItems(FXCollections.observableArrayList(listProdutos));
     }
 
 	@FXML
@@ -123,7 +124,7 @@ public class TelaPedidoLocController implements Initializable{
 			alert.setContentText("Selecione um produto para remover");
 			alert.show();
     	}else {
-    	listProdutos.remove(tv_produtos.getSelectionModel().getSelectedItem());
+    		obsProdutos.remove(tv_produtos.getSelectionModel().getSelectedItem());
     	}
     }
 
@@ -133,6 +134,20 @@ public class TelaPedidoLocController implements Initializable{
     	tc_compatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
     	tc_precoUnid.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
     	tc_tipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+    	tc_qnt.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+    	tc_precoTotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
+    	tv_produtos.setItems(obsProdutos);
+    	
+    	obsProdutos.addListener(new ListChangeListener<Produto>() {
+    		@Override
+    		public void onChanged(Change<? extends Produto> c) {
+    			Float temp = 0f;
+	    			for (Produto p : obsProdutos) {
+	    				temp+= p.getSubtotal();
+					}
+	    			lb_precoTotalPedido.setText(df.format(temp));
+    		}
+		});
     	
     }
 }

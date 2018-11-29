@@ -92,6 +92,7 @@ public class TelaPedidoVendaController implements Initializable{
 
 	    @FXML
 	    private Label lb_precoTotalPedido;
+	    
 
 
 //*********************** ON-ACTION *********************************
@@ -143,10 +144,6 @@ public class TelaPedidoVendaController implements Initializable{
     }
 
     
-    @FXML
-    void OnClick_btn_cliente(ActionEvent event) {
-    	janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoEscolherCliente.fxml", false, "Escolha um cliente");
-    }
 //************************** METODOS AUXILIARES *********************
     private void prepararTableView() {
     	tc_nome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
