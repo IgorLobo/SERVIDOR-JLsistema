@@ -1,5 +1,7 @@
 package br.model;
 
+import java.util.Date;
+
 import br.interfaces.TratamentoDeDados;
 
 public class Produto implements TratamentoDeDados {
@@ -13,6 +15,8 @@ public class Produto implements TratamentoDeDados {
 	private String compatibilidade = "";
 	private int quantidade = 0;
 	private float subtotal;
+	private Date dataInicio = null;
+	private Date dataFim = null;
 
 	public Produto(int codProduto, String tipo, String nomeProduto, String descricao, String fabricante,
 			float valorUnitarioVenda, float valorUnitarioLocacao, String compatibilidade, int quantidade) {
@@ -26,13 +30,26 @@ public class Produto implements TratamentoDeDados {
 		this.compatibilidade = compatibilidade;
 		this.quantidade = quantidade;
 	}
-	
+
+	// venda
 	public Produto(String nomeProduto, String tipo, String compatibilidade, float valorUnitarioVenda, int quantidade) {
 		this.nomeProduto = nomeProduto;
 		this.setTipo(tipo);
 		this.compatibilidade = compatibilidade;
 		this.valorUnitarioVenda = valorUnitarioVenda;
 		this.quantidade = quantidade;
+	}
+
+	// aluguel
+	public Produto(String nomeProduto, String tipo, String compatibilidade, float valorUnitarioVenda, int quantidade,
+			Date dataInicio, Date dataFim) {
+		this.nomeProduto = nomeProduto;
+		this.setTipo(tipo);
+		this.compatibilidade = compatibilidade;
+		this.valorUnitarioVenda = valorUnitarioVenda;
+		this.quantidade = quantidade;
+		this.dataInicio = dataInicio;
+		this.dataFim = dataFim;
 	}
 
 	public Produto(int codProduto, String tipo, String nomeProduto, String descricao, String fabricante,
@@ -47,7 +64,7 @@ public class Produto implements TratamentoDeDados {
 		this.compatibilidade = compatibilidade;
 	}
 
-//sem id
+	// sem id
 	public Produto(String tipo, String nomeProduto, String descricao, String fabricante, String compatibilidade,
 			float valorUnitarioVenda, float valorUnitarioLocacao, int quantidade) {
 		this.setTipo(tipo);
@@ -72,7 +89,7 @@ public class Produto implements TratamentoDeDados {
 		this.quantidade = objeto.getQuantidade() + quantidade;
 	}
 
-//sem id e sem qntd
+	// sem id e sem qntd
 	public Produto(String tipo, String nomeProduto, String descricao, String fabricante, String compatibilidade,
 			float valorUnitarioVenda, float valorUnitarioLocacao) {
 		this.setTipo(tipo);
@@ -201,7 +218,7 @@ public class Produto implements TratamentoDeDados {
 	public void setQuantidade(int quantidade) {
 		this.quantidade += quantidade;
 	}
-	
+
 	public void definirQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
@@ -226,5 +243,15 @@ public class Produto implements TratamentoDeDados {
 	public void setSubtotal(float subtotal) {
 		this.subtotal = subtotal;
 	}
+
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+	
+	
 
 }
