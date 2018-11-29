@@ -52,11 +52,52 @@ public class Pedido {
 
 	}
 
-	// -----------------METODOS--------------------
+	// -----------------GETS AND SETERS--------------------
 	public int getCodPedido() {
 		return codPedido;
 	}
 
+	public int getQuantidadeProdutos() {
+		return quantidadeProdutos;
+	}
+
+	public int getQuantidadeInfraestrutura() {
+		return quantidadeInfraestrutura;
+	}
+
+	public String getTipoPedido() {
+		return tipoPedido;
+	}
+
+	public Date getDataLocal() {
+		return dataLocal;
+	}
+
+	public boolean isPedidoConfirmado() {
+		return pedidoConfirmado;
+	}
+
+	public float getValorTotal() {
+		return valorTotal;
+	}
+
+	public String getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public ArrayList<Infraestrutura> getInfraestrutura() {
+		return infraestrutura;
+	}
+
+	public ArrayList<Produto> getProdutos() {
+		return produtos;
+	}
+
+	// -----------------METODOS--------------------
 	private Produto getProdutoArrayList(int posicao) throws Exception {
 		Produto produtoSelecionado = produtos.get(posicao);
 		return produtoSelecionado;
@@ -138,7 +179,6 @@ public class Pedido {
 	public void materializarPedidoAluguelProduto(String dados) throws Exception {
 		Produto produto = null;
 		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-		Date data = null;
 		String vetorString[] = dados.split(";");
 
 		this.codPedido = Integer.parseInt(vetorString[0]);
@@ -204,13 +244,14 @@ public class Pedido {
 	/********** ALUGUEL_INFRA *******************************************/
 	public void materializarPedidoAluguelInfra(String dados) throws Exception {
 		Infraestrutura infra = null;
+		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 		String vetorString[] = dados.split(";");
 
 		this.codPedido = Integer.parseInt(vetorString[0]);
 		this.quantidadeInfraestrutura = Integer.parseInt(vetorString[1]);
 		for (int i = 0; i < this.quantidadeInfraestrutura; i++) {
-			infra = new Infraestrutura(Integer.parseInt(vetorString[2 + (i * 5)]), vetorString[3 + (i * 5)],
-					vetorString[4 + (i * 5)], Float.parseFloat(vetorString[5 + (i * 5)]), vetorString[6 + (i * 5)]);
+			infra = new Infraestrutura(vetorString[2 + (i * 4)], Float.parseFloat(vetorString[3 + (i * 4)]),
+					formatoData.parse(vetorString[4 + (i * 4)]), formatoData.parse(vetorString[5 + (i * 4)]));
 			infraestrutura.add(infra);
 		}
 		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
@@ -223,9 +264,13 @@ public class Pedido {
 		this.codPedido = id;
 		String saida = "";
 		saida += this.codPedido + ";";
-		saida += cliente.desmaterializar();
-		for (int posicao = 0; posicao < produtos.size(); posicao++) {
-			saida += getProdutoArrayList(posicao).desmaterializar();
+		this.quantidadeInfraestrutura = getTamanhoArray(infraestrutura);
+		saida += this.quantidadeInfraestrutura + ";";
+		for (int posicao = 0; posicao < infraestrutura.size(); posicao++) {
+			saida += getInfraArrayList(posicao).getNomeInfraestrutura() + ";";
+			saida += getInfraArrayList(posicao).getPrecoDiaInfraestrutura() + ";";
+			saida += getInfraArrayList(posicao).getDataInicio() + ";";
+			saida += getInfraArrayList(posicao).getDataFim() + ";";
 		}
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
@@ -235,9 +280,14 @@ public class Pedido {
 
 	public String desmaterializarAluguelInfra() throws Exception {
 		String saida = "";
-		saida += cliente.desmaterializar();
-		for (int posicao = 0; posicao < produtos.size(); posicao++) {
-			saida += getProdutoArrayList(posicao).desmaterializar();
+		saida += this.codPedido + ";";
+		this.quantidadeInfraestrutura = getTamanhoArray(infraestrutura);
+		saida += this.quantidadeInfraestrutura + ";";
+		for (int posicao = 0; posicao < infraestrutura.size(); posicao++) {
+			saida += getInfraArrayList(posicao).getNomeInfraestrutura() + ";";
+			saida += getInfraArrayList(posicao).getPrecoDiaInfraestrutura() + ";";
+			saida += getInfraArrayList(posicao).getDataInicio() + ";";
+			saida += getInfraArrayList(posicao).getDataFim() + ";";
 		}
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
