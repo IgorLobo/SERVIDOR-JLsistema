@@ -64,7 +64,7 @@ public class PedidoVendaDAO implements IPedidos {
 			for (int posicao = 0; posicao < listaDePedidosVenda.size(); posicao++) {
 				Pedido pedidoVenda = listaDePedidosVenda.get(posicao);
 				if (!(pedidoVenda.getCodPedido() == (codPedidoVenda))) {
-					bufferedWriter.write(pedidoVenda.desmaterializar() + "\r\n");
+					bufferedWriter.write(pedidoVenda.desmaterializarVenda() + "\r\n");
 				}
 			}
 			bufferedWriter.close();
@@ -84,7 +84,7 @@ public class PedidoVendaDAO implements IPedidos {
 			for (int posicao = 0; posicao < listaDePedidosVenda.size(); posicao++) {
 				Pedido pedidoVend = listaDePedidosVenda.get(posicao);
 				if (!(pedidoVend.getCodPedido() == (codPedidoVenda))) {
-					bufferedWriter.write(pedidoVend.desmaterializar() + "\r\n");
+					bufferedWriter.write(pedidoVend.desmaterializarVenda() + "\r\n");
 				} else {
 					int id = codPedidoVenda;
 					id--;

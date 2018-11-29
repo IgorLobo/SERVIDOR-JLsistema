@@ -64,7 +64,7 @@ public class PedidoAluguelInfraDAO implements IPedidos {
 			for (int posicao = 0; posicao < listaDePedidosAluguelInfra.size(); posicao++) {
 				Pedido pedidoAluguelInfra = listaDePedidosAluguelInfra.get(posicao);
 				if (!(pedidoAluguelInfra.getCodPedido() == (codPedidoAluguelInfra))) {
-					bufferedWriter.write(pedidoAluguelInfra.desmaterializar() + "\r\n");
+					bufferedWriter.write(pedidoAluguelInfra.desmaterializarAluguelInfra() + "\r\n");
 				}
 			}
 			bufferedWriter.close();
@@ -84,7 +84,7 @@ public class PedidoAluguelInfraDAO implements IPedidos {
 			for (int posicao = 0; posicao < listaDePedidosAluguelProduto.size(); posicao++) {
 				Pedido pedidoAluguelInfraestrutura = listaDePedidosAluguelProduto.get(posicao);
 				if (!(pedidoAluguelInfraestrutura.getCodPedido() == (codPedidoAluguelInfra))) {
-					bufferedWriter.write(pedidoAluguelInfraestrutura.desmaterializar() + "\r\n");
+					bufferedWriter.write(pedidoAluguelInfraestrutura.desmaterializarAluguelInfra() + "\r\n");
 				} else {
 					int id = codPedidoAluguelInfra;
 					id--;

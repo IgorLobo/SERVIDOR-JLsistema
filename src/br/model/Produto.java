@@ -26,6 +26,14 @@ public class Produto implements TratamentoDeDados {
 		this.compatibilidade = compatibilidade;
 		this.quantidade = quantidade;
 	}
+	
+	public Produto(String nomeProduto, String tipo, String compatibilidade, float valorUnitarioVenda, int quantidade) {
+		this.nomeProduto = nomeProduto;
+		this.setTipo(tipo);
+		this.compatibilidade = compatibilidade;
+		this.valorUnitarioVenda = valorUnitarioVenda;
+		this.quantidade = quantidade;
+	}
 
 	public Produto(int codProduto, String tipo, String nomeProduto, String descricao, String fabricante,
 			float valorUnitarioVenda, float valorUnitarioLocacao, String compatibilidade) {
