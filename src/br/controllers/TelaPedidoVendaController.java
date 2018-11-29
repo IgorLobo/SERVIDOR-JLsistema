@@ -36,7 +36,6 @@ public class TelaPedidoVendaController implements Initializable{
 		private Janela janelaUtil = new Janela();
 		static Cliente cliente;
 		static ObservableList<Produto> obsProdutos = FXCollections.observableArrayList();
-		static ObservableList<Float> obsPreco = FXCollections.observableArrayList();
 		DecimalFormat df = new DecimalFormat("#.00");
 
 //*********************** COMPONENTES *******************************	
@@ -123,6 +122,7 @@ public class TelaPedidoVendaController implements Initializable{
     	try{
     	Pedido pedido = new Pedido(cliente, new ArrayList<Produto>(obsProdutos), cb_pagamento.getSelectionModel().getSelectedItem().toString());
     	new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).incluirPedido(pedido);
+    	obsProdutos.clear();
     	br.util.Janela.fecharJanela(btn_finalizar);
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção", JOptionPane.INFORMATION_MESSAGE);

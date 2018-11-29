@@ -26,9 +26,6 @@ public class TelaEstoqueController implements Initializable{
 
 //************************ ATRIBUTOS ********************************
 	
-	String nomeArquivoConsoles = TelaPrincipalController.caminhoTxtBancoDados + "Consoles.csv";
-	String nomeArquivoJogos = TelaPrincipalController.caminhoTxtBancoDados + "Jogos.csv";
-	String nomeArquivoAcessorios = TelaPrincipalController.caminhoTxtBancoDados + "Acessorios.csv";
 	
 //*********************** COMPONENTES *******************************	
 	  	
@@ -167,9 +164,21 @@ public class TelaEstoqueController implements Initializable{
 			alert.show();
     	}else{
     		Produto novoProduto = new Produto(getProdutoSelecionado(),Integer.parseInt(txf_qnt.getText()));
-    	if(getProdutoSelecionado().getTipo().equals("Jogo"))new ProdutoDAO(nomeArquivoJogos).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
-    	if(getProdutoSelecionado().getTipo().equals("Acessorio"))new ProdutoDAO(nomeArquivoAcessorios).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
-    	if(getProdutoSelecionado().getTipo().equals("Console"))new ProdutoDAO(nomeArquivoConsoles).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
+    	
+    	if(getProdutoSelecionado().getTipo().equals("Jogo")) {
+    		if(paneVenda.isExpanded())new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
+    		if(paneLoc.isExpanded())new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
+    	}
+    	
+    	if(getProdutoSelecionado().getTipo().equals("Acessorio")) {
+    		if(paneVenda.isExpanded())new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
+    		if(paneLoc.isExpanded())new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
+    	}
+    	
+    	if(getProdutoSelecionado().getTipo().equals("Console")) {
+    		if(paneVenda.isExpanded())new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
+    		if(paneLoc.isExpanded())new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc).alterarProduto(getProdutoSelecionado().getCodProduto(), novoProduto);
+    	}
     	listar();
     	txf_qnt.clear();
     	}
@@ -198,27 +207,56 @@ public class TelaEstoqueController implements Initializable{
     	venda_tvConsoles_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
     	venda_tvConsoles_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
+    	//TABLE VIEW LOCAÇÃO
+    	
+    	loc_tvJogos_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
+    	loc_tvJogos_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
+    	loc_tvJogos_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+    	
+    	loc_tvAcessorios_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
+    	loc_tvAcessorios_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+    	loc_tvAcessorios_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
+    	loc_tvAcessorios_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+    	
+    	loc_tvConsoles_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
+    	loc_tvConsoles_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+    	loc_tvConsoles_quantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+    	
     	
     }
     
     private void listar() {
     	try {
-        	venda_tvJogos.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoJogos).listarProdutos()));
-        	venda_tvConsoles.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoConsoles).listarProdutos()));
-        	venda_tvAcessorios.setItems(FXCollections.observableArrayList(new ProdutoDAO(nomeArquivoAcessorios).listarProdutos()));
+        	venda_tvJogos.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).listarProdutos()));
+        	venda_tvConsoles.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listarProdutos()));
+        	venda_tvAcessorios.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).listarProdutos()));
+        	
+        	loc_tvJogos.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc).listarProdutos()));
+        	loc_tvConsoles.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc).listarProdutos()));
+        	loc_tvAcessorios.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc).listarProdutos()));
         	
         	}catch(Exception e) {
         		e.printStackTrace();
         	}
     }
     private Produto getProdutoSelecionado() {
-    	if(paneJogos.isExpanded() && !venda_tvJogos.getSelectionModel().isEmpty()) {
-    		return venda_tvJogos.getSelectionModel().getSelectedItem();
-		 }else if(paneAcessorios.isExpanded() && !venda_tvAcessorios.getSelectionModel().isEmpty()) {
-			 return venda_tvAcessorios.getSelectionModel().getSelectedItem();
-		 }else if(paneConsoles.isExpanded() && !venda_tvConsoles.getSelectionModel().isEmpty()) {
-			 return venda_tvConsoles.getSelectionModel().getSelectedItem();
-		 }
+    	if(paneVenda.isExpanded()) {
+			if (paneVendaJogos.isExpanded() && !venda_tvJogos.getSelectionModel().isEmpty()) {
+				return venda_tvJogos.getSelectionModel().getSelectedItem();
+			} else if (paneVendaAcessorios.isExpanded() && !venda_tvAcessorios.getSelectionModel().isEmpty()) {
+				return venda_tvAcessorios.getSelectionModel().getSelectedItem();
+			} else if (paneVendaConsoles.isExpanded() && !venda_tvConsoles.getSelectionModel().isEmpty()) {
+				return venda_tvConsoles.getSelectionModel().getSelectedItem();
+			}
+    	}else if(paneLoc.isExpanded()) {
+			if (paneLocJogos.isExpanded() && !loc_tvJogos.getSelectionModel().isEmpty()) {
+				return loc_tvJogos.getSelectionModel().getSelectedItem();
+			} else if (paneLocAcessorios.isExpanded() && !loc_tvAcessorios.getSelectionModel().isEmpty()) {
+				return loc_tvAcessorios.getSelectionModel().getSelectedItem();
+			} else if (paneLocConsoles.isExpanded() && !loc_tvConsoles.getSelectionModel().isEmpty()) {
+				return loc_tvConsoles.getSelectionModel().getSelectedItem();
+			}	
+    	}
     	return null;
     }
 
