@@ -1,5 +1,7 @@
 package br.model;
 
+import java.util.Date;
+
 import br.interfaces.TratamentoDeDados;
 
 public class Infraestrutura implements TratamentoDeDados {
@@ -9,6 +11,8 @@ public class Infraestrutura implements TratamentoDeDados {
 	private String descricaoInfraestrutura = "";
 	private float precoDiaInfraestrutura = 0;
 	private String observacao = "";
+	private Date dataInicio = null;
+	private Date dataFim = null;
 
 
 	public Infraestrutura(int codInfraestrutura, String nomeInfraestrutura, String descricaoInfraestrutura,
@@ -25,6 +29,16 @@ public class Infraestrutura implements TratamentoDeDados {
 		this.nomeInfraestrutura = nomeInfraestrutura;
 		this.descricaoInfraestrutura = descricaoInfraestrutura;
 		this.precoDiaInfraestrutura = precoDiaInfraestrutura;
+	}
+	
+	
+	
+	//locação
+	public Infraestrutura(String nomeInfraestrutura, float precoDiaInfraestrutura, Date dataInicio, Date dataFim) {
+		this.nomeInfraestrutura = nomeInfraestrutura;
+		this.precoDiaInfraestrutura = precoDiaInfraestrutura;
+		this.dataInicio = dataInicio;
+		this.dataFim = dataFim;
 	}
 
 	public Infraestrutura() {
@@ -88,4 +102,13 @@ public class Infraestrutura implements TratamentoDeDados {
 		return observacao;
 	}
 
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	
 }
