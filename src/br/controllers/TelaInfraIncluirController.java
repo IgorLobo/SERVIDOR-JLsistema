@@ -51,19 +51,11 @@ public class TelaInfraIncluirController implements Initializable {
     void OnClick_btn_cadastrar(ActionEvent event) {
     	if(txf_nome.getText().isEmpty()||txf_valor.getText().isEmpty()||txa_descricao.getText().isEmpty()){
     		
-    		try {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Atenção");
 				alert.setHeaderText(null);
 				alert.setContentText("Preencha todos os campos!");
 				alert.show();
-			} catch (Exception erro) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Atenção");
-				alert.setHeaderText(null);
-				alert.setContentText(erro.getMessage());
-				alert.show();
-			}
     		
     	}else {
     	

@@ -13,9 +13,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class TelaClienteIncluirController implements Initializable {
 
@@ -76,11 +78,15 @@ public class TelaClienteIncluirController implements Initializable {
 
 	@FXML
 	void OnClick_btn_cancelar(ActionEvent event) {
-		limpar();
+		br.util.Janela.fecharJanela(btn_cancelar);
 	}
 
 	@FXML
 	void OnClick_btn_salvar(ActionEvent event) {
+		
+		if(Verificar()) Alertar();
+		
+		else {
 		try {
 			String nome = txf_nome.getText();
 			String cpf = txf_CPF.getText();
@@ -104,8 +110,10 @@ public class TelaClienteIncluirController implements Initializable {
 				arquivo.incluirCliente(cliente);
 				limpar();
 			}
+			br.util.Janela.fecharJanela(btn_cancelar);
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+		}
 		}
 	}
 //************************** METODOS AUXILIARES *********************
@@ -156,5 +164,40 @@ public class TelaClienteIncluirController implements Initializable {
 		txf_telefoneSecundario.setText(TelaClienteController.clienteSelecionado.getTelefone2Cliente());
 		cb_estados.getSelectionModel().select(TelaClienteController.clienteSelecionado.getEstadoCliente());
 		txf_CPF.setDisable(true);
+	}
+	private boolean Verificar() {
+		if(txf_nome.getText().isEmpty()||txf_CEP.getText().isEmpty()||txf_cidade.getText().isEmpty()||txf_CPF.getText().isEmpty()||txf_edereco.getText().isEmpty()||txf_email.getText().isEmpty()||txf_bairro.getText().isEmpty()||txf_telefone.getText().isEmpty()||cb_estados.getSelectionModel().isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	private String EmBraco() {
+		String vazio="";
+		if(txf_nome.getText().isEmpty()) vazio="Nome"
+				+ "\n";
+		if(txf_CEP.getText().isEmpty()) vazio+="CEP"
+				+ "\n";
+		if(txf_cidade.getText().isEmpty()) vazio+="Cidade"
+				+ "\n";
+		if(txf_CPF.getText().isEmpty()) vazio+="CPF"
+				+ "\n";
+		if(txf_edereco.getText().isEmpty()) vazio+="Endereço"
+				+ "\n";
+		if(txf_email.getText().isEmpty()) vazio+="Email"
+				+ "\n";
+		if(txf_bairro.getText().isEmpty()) vazio+="Bairro"
+				+ "\n";
+		if(txf_telefone.getText().isEmpty()) vazio+="Telefone"
+				+ "\n";
+		if(cb_estados.getSelectionModel().isEmpty()) vazio+="Estado"
+				+ "\n";
+		return vazio;
+	}
+	private void Alertar() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Atenção");
+		alert.setHeaderText(null);
+		alert.setContentText("Campos Obrigatórios sem Preenchimento:"+"\n"+EmBraco());
+		alert.show();
 	}
 }
