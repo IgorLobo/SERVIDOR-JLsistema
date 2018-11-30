@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import br.model.Validador;
 import br.model.Cliente;
 import br.persistencia.ClienteDAO;
 import br.util.MaskTextfield;
@@ -85,7 +86,7 @@ public class TelaClienteIncluirController implements Initializable {
 	void OnClick_btn_salvar(ActionEvent event) {
 		
 		if(Verificar()) Alertar();
-		
+		else if(VerificarCpf()==false) AlertaCpf("Cpf Invalido");
 		else {
 		try {
 			String nome = txf_nome.getText();
@@ -198,6 +199,18 @@ public class TelaClienteIncluirController implements Initializable {
 		alert.setTitle("Atenção");
 		alert.setHeaderText(null);
 		alert.setContentText("Campos Obrigatórios sem Preenchimento:"+"\n"+EmBraco());
+		alert.show();
+	}
+	private boolean VerificarCpf() {
+		Validador Cpf = new Validador(txf_CPF.getText());
+    	if(Cpf.isCPF()==false) return false;
+    	return true;
+	}
+	private void AlertaCpf(String valido) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Atenção");
+		alert.setHeaderText(null);
+		alert.setContentText(valido);
 		alert.show();
 	}
 }
