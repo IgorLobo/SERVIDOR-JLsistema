@@ -15,8 +15,9 @@ public class Produto implements TratamentoDeDados {
 	private String compatibilidade = "";
 	private int quantidade = 0;
 	private float subtotal;
-	private Date dataInicio = null;
-	private Date dataFim = null;
+	private String dataInicio = null;
+	private String dataFim = null;
+	private int dias = 0;
 
 	public Produto(int codProduto, String tipo, String nomeProduto, String descricao, String fabricante,
 			float valorUnitarioVenda, float valorUnitarioLocacao, String compatibilidade, int quantidade) {
@@ -42,7 +43,7 @@ public class Produto implements TratamentoDeDados {
 
 	// aluguel
 	public Produto(String nomeProduto, String tipo, String compatibilidade, float valorUnitarioVenda, int quantidade,
-			Date dataInicio, Date dataFim) {
+			String dataInicio, String dataFim) {
 		this.nomeProduto = nomeProduto;
 		this.setTipo(tipo);
 		this.compatibilidade = compatibilidade;
@@ -131,7 +132,7 @@ public class Produto implements TratamentoDeDados {
 		saida += this.descricao + ";";
 		saida += this.fabricante + ";";
 		saida += this.compatibilidade + ";";
-		saida += this.valorUnitarioVenda + ";";
+		saida += String.format("%.2f", this.valorUnitarioVenda) + ";";
 		saida += this.valorUnitarioLocacao + ";";
 		saida += this.quantidade + ";";
 		return saida;
@@ -244,14 +245,34 @@ public class Produto implements TratamentoDeDados {
 		this.subtotal = subtotal;
 	}
 
-	public Date getDataInicio() {
+	public String getDataInicio() {
 		return dataInicio;
 	}
 
-	public Date getDataFim() {
+	public String getDataFim() {
 		return dataFim;
 	}
-	
+
+	public void setDataInicio(String dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public void setDataFim(String dataFim) {
+		this.dataFim = dataFim;
+	}
+
+	public int getDias() {
+		return dias;
+	}
+
+	public void setDias(int dias) {
+		this.dias = dias;
+	}
+
+	public void decrementarQuantidade(int qntd) {
+		this.quantidade -= qntd;
+	}
+
 	
 
 }

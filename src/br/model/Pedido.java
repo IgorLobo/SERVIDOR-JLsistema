@@ -14,7 +14,7 @@ public class Pedido {
 	private int quantidadeProdutos = 0;
 	private int quantidadeInfraestrutura = 0;
 	private String tipoPedido = "Venda";
-	private Date dataLocal = null;
+	private String dataLocal = null;
 	private boolean pedidoConfirmado = false;
 	private float valorTotal = 0;
 
@@ -40,7 +40,7 @@ public class Pedido {
 
 	// tipo especifico para aluguel infra
 	public Pedido(Cliente cliente, ArrayList<Infraestrutura> infraestrutura, String formaPagamento, String tipoPedido,
-			Date dataLocal) {
+			String dataLocal) {
 		this.cliente = cliente;
 		this.infraestrutura = infraestrutura;
 		this.formaPagamento = formaPagamento;
@@ -69,7 +69,7 @@ public class Pedido {
 		return tipoPedido;
 	}
 
-	public Date getDataLocal() {
+	public String getDataLocal() {
 		return dataLocal;
 	}
 
@@ -187,7 +187,7 @@ public class Pedido {
 		for (int i = 0; i < this.quantidadeProdutos; i++) {
 			produto = new Produto(vetorString[4 + (i * 7)], vetorString[5 + (i * 7)], vetorString[6 + (i * 7)],
 					Float.parseFloat(vetorString[7 + (i * 7)]), Integer.parseInt(vetorString[8 + (i * 7)]),
-					formatoData.parse(vetorString[9 + (i * 7)]), formatoData.parse(vetorString[10 + (i * 7)]));
+					vetorString[9 + (i * 7)], vetorString[10 + (i * 7)]);
 			produtos.add(produto);
 		}
 		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);

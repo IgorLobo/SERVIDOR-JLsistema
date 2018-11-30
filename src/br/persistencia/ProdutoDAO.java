@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import br.interfaces.IProduto;
 import br.model.Produto;
@@ -96,6 +97,7 @@ public class ProdutoDAO implements IProduto {
 	@Override
 	public void alterarProduto(int codProduto, Produto produto) throws Exception {
 		try {
+			
 			ArrayList<Produto> listaDeClientes = this.listarProdutos();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
@@ -160,5 +162,55 @@ public class ProdutoDAO implements IProduto {
 		return null;
 	}
 
+	public Produto getProdutoLoc(int codProduto, int novoQnt, String dataInicio, String dataFinal,int diasDesejados) throws Exception {
+		try {
+			Locale.setDefault(Locale.US);
+			FileReader fileReader = new FileReader(nomeDoArquivo);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String linha = "";
+			while ((linha = bufferedReader.readLine()) != null) {
+				Produto produto = new Produto();
+				produto.materializar(linha);
+				if(produto.getCodProduto() == codProduto) {
+					produto.definirQuantidade(novoQnt);
+					produto.setDataInicio(dataInicio);
+					produto.setDataFim(dataFinal);
+					produto.setSubtotal(Float.parseFloat(String.format("%.2f", produto.getValorUnitarioVenda() * produto.getQuantidade() * diasDesejados)));
+					produto.setDias(diasDesejados);
+					return produto;
+				}
+			}
+			bufferedReader.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+		
+		
+		return null;
+	}
+
+	public void decrementarQuantidade(int codProduto, int qnt) throws Exception {
+		try {
+			ArrayList<Produto> listaDeClientes = this.listarProdutos();
+			// cria o arquivo
+			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
+			// Criar o buffer do arquivo
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			for (int posicao = 0; posicao < listaDeClientes.size(); posicao++) {
+				Produto produt = listaDeClientes.get(posicao);
+				if (!(produt.getCodProduto() == (codProduto))) {
+					bufferedWriter.write(produt.desmaterializar() + "\r\n");
+				} else {
+					produt.decrementarQuantidade(qnt);
+					int id = codProduto;
+					id--;
+					bufferedWriter.write(produt.desmaterializar(id) + "\r\n");
+				}
+			}
+			bufferedWriter.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+	}
 	
 }

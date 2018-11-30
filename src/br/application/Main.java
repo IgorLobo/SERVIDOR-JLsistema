@@ -1,5 +1,7 @@
 package br.application;
 	
+import java.util.Locale;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +16,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			Locale.setDefault(Locale.US);
 			Parent root = FXMLLoader.load(this.getClass().getResource("/br/view/TelaPrincipal.fxml"));
 			Scene scene = new Scene(root);
 			mainStage = primaryStage;

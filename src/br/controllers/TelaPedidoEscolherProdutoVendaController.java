@@ -167,21 +167,18 @@ public class TelaPedidoEscolherProdutoVendaController implements Initializable{
     	tv_jogos_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tv_jogos_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
     	tv_jogos_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
-    	tv_jogos_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
     	tv_jogos_tcQntd.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
     	tv_acessorios_tcID.setCellValueFactory(new PropertyValueFactory<>("codProduto"));
     	tv_acessorios_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tv_acessorios_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
     	tv_acessorios_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
-    	tv_acessorios_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
     	tv_acessorios_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
     	tv_acessorios_tcQntd.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
     	tv_consoles_tcID.setCellValueFactory(new PropertyValueFactory<>("codProduto"));
     	tv_consoles_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tv_consoles_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
-    	tv_consoles_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
     	tv_consoles_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
     	tv_consoles_tcQntd.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	

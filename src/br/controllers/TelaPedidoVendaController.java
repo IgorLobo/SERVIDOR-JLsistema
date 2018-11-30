@@ -13,6 +13,7 @@ import br.model.Cliente;
 import br.model.Pedido;
 import br.model.Produto;
 import br.persistencia.PedidoVendaDAO;
+import br.persistencia.ProdutoDAO;
 import br.util.Janela;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -120,13 +121,35 @@ public class TelaPedidoVendaController implements Initializable{
 
     @FXML
     void OnClick_btn_finalizar(ActionEvent event) {
+    	if(cb_pagamento.getSelectionModel().isEmpty() || obsProdutos.isEmpty()) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Atenção");
+			alert.setHeaderText(null);
+			alert.setContentText("Selecione um método de pagamento.");
+			if(obsProdutos.isEmpty())alert.setContentText("Adicione produtos á lista");
+			alert.show();
+    	}else {
     	try{
     	Pedido pedido = new Pedido(cliente, new ArrayList<Produto>(obsProdutos), cb_pagamento.getSelectionModel().getSelectedItem().toString());
     	new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).incluirPedido(pedido);
+    	for (Produto produto : obsProdutos) {
+			switch (produto.getTipo()) {
+			case "Jogo":
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).decrementarQuantidade(produto.getCodProduto(), produto.getQuantidade());
+				break;
+			case "Acessorio":
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).decrementarQuantidade(produto.getCodProduto(), produto.getQuantidade());
+				break;
+			case "Console":
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).decrementarQuantidade(produto.getCodProduto(), produto.getQuantidade());
+				break;
+			}
+		}
     	obsProdutos.clear();
     	br.util.Janela.fecharJanela(btn_finalizar);
     	}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção", JOptionPane.INFORMATION_MESSAGE);
+    	}
     	}
     }
 

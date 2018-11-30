@@ -1,15 +1,15 @@
 package br.controllers;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 import br.model.Produto;
 import br.persistencia.ProdutoDAO;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +30,7 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 	private ObservableList<Produto> listJogos;
 	private ObservableList<Produto> listAcessorios;
 	private ObservableList<Produto> listConsoles;
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
 //*********************** COMPONENTES *******************************	
 		@FXML
@@ -48,20 +49,26 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 	    private TableView<Produto> tv_jogos;
 
 	    @FXML
+	    private TableColumn<Produto, Integer> tv_jogos_tcID;
+	    
+	    @FXML
 	    private TableColumn<Produto, String> tv_jogos_tcNome;
 
 	    @FXML
 	    private TableColumn<Produto, String> tv_jogos_tcCompatibilidade;
 
 	    @FXML
-	    private TableColumn<Produto, Double> tv_jogos_tcValVenda;
-
-	    @FXML
 	    private TableColumn<Produto, Double> tv_jogos_tcValLoc;
 
 	    @FXML
+	    private TableColumn<Produto, Integer> tv_jogos_tcQntd;
+	    
+	    @FXML
 	    private TableView<Produto> tv_acessorios;
 
+	    @FXML
+	    private TableColumn<Produto, Integer> tv_acessorios_tcID;
+	    
 	    @FXML
 	    private TableColumn<Produto, String> tv_acessorios_tcNome;
 
@@ -72,14 +79,17 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 	    private TableColumn<Produto, String> tv_acessorios_fabricante;
 
 	    @FXML
-	    private TableColumn<Produto, Double> tv_acessorios_tcValVenda;
-
-	    @FXML
 	    private TableColumn<Produto, Double> tv_acessorios_tcValLoc;
 
 	    @FXML
+	    private TableColumn<Produto, Integer> tv_acessorios_tcQntd;
+	    
+	    @FXML
 	    private TableView<Produto> tv_consoles;
 
+	    @FXML
+	    private TableColumn<Produto, Integer> tv_consoles_tcID;
+	    
 	    @FXML
 	    private TableColumn<Produto, String> tv_consoles_tcNome;
 
@@ -87,10 +97,10 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 	    private TableColumn<Produto, String> tv_consoles_fabricante;
 
 	    @FXML
-	    private TableColumn<Produto, Double> tv_consoles_tcValVenda;
-
-	    @FXML
 	    private TableColumn<Produto, Double> tv_consoles_tcValLoc;
+	    
+	    @FXML
+	    private TableColumn<Produto, Integer> tv_consoles_tcQntd;
 	   
 	    @FXML
 	    private DatePicker date_inicio;
@@ -113,37 +123,49 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableViews();
 		date_inicio.setValue(LocalDate.now());
+		date_inicio.setMouseTransparent(true);
+		
 	}
 
 	 @FXML
 	 void OnClick_btn_adicionar(ActionEvent event) {
 		 try {
-			 Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Atenção");
-			alert.setHeaderText(null);
-			
+			 
 		 if(paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()&& validaCamposObrigatorios()) {
 			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_jogos.getSelectionModel().getSelectedItem().getQuantidade()) && validaProduto(tv_jogos.getSelectionModel().getSelectedItem())) {
 			 TelaPedidoLocController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc)
-					 .getProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto(),Integer.parseInt(txf_qnt.getText())));
+					 .getProdutoLoc(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto(),
+							 Integer.parseInt(txf_qnt.getText()),pegarData(date_inicio),pegarData(date_fim),
+							 calcularDias()));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 			 }
 		 }else if(paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty() && validaCamposObrigatorios()) {
 			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_acessorios.getSelectionModel().getSelectedItem().getQuantidade())&& validaProduto(tv_acessorios.getSelectionModel().getSelectedItem())) {
 			 TelaPedidoLocController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc)
-					 .getProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto(),Integer.parseInt(txf_qnt.getText())));
+					 .getProdutoLoc(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto(),
+							 Integer.parseInt(txf_qnt.getText()),pegarData(date_inicio),pegarData(date_fim),
+							 calcularDias()));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 			 }
 		 }else if(paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty() && validaCamposObrigatorios()) {
 			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_consoles.getSelectionModel().getSelectedItem().getQuantidade())&& validaProduto(tv_consoles.getSelectionModel().getSelectedItem())) {
 			 TelaPedidoLocController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc)
-					 .getProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto(),Integer.parseInt(txf_qnt.getText())));
+					 .getProdutoLoc(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto(),
+							 Integer.parseInt(txf_qnt.getText()),pegarData(date_inicio),pegarData(date_fim),calcularDias()));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 			 }
 		 }else {
-			alert.setContentText("Escolha um produto!");
-			if(!txf_qnt.getText().isEmpty())alert.setContentText("Defina a quantidade desejada!");
-			alert.show();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Atenção");
+				alert.setHeaderText(null);
+				alert.setContentText("Escolha um produto!");
+				if(date_fim.getValue() == null)alert.setContentText("Defina uma data fim");
+				if(date_inicio.getValue() == null)alert.setContentText("Defina uma data inicio");
+				if(txf_qnt.getText().isEmpty())alert.setContentText("Defina a quantidade desejada!");
+				if(date_inicio.getValue().isAfter(date_fim.getValue()))alert.setContentText("A data inicio não pode ser posterior á data fim");
+				if(date_inicio.getValue().isBefore(LocalDate.now()))alert.setContentText("A data inicio não pode ser anterior á data atual");
+				if( date_inicio.getValue().isEqual(date_fim.getValue()))alert.setContentText("A data fim não pode ser a mesma da data de hoje");
+				alert.show();
 		 }
 		 }catch(Exception e) {
 			 e.printStackTrace();
@@ -152,27 +174,40 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 
 	 @FXML
     void OnClick_btn_cancelar(ActionEvent event) {
-		System.out.println(pegarData(date_inicio));
-		 //br.util.Janela.fecharJanela(btn_cancelar);
+		br.util.Janela.fecharJanela(btn_cancelar);
    }
 
 //************************** METODOS AUXILIARES *********************
     private void prepararTableViews() {
+    	tv_jogos_tcID.setCellValueFactory(new PropertyValueFactory<>("codProduto"));
     	tv_jogos_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tv_jogos_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
-    	tv_jogos_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
     	tv_jogos_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
+    	tv_jogos_tcQntd.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
+    	tv_acessorios_tcID.setCellValueFactory(new PropertyValueFactory<>("codProduto"));
     	tv_acessorios_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tv_acessorios_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
     	tv_acessorios_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
     	tv_acessorios_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
-    	tv_acessorios_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
+    	tv_acessorios_tcQntd.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	
+    	tv_consoles_tcID.setCellValueFactory(new PropertyValueFactory<>("codProduto"));
     	tv_consoles_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tv_consoles_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
     	tv_consoles_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
-    	tv_consoles_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
+    	tv_consoles_tcQntd.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+    	
+    	try {
+        	listJogos = FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc).listarProdutos());
+    		listAcessorios = FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc).listarProdutos());
+    		listConsoles =  FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc).listarProdutos());
+    		tv_jogos.setItems(FXCollections.observableArrayList(listJogos));
+    		tv_acessorios.setItems(FXCollections.observableArrayList(listAcessorios));
+    		tv_consoles.setItems(FXCollections.observableArrayList(listConsoles));
+        	}catch(Exception e) {
+        		e.printStackTrace();
+        	}
     }
     
     private boolean validaQnt(int qntDesejada,int qntEstoque) {
@@ -204,25 +239,17 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
     }
     
     private boolean validaCamposObrigatorios() {
-    	
-    	Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Atenção");
-		alert.setHeaderText(null);
-		if(date_inicio.getValue().isBefore(LocalDate.now()) || date_fim.getValue() == null|| date_inicio.getValue() == null || date_inicio.getValue().isAfter(date_fim.getValue())) {
-		if(date_fim.getValue() == null)alert.setContentText("Defina uma data fim");
-		if(date_inicio.getValue() == null)alert.setContentText("Defina uma data inicio");
-		if(date_inicio.getValue().isAfter(date_fim.getValue()))alert.setContentText("A data inicio não pode ser posterior á data fim");
-		if(date_inicio.getValue().isBefore(LocalDate.now()))alert.setContentText("A data inicio não pode ser anterior á data atual");;
-		alert.show();
-		return false;
-		}
+		if(date_inicio.getValue().isBefore(LocalDate.now()) || date_fim.getValue() == null||
+				date_inicio.getValue() == null || date_inicio.getValue().isAfter(date_fim.getValue())
+				|| date_inicio.getValue().isEqual(date_fim.getValue()))	return false;
     	return  true;
     }
     
-    private Date pegarData(DatePicker date) {
-    	Calendar c = Calendar.getInstance();
-    	c.set(date.getValue().getYear(), date.getValue().getMonthValue(), date.getValue().getDayOfMonth());
-    	return c.getTime();
+    private String pegarData(DatePicker date) {
+    	return date.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
-
+    
+    private int calcularDias() {
+    	return (int) ChronoUnit.DAYS.between(date_inicio.getValue(), date_fim.getValue());
+    }
 }

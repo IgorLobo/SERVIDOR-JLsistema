@@ -25,6 +25,7 @@ public class TelaPrincipalController implements Initializable {
 	public static String nomeArquivoAcessoriosLoc = caminhoTxtBancoDados + "AcessoriosLoc.csv";
 	public static String nomeArquivoConsolesLoc = caminhoTxtBancoDados + "ConsolesLoc.csv";
 	public static String nomeArquivoPedidoVenda = caminhoTxtBancoDados + "PedidosVenda.csv";
+	public static String nomeArquivoPedidoLoc = caminhoTxtBancoDados + "PedidosLoc.csv";
 
 //*********************** COMPONENTES *******************************	
 	// Toolbar--
