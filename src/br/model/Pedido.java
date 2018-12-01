@@ -34,11 +34,13 @@ public class Pedido {
 	}
 
 	// tipo especifico para aluguel produto
-	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento, String tipoPedido) {
+	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento, Float valorTotal, String tipoPedido,String date) {
 		this.cliente = cliente;
 		this.produtos = produtos;
 		this.formaPagamento = formaPagamento;
 		this.tipoPedido = tipoPedido;
+		this.valorTotal = valorTotal;
+		this.dataLocal = date;
 	}
 
 	// tipo especifico para aluguel infra

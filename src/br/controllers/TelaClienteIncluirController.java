@@ -5,10 +5,10 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
-import br.model.Validador;
 import br.model.Cliente;
 import br.persistencia.ClienteDAO;
 import br.util.MaskTextfield;
+import br.util.Validador;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

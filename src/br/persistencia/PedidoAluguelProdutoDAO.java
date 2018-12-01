@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import br.interfaces.IPedidos;
 import br.model.Pedido;
@@ -15,6 +16,7 @@ public class PedidoAluguelProdutoDAO implements IPedidos {
 
 	public PedidoAluguelProdutoDAO(String nomeDoArquivo) {
 		this.nomeDoArquivo = nomeDoArquivo;
+		Locale.setDefault(Locale.US);
 	}
 
 	@Override

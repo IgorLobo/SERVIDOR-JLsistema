@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import br.interfaces.IInfraestrutura;
 import br.model.Cliente;
@@ -15,6 +16,7 @@ public class InfraestruturaDAO implements IInfraestrutura {
 
 	public InfraestruturaDAO(String nomeDoArquivo) {
 		this.nomeDoArquivo = nomeDoArquivo;
+		Locale.setDefault(Locale.US);
 	}
 
 	@Override

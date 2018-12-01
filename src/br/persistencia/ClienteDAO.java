@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import br.interfaces.ICliente;
 import br.model.Cliente;
@@ -15,6 +16,8 @@ public class ClienteDAO implements ICliente {
 
 	public ClienteDAO(String nomeDoArquivo) {
 		this.nomeDoArquivo = nomeDoArquivo;
+
+		Locale.setDefault(Locale.US);
 	}
 
 	@Override

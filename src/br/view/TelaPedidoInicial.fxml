@@ -37,6 +37,7 @@
                               <TableColumn fx:id="tvVenda_data" maxWidth="80.0" minWidth="80.0" resizable="false" text="Data" />
                               <TableColumn fx:id="tvVenda_cliente" prefWidth="164.0" text="Cliente" />
                               <TableColumn fx:id="tvVenda_valorTotal" maxWidth="80.0" minWidth="80.0" resizable="false" text="VT" />
+                              <TableColumn fx:id="tvVenda_pagamento" maxWidth="80.0" minWidth="80.0" resizable="false" text="Pagamento" />
                               <TableColumn fx:id="tvVenda_finalizado" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" resizable="false" text="Finalizado" />
                            </columns>
                            <columnResizePolicy>
@@ -57,6 +58,7 @@
                               <TableColumn fx:id="tvLoc_data" maxWidth="80.0" minWidth="80.0" resizable="false" text="Data" />
                               <TableColumn fx:id="tvLoc_cliente" prefWidth="164.0" text="Cliente" />
                               <TableColumn fx:id="tvLoc_valorTotal" maxWidth="80.0" minWidth="80.0" resizable="false" text="VT" />
+                              <TableColumn fx:id="tvLoc_pagamento" maxWidth="80.0" minWidth="80.0" resizable="false" text="Pagamento" />
                               <TableColumn fx:id="tvLoc_finalizado" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" resizable="false" text="Finalizado" />
                            </columns>
                            <columnResizePolicy>

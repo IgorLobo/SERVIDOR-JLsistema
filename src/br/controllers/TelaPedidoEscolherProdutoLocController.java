@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import br.model.Produto;
@@ -122,6 +123,7 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableViews();
+		Locale.setDefault(new Locale("pt", "BR"));
 		date_inicio.setValue(LocalDate.now());
 		date_inicio.setMouseTransparent(true);
 	}

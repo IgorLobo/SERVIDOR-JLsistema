@@ -126,7 +126,8 @@ public class TelaPedidoLocController implements Initializable{
 			alert.show();
     	}else {
     	try{
-    	Pedido pedido = new Pedido(cliente, new ArrayList<Produto>(obsProdutos), cb_pagamento.getSelectionModel().getSelectedItem().toString(),"Aluguel");
+    	Pedido pedido = new Pedido(cliente, new ArrayList<Produto>(obsProdutos),
+    			cb_pagamento.getSelectionModel().getSelectedItem().toString(),Float.parseFloat(lb_precoTotalPedido.getText()),"Aluguel", txf_data.getText());
     	new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoLoc).incluirPedido(pedido);
     	for (Produto produto : obsProdutos) {
 			switch (produto.getTipo()) {
@@ -166,7 +167,7 @@ public class TelaPedidoLocController implements Initializable{
     private void prepararTableView() {
     	tc_nome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
     	tc_compatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
-    	tc_precoUnid.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
+    	tc_precoUnid.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
     	tc_tipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
     	tc_qnt.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
     	tc_precoTotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));

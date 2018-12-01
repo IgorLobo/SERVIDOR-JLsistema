@@ -95,7 +95,7 @@
                   <Button fx:id="btn_adicionar" maxWidth="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#OnClick_btn_adicionar" prefWidth="80.0" text="Adicionar" ButtonBar.buttonData="RIGHT" />
                   <Button fx:id="btn_cancelar" maxWidth="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" prefWidth="80.0" text="Cancelar" ButtonBar.buttonData="LEFT" />
                   <DatePicker fx:id="date_inicio" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" promptText="Data inicio" />
-                  <DatePicker fx:id="date_fim" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" promptText="Data inicio" />
+                  <DatePicker fx:id="date_fim" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" promptText="Data fim" />
                   <Label maxWidth="30.0" minWidth="30.0" prefHeight="17.0" prefWidth="30.0" text="Qnt:" />
                   <TextField fx:id="txf_qnt" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
                </buttons>

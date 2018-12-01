@@ -43,6 +43,9 @@ public class TelaPedidoInicial implements Initializable{
 
     @FXML
     private TableColumn<Pedido, Float> tvVenda_valorTotal;
+    
+    @FXML
+    private TableColumn<Pedido, Float> tvVenda_pagamento;
 
     @FXML
     private TableColumn<Pedido, Boolean> tvVenda_finalizado;
@@ -64,6 +67,9 @@ public class TelaPedidoInicial implements Initializable{
 
     @FXML
     private TableColumn<Pedido, Float> tvLoc_valorTotal;
+    
+    @FXML
+    private TableColumn<Pedido, String> tvLoc_pagamento;
 
     @FXML
     private TableColumn<Pedido, Boolean> tvLoc_finalizado;
@@ -116,11 +122,11 @@ public class TelaPedidoInicial implements Initializable{
     	try {
     	if(paneVenda.isExpanded() && !tvVenda.getSelectionModel().isEmpty()) {
     		new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).excluirPedido(tvVenda.getSelectionModel().getSelectedItem().getCodPedido());
-    		obsLoc.remove(tvLoc.getSelectionModel().getSelectedItem());
+    		tvVenda.setItems(FXCollections.observableArrayList(new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).listarPedidos()));
     	}
     	if(paneLoc.isExpanded() && !tvLoc.getSelectionModel().isEmpty()) {
     		new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLoc).excluirPedido(tvLoc.getSelectionModel().getSelectedItem().getCodPedido());
-    	obsLoc.remove(tvLoc.getSelectionModel().getSelectedItem());
+    	tvLoc.setItems(FXCollections.observableArrayList(new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLoc).listarPedidos()));
     	}
     	}catch(Exception e) {
     		e.printStackTrace();
@@ -139,12 +145,14 @@ public class TelaPedidoInicial implements Initializable{
 		tvLoc_data.setCellValueFactory(new PropertyValueFactory<>("dataLocal"));
 		tvLoc_ID.setCellValueFactory(new PropertyValueFactory<>("codPedido"));
 		tvLoc_valorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+		tvLoc_pagamento.setCellValueFactory(new PropertyValueFactory<>("formaPagamento"));
 		tvLoc_finalizado.setCellValueFactory(new PropertyValueFactory<>("pedidoConfirmado"));
    
 		tvVenda_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 		tvVenda_data.setCellValueFactory(new PropertyValueFactory<>("dataLocal"));
 		tvVenda_ID.setCellValueFactory(new PropertyValueFactory<>("codPedido"));
 		tvVenda_valorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+		tvVenda_pagamento.setCellValueFactory(new PropertyValueFactory<>("formaPagamento"));
 		tvVenda_finalizado.setCellValueFactory(new PropertyValueFactory<>("pedidoConfirmado"));
     
 		tvLoc.setItems(obsLoc);

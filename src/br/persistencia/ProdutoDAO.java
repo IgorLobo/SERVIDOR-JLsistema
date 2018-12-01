@@ -16,6 +16,7 @@ public class ProdutoDAO implements IProduto {
 
 	public ProdutoDAO(String nomeDoArquivo) {
 		this.nomeDoArquivo = nomeDoArquivo;
+		Locale.setDefault(Locale.US);
 	}
 
 	@Override
@@ -175,7 +176,7 @@ public class ProdutoDAO implements IProduto {
 					produto.definirQuantidade(novoQnt);
 					produto.setDataInicio(dataInicio);
 					produto.setDataFim(dataFinal);
-					produto.setSubtotal(Float.parseFloat(String.format("%.2f", produto.getValorUnitarioVenda() * produto.getQuantidade() * diasDesejados)));
+					produto.setSubtotal(Float.parseFloat(String.format("%.2f", produto.getValorUnitarioLocacao() * produto.getQuantidade() * diasDesejados)));
 					produto.setDias(diasDesejados);
 					return produto;
 				}
