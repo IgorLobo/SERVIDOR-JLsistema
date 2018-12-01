@@ -18,12 +18,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class TelaPedidoEscolherProdutoLocController implements Initializable{
 
@@ -126,6 +128,7 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 		Locale.setDefault(new Locale("pt", "BR"));
 		date_inicio.setValue(LocalDate.now());
 		date_inicio.setMouseTransparent(true);
+		checkDataAtual();
 	}
 
 	 @FXML
@@ -253,4 +256,25 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
     private int calcularDias() {
     	return (int) ChronoUnit.DAYS.between(date_inicio.getValue(), date_fim.getValue());
     }
+    
+    private void checkDataAtual() {
+
+		final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+			@Override
+			public DateCell call(final DatePicker datePicker) {
+				return new DateCell() {
+					@Override
+					public void updateItem(LocalDate item, boolean empty) {
+						super.updateItem(item, empty);
+
+						if (item.isBefore(date_inicio.getValue().plusDays(1))) {
+							setDisable(true);
+							setStyle("-fx-background-color: #ffc0cb;");
+						}
+					}
+				};
+			}
+		};
+		date_fim.setDayCellFactory(dayCellFactory);
+	}
 }

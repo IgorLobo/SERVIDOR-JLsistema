@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import br.model.Cliente;
 import br.model.Pedido;
 import br.model.Produto;
+import br.persistencia.PedidoAluguelProdutoDAO;
 import br.persistencia.PedidoVendaDAO;
 import br.persistencia.ProdutoDAO;
 import br.util.Janela;
@@ -128,7 +129,7 @@ public class TelaPedidoLocController implements Initializable{
     	try{
     	Pedido pedido = new Pedido(cliente, new ArrayList<Produto>(obsProdutos),
     			cb_pagamento.getSelectionModel().getSelectedItem().toString(),Float.parseFloat(lb_precoTotalPedido.getText()),"Aluguel", txf_data.getText());
-    	new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoLoc).incluirPedido(pedido);
+    	new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLoc).incluirPedido(pedido);
     	for (Produto produto : obsProdutos) {
 			switch (produto.getTipo()) {
 			case "Jogo":
