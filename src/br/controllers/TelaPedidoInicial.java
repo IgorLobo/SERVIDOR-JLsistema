@@ -84,11 +84,6 @@ public class TelaPedidoInicial implements Initializable{
     @FXML
     private Button btn_incluir;
 
-    @FXML
-    private ComboBox<String> cb_tipo;
-
-    @FXML
-    private ComboBox<String> cb_pagamento;
 
     @FXML
     private Button btn_excluir;

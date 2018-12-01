@@ -13,22 +13,7 @@ import javafx.stage.Stage;
 
 public class Janela {
 
-	public void novaJanelaComOwner(String caminhoFXML,boolean resizable) {
-		try {
-			Parent root;
-			root = FXMLLoader.load(getClass().getResource(caminhoFXML));
-		    Scene scene = new Scene(root);
-		    Stage stage = new Stage();
-		    stage.setScene(scene);
-		    stage.getIcons().add(new Image("/br/images/JLsistemaLOGO.png"));
-		    stage.setResizable(resizable);
-		    stage.initOwner(Main.mainStage);
-		    stage.initModality(Modality.APPLICATION_MODAL);
-		    stage.show();
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
+	
 	
 	public void novaJanelaComOwner(String caminhoFXML,boolean resizable,String nomeDaJanela) {
 		try {

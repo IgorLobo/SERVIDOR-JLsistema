@@ -57,7 +57,7 @@ public class TelaPedidoEscolherClienteController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableView();
-		cb_tipo.setItems(FXCollections.observableArrayList("Venda","Locação"));
+		cb_tipo.setItems(FXCollections.observableArrayList("Venda","Locação", "Infraestrutura"));
 	}
 	
 	@FXML
@@ -66,11 +66,13 @@ public class TelaPedidoEscolherClienteController implements Initializable {
 		if(!cb_tipo.getSelectionModel().isEmpty() && !tableView_cliente.getSelectionModel().isEmpty()){
 			clienteSelecionado = tableView_cliente.getSelectionModel().getSelectedItem();
 			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Venda")) {
-				janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoVenda.fxml", false);
-				TelaPedidoVendaController.cliente = tableView_cliente.getSelectionModel().getSelectedItem();
+				janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoVenda.fxml", false, "Pedido de venda");
 			}
 			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Locação")) {
-				janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoLoc.fxml", false);
+				janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoLoc.fxml", false, "Pedido de locação");
+			}
+			if(cb_tipo.getSelectionModel().getSelectedItem().toString().equals("Infraestrutura")) {
+				janelaUtil.novaJanelaComOwner("/br/view/TelaPedidoInfra.fxml", false , "Pedido de infraestrutura");
 			}
 			br.util.Janela.fecharJanela(btn_abrirPedido);
 		}else {
