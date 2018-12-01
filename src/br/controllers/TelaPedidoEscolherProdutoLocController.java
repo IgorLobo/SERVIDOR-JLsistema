@@ -124,7 +124,6 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 		prepararTableViews();
 		date_inicio.setValue(LocalDate.now());
 		date_inicio.setMouseTransparent(true);
-		
 	}
 
 	 @FXML

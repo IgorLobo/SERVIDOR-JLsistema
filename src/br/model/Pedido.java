@@ -24,10 +24,13 @@ public class Pedido {
 	private ArrayList<Produto> produtos = new ArrayList<>();
 
 	// tipo especifico para venda de produto
-	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento) {
+	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento, Float valorTotal,String date) {
 		this.cliente = cliente;
 		this.produtos = produtos;
 		this.formaPagamento = formaPagamento;
+		this.valorTotal = valorTotal;
+		this.pedidoConfirmado = true;
+		this.dataLocal = date;
 	}
 
 	// tipo especifico para aluguel produto

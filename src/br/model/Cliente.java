@@ -175,4 +175,10 @@ public class Cliente implements TratamentoDeDados {
 		return cidadeCliente;
 	}
 
+	@Override
+	public String toString() {
+		return nomeCliente;
+	}
+
+	
 }

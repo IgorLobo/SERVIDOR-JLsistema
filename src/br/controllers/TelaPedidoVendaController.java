@@ -130,7 +130,8 @@ public class TelaPedidoVendaController implements Initializable{
 			alert.show();
     	}else {
     	try{
-    	Pedido pedido = new Pedido(cliente, new ArrayList<Produto>(obsProdutos), cb_pagamento.getSelectionModel().getSelectedItem().toString());
+    	Pedido pedido = new Pedido(cliente, new ArrayList<Produto>(obsProdutos),
+    			cb_pagamento.getSelectionModel().getSelectedItem().toString(),Float.parseFloat(lb_precoTotalPedido.getText()), txf_data.getText());
     	new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).incluirPedido(pedido);
     	for (Produto produto : obsProdutos) {
 			switch (produto.getTipo()) {
