@@ -116,7 +116,7 @@ public class TelaInfraController implements Initializable {
 
     @FXML
     void OnClick_btn_observacao(ActionEvent event) {
-    	listar();
+    	utilJanela.novaJanelaComOwner("/br/view/TelaInfraDetalhes.fxml", false, "Detalhes da sala");
     }
 
 

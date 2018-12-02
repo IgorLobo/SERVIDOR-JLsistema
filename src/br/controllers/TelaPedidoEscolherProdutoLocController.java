@@ -125,37 +125,32 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableViews();
-		Locale.setDefault(new Locale("pt", "BR"));
-		date_inicio.setValue(LocalDate.now());
-		date_inicio.setMouseTransparent(true);
-		checkDataAtual();
 	}
 
 	 @FXML
 	 void OnClick_btn_adicionar(ActionEvent event) {
 		 try {
 			 
-		 if(paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()&& validaCamposObrigatorios()) {
+		 if(paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()) {
 			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_jogos.getSelectionModel().getSelectedItem().getQuantidade()) && validaProduto(tv_jogos.getSelectionModel().getSelectedItem())) {
 			 TelaPedidoLocController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc)
 					 .getProdutoLoc(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto(),
-							 Integer.parseInt(txf_qnt.getText()),pegarData(date_inicio),pegarData(date_fim),
-							 calcularDias()));
+							 Integer.parseInt(txf_qnt.getText()),TelaPedidoLocController.dias));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 			 }
-		 }else if(paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty() && validaCamposObrigatorios()) {
+		 }else if(paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty()) {
 			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_acessorios.getSelectionModel().getSelectedItem().getQuantidade())&& validaProduto(tv_acessorios.getSelectionModel().getSelectedItem())) {
 			 TelaPedidoLocController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc)
 					 .getProdutoLoc(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto(),
-							 Integer.parseInt(txf_qnt.getText()),pegarData(date_inicio),pegarData(date_fim),
-							 calcularDias()));
+							 Integer.parseInt(txf_qnt.getText()),
+							 TelaPedidoLocController.dias));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 			 }
-		 }else if(paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty() && validaCamposObrigatorios()) {
+		 }else if(paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty()) {
 			 if(validaQnt(Integer.parseInt(txf_qnt.getText()), tv_consoles.getSelectionModel().getSelectedItem().getQuantidade())&& validaProduto(tv_consoles.getSelectionModel().getSelectedItem())) {
 			 TelaPedidoLocController.obsProdutos.add(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc)
 					 .getProdutoLoc(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto(),
-							 Integer.parseInt(txf_qnt.getText()),pegarData(date_inicio),pegarData(date_fim),calcularDias()));
+							 Integer.parseInt(txf_qnt.getText()),TelaPedidoLocController.dias));
 			 br.util.Janela.fecharJanela(btn_adicionar);
 			 }
 		 }else {
@@ -215,7 +210,7 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
     }
     
     private boolean validaQnt(int qntDesejada,int qntEstoque) {
-    	if(qntDesejada <= (qntEstoque-1)) {
+    	if(qntDesejada <= (qntEstoque)) {
     		return true;
     	}
     	
@@ -242,39 +237,12 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
     	return true;
     }
     
-    private boolean validaCamposObrigatorios() {
-		if(date_inicio.getValue().isBefore(LocalDate.now()) || date_fim.getValue() == null||
-				date_inicio.getValue() == null || date_inicio.getValue().isAfter(date_fim.getValue())
-				|| date_inicio.getValue().isEqual(date_fim.getValue()))	return false;
-    	return  true;
-    }
+  
     
-    private String pegarData(DatePicker date) {
+    /*private String pegarData(DatePicker date) {
     	return date.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    }
+    }*/
     
-    private int calcularDias() {
-    	return (int) ChronoUnit.DAYS.between(date_inicio.getValue(), date_fim.getValue());
-    }
     
-    private void checkDataAtual() {
-
-		final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
-			@Override
-			public DateCell call(final DatePicker datePicker) {
-				return new DateCell() {
-					@Override
-					public void updateItem(LocalDate item, boolean empty) {
-						super.updateItem(item, empty);
-
-						if (item.isBefore(date_inicio.getValue().plusDays(1))) {
-							setDisable(true);
-							setStyle("-fx-background-color: #ffc0cb;");
-						}
-					}
-				};
-			}
-		};
-		date_fim.setDayCellFactory(dayCellFactory);
-	}
+	
 }

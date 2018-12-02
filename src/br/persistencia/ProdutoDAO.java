@@ -163,7 +163,7 @@ public class ProdutoDAO implements IProduto {
 		return null;
 	}
 
-	public Produto getProdutoLoc(int codProduto, int novoQnt, String dataInicio, String dataFinal,int diasDesejados) throws Exception {
+	public Produto getProdutoLoc(int codProduto, int novoQnt,int diasDesejados) throws Exception {
 		try {
 			Locale.setDefault(Locale.US);
 			FileReader fileReader = new FileReader(nomeDoArquivo);
@@ -174,8 +174,6 @@ public class ProdutoDAO implements IProduto {
 				produto.materializar(linha);
 				if(produto.getCodProduto() == codProduto) {
 					produto.definirQuantidade(novoQnt);
-					produto.setDataInicio(dataInicio);
-					produto.setDataFim(dataFinal);
 					produto.setSubtotal(Float.parseFloat(String.format("%.2f", produto.getValorUnitarioLocacao() * produto.getQuantidade() * diasDesejados)));
 					produto.setDias(diasDesejados);
 					return produto;

@@ -14,8 +14,8 @@ public class Pedido {
 	private int quantidadeProdutos = 0;
 	private int quantidadeInfraestrutura = 0;
 	private String tipoPedido = "Venda";
-	private String dataLocal = "";
-	private String dataAluguel = "";
+	private String dataInicio = "";
+	private String dataFim = "";
 	private boolean pedidoConfirmado = false;
 	private float valorTotal = 0;
 
@@ -31,17 +31,18 @@ public class Pedido {
 		this.formaPagamento = formaPagamento;
 		this.valorTotal = valorTotal;
 		this.pedidoConfirmado = true;
-		this.dataLocal = date;
+		this.dataInicio = date;
 	}
 
 	// tipo especifico para aluguel produto
-	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento, Float valorTotal, String tipoPedido,String date) {
+	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento, Float valorTotal, String tipoPedido,String dateInicio, String dateFim) {
 		this.cliente = cliente;
 		this.produtos = produtos;
 		this.formaPagamento = formaPagamento;
 		this.tipoPedido = tipoPedido;
 		this.valorTotal = valorTotal;
-		this.dataLocal = date;
+		this.dataInicio = dateInicio;
+		this.dataFim = dateFim;
 	}
 
 	// tipo especifico para aluguel infra
@@ -51,7 +52,7 @@ public class Pedido {
 		this.infraestrutura = infraestrutura;
 		this.formaPagamento = formaPagamento;
 		this.tipoPedido = tipoPedido;
-		this.dataAluguel = dataAluguel;
+		this.dataFim = dataAluguel;
 	}
 
 	public Pedido() {
@@ -76,7 +77,7 @@ public class Pedido {
 	}
 
 	public String getDataLocal() {
-		return dataLocal;
+		return dataInicio;
 	}
 
 	public boolean isPedidoConfirmado() {
@@ -134,7 +135,7 @@ public class Pedido {
 					Float.parseFloat(vetorString[7 + (i * 5)]), Integer.parseInt(vetorString[8 + (i * 5)]));
 			produtos.add(produto);
 		}
-		this.dataLocal = vetorString[vetorString.length-4];
+		this.dataInicio = vetorString[vetorString.length-4];
 		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
@@ -156,7 +157,7 @@ public class Pedido {
 			saida += getProdutoArrayList(posicao).getValorUnitarioLocacao() + ";";
 			saida += getProdutoArrayList(posicao).getQuantidade() + ";";
 		}
-		saida += this.dataLocal + ";";
+		saida += this.dataInicio + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
@@ -177,7 +178,7 @@ public class Pedido {
 			saida += getProdutoArrayList(posicao).getValorUnitarioLocacao() + ";";
 			saida += getProdutoArrayList(posicao).getQuantidade() + ";";
 		}
-		saida += this.dataLocal + ";";
+		saida += this.dataInicio + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
@@ -195,11 +196,10 @@ public class Pedido {
 		this.quantidadeProdutos = Integer.parseInt(vetorString[3]);
 		for (int i = 0; i < this.quantidadeProdutos; i++) {
 			produto = new Produto(vetorString[4 + (i * 7)], vetorString[5 + (i * 7)], vetorString[6 + (i * 7)],
-					Float.parseFloat(vetorString[7 + (i * 7)]), Integer.parseInt(vetorString[8 + (i * 7)]),
-					vetorString[9 + (i * 7)], vetorString[10 + (i * 7)]);
+					Float.parseFloat(vetorString[7 + (i * 7)]), Integer.parseInt(vetorString[8 + (i * 7)]));
 			produtos.add(produto);
 		}
-		this.dataLocal = vetorString[vetorString.length - 4];
+		this.dataInicio = vetorString[vetorString.length - 4];
 		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
@@ -220,10 +220,8 @@ public class Pedido {
 			saida += getProdutoArrayList(posicao).getCompatibilidade() + ";";
 			saida += getProdutoArrayList(posicao).getValorUnitarioLocacao() + ";";
 			saida += getProdutoArrayList(posicao).getQuantidade() + ";";
-			saida += getProdutoArrayList(posicao).getDataInicio() + ";";
-			saida += getProdutoArrayList(posicao).getDataFim() + ";";
 		}
-		saida += this.dataLocal + ";";
+		saida += this.dataInicio + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
@@ -243,10 +241,8 @@ public class Pedido {
 			saida += getProdutoArrayList(posicao).getCompatibilidade() + ";";
 			saida += getProdutoArrayList(posicao).getValorUnitarioLocacao() + ";";
 			saida += getProdutoArrayList(posicao).getQuantidade() + ";";
-			saida += getProdutoArrayList(posicao).getDataInicio() + ";";
-			saida += getProdutoArrayList(posicao).getDataFim() + ";";
 		}
-		saida += this.dataLocal + ";";
+		saida += this.dataInicio + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";

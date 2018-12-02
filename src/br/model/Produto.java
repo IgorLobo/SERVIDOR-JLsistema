@@ -1,7 +1,5 @@
 package br.model;
 
-import java.util.Date;
-
 import br.interfaces.TratamentoDeDados;
 
 public class Produto implements TratamentoDeDados {
@@ -15,8 +13,6 @@ public class Produto implements TratamentoDeDados {
 	private String compatibilidade = "";
 	private int quantidade = 0;
 	private float subtotal;
-	private String dataInicio = null;
-	private String dataFim = null;
 	private int dias = 0;
 
 	public Produto(int codProduto, String tipo, String nomeProduto, String descricao, String fabricante,
@@ -40,19 +36,16 @@ public class Produto implements TratamentoDeDados {
 		this.valorUnitarioVenda = valorUnitarioVenda;
 		this.quantidade = quantidade;
 	}
-
+/*
 	// aluguel
-	public Produto(String nomeProduto, String tipo, String compatibilidade, float valorUnitarioVenda, int quantidade,
-			String dataInicio, String dataFim) {
+	public Produto(String nomeProduto, String tipo, String compatibilidade, float valorUnitarioLocacao, int quantidade) {
 		this.nomeProduto = nomeProduto;
 		this.setTipo(tipo);
 		this.compatibilidade = compatibilidade;
-		this.valorUnitarioVenda = valorUnitarioVenda;
+		this.valorUnitarioLocacao = valorUnitarioLocacao;
 		this.quantidade = quantidade;
-		this.dataInicio = dataInicio;
-		this.dataFim = dataFim;
 	}
-
+*/
 	public Produto(int codProduto, String tipo, String nomeProduto, String descricao, String fabricante,
 			float valorUnitarioVenda, float valorUnitarioLocacao, String compatibilidade) {
 		this.codProduto = codProduto;
@@ -243,22 +236,6 @@ public class Produto implements TratamentoDeDados {
 
 	public void setSubtotal(float subtotal) {
 		this.subtotal = subtotal;
-	}
-
-	public String getDataInicio() {
-		return dataInicio;
-	}
-
-	public String getDataFim() {
-		return dataFim;
-	}
-
-	public void setDataInicio(String dataInicio) {
-		this.dataInicio = dataInicio;
-	}
-
-	public void setDataFim(String dataFim) {
-		this.dataFim = dataFim;
 	}
 
 	public int getDias() {
