@@ -18,7 +18,6 @@ public class Pedido {
 	private String dataFim = "";
 	private boolean pedidoConfirmado = false;
 	private float valorTotal = 0;
-
 	private String formaPagamento = "";
 	private Cliente cliente = new Cliente();
 	private ArrayList<Infraestrutura> infraestrutura = new ArrayList<>();
@@ -77,16 +76,29 @@ public class Pedido {
 		return tipoPedido;
 	}
 
-	public String getDataLocal() {
-		return dataInicio;
-	}
-
+	
 	public boolean isPedidoConfirmado() {
 		return pedidoConfirmado;
 	}
 
 	public float getValorTotal() {
 		return valorTotal;
+	}
+	
+	public String getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(String dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public String getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(String dataFim) {
+		this.dataFim = dataFim;
 	}
 
 	public String getFormaPagamento() {
@@ -200,7 +212,8 @@ public class Pedido {
 					Float.parseFloat(vetorString[7 + (i * 5)]), Integer.parseInt(vetorString[8 + (i * 5)]));
 			produtos.add(produto);
 		}
-		this.dataInicio = vetorString[vetorString.length - 4];
+		this.dataInicio = vetorString[vetorString.length - 5];
+		this.dataFim = vetorString[vetorString.length - 4];
 		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
@@ -223,6 +236,7 @@ public class Pedido {
 			saida += getProdutoArrayList(posicao).getQuantidade() + ";";
 		}
 		saida += this.dataInicio + ";";
+		saida += this.dataFim + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";

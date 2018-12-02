@@ -36,8 +36,8 @@
                               <TableColumn fx:id="tvVenda_ID" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" resizable="false" text="ID" />
                               <TableColumn fx:id="tvVenda_data" maxWidth="80.0" minWidth="80.0" resizable="false" text="Data" />
                               <TableColumn fx:id="tvVenda_cliente" prefWidth="164.0" text="Cliente" />
-                              <TableColumn fx:id="tvVenda_valorTotal" maxWidth="80.0" minWidth="80.0" resizable="false" text="VT" />
-                              <TableColumn fx:id="tvVenda_pagamento" maxWidth="80.0" minWidth="80.0" resizable="false" text="Pagamento" />
+                              <TableColumn fx:id="tvVenda_valorTotal" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" resizable="false" text="VT" />
+                              <TableColumn fx:id="tvVenda_pagamento" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" resizable="false" text="Pagamento" />
                               <TableColumn fx:id="tvVenda_finalizado" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" resizable="false" text="Finalizado" />
                            </columns>
                            <columnResizePolicy>
@@ -55,7 +55,8 @@
                         <TableView fx:id="tvLoc" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
                               <TableColumn fx:id="tvLoc_ID" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" resizable="false" text="ID" />
-                              <TableColumn fx:id="tvLoc_data" maxWidth="80.0" minWidth="80.0" resizable="false" text="Data" />
+                              <TableColumn fx:id="tvLoc_dataInicio" maxWidth="80.0" minWidth="80.0" resizable="false" text="Data Inicio" />
+                              <TableColumn fx:id="tvLoc_dataFinal" maxWidth="80.0" minWidth="80.0" resizable="false" text="Data final" />
                               <TableColumn fx:id="tvLoc_cliente" prefWidth="164.0" text="Cliente" />
                               <TableColumn fx:id="tvLoc_valorTotal" maxWidth="80.0" minWidth="80.0" resizable="false" text="VT" />
                               <TableColumn fx:id="tvLoc_pagamento" maxWidth="80.0" minWidth="80.0" resizable="false" text="Pagamento" />

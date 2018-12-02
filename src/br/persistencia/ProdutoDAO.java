@@ -154,6 +154,7 @@ public class ProdutoDAO implements IProduto {
 				} else {
 					int id = codProduto;
 					id--;
+					produto.setQuantidade(produt.getQuantidade());
 					bufferedWriter.write(produto.desmaterializar(id) + "\r\n");
 				}
 			}

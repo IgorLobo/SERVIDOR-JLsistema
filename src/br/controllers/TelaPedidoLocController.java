@@ -124,10 +124,13 @@ public class TelaPedidoLocController implements Initializable {
 		dias = (int) ChronoUnit.DAYS.between(date_inicio.getValue(), date_fim.getValue());
 		btn_adicionarItem.setDisable(false);
 		btn_removerItem.setDisable(false);
+		Float temp = 0f;
 		for (Produto produto : obsProdutos) {
 			produto.setDias(dias);
 			produto.setSubtotal(dias * produto.getValorUnitarioLocacao() * produto.getQuantidade());
+			temp += produto.getSubtotal();
 		}
+		lb_precoTotalPedido.setText(df.format(temp));
 		tv_produtos.refresh();
 
 	}

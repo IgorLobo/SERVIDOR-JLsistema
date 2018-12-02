@@ -90,8 +90,8 @@ public class TelaProdutoIncluirController implements Initializable {
 		} else {
 			try {
 				String nome = txf_nome.getText();
-				Float precoVenda = br.util.MaskTextfield.monetaryValueFromField(txf_precoVenda).floatValue();
-				Float precoLoc = br.util.MaskTextfield.monetaryValueFromField(txf_precoLocacao).floatValue();
+				Float precoVenda = Float.parseFloat(txf_precoVenda.getText());
+				Float precoLoc = Float.parseFloat(txf_precoLocacao.getText());
 				String descricao = txa_descricao.getText();
 				String fabricante = txf_fabricante.getText();
 				if (!cb_tipo.getSelectionModel().getSelectedItem().equals("Console")) {
@@ -190,8 +190,8 @@ public class TelaProdutoIncluirController implements Initializable {
 			});
 			cb_compatibilidade.setItems(FXCollections
 					.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listarProdutos()));
-			MaskTextfield.monetaryField(txf_precoLocacao);
-			MaskTextfield.monetaryField(txf_precoVenda);
+			br.util.MaskTextfield.campoNumerico(txf_precoLocacao);
+			br.util.MaskTextfield.campoNumerico(txf_precoVenda);
 		} catch (Exception erro) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Atenção");

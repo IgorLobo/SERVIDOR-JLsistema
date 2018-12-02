@@ -24,6 +24,7 @@ public class TelaPedidoInicial implements Initializable {
 	private Janela janelaUtil = new Janela();
 	ObservableList<Pedido> obsLoc;
 	ObservableList<Pedido> obsVenda;
+	static Pedido pedidoSelecionado;
 //*********************** COMPONENTES *******************************	
 //venda	 	
 	@FXML
@@ -60,7 +61,10 @@ public class TelaPedidoInicial implements Initializable {
 	private TableColumn<Pedido, Integer> tvLoc_ID;
 
 	@FXML
-	private TableColumn<Pedido, String> tvLoc_data;
+	private TableColumn<Pedido, String> tvLoc_dataInicio;
+	
+	@FXML
+	private TableColumn<Pedido, String> tvLoc_dataFinal;
 
 	@FXML
 	private TableColumn<Pedido, String> tvLoc_cliente;
@@ -90,11 +94,9 @@ public class TelaPedidoInicial implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			obsVenda = FXCollections.observableArrayList(
-					new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).listarPedidos());
-			obsLoc = FXCollections.observableArrayList(
-					new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos).listarPedidos());
 			prepararComponentes();
+			
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -103,12 +105,12 @@ public class TelaPedidoInicial implements Initializable {
 
 	@FXML
 	void OnClick_btn_alterar(ActionEvent event) {
-
+		
 	}
 
 	@FXML
 	void OnClick_btn_detalhe(ActionEvent event) {
-
+		janelaUtil.novaJanelaComOwnerWait("/br/view/TelaPedidoDetalhes.fxml", false, "Detalhes do pedido");
 	}
 
 	@FXML
@@ -140,22 +142,46 @@ public class TelaPedidoInicial implements Initializable {
 
 //************************** METODOS AUXILIARES *********************
 	private void prepararComponentes() {
+		try {
 		tvLoc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-		tvLoc_data.setCellValueFactory(new PropertyValueFactory<>("dataLocal"));
+		tvLoc_dataInicio.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
+		tvLoc_dataFinal.setCellValueFactory(new PropertyValueFactory<>("dataFim"));
 		tvLoc_ID.setCellValueFactory(new PropertyValueFactory<>("codPedido"));
 		tvLoc_valorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
 		tvLoc_pagamento.setCellValueFactory(new PropertyValueFactory<>("formaPagamento"));
 		tvLoc_finalizado.setCellValueFactory(new PropertyValueFactory<>("pedidoConfirmado"));
 
 		tvVenda_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-		tvVenda_data.setCellValueFactory(new PropertyValueFactory<>("dataLocal"));
+		tvVenda_data.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
 		tvVenda_ID.setCellValueFactory(new PropertyValueFactory<>("codPedido"));
 		tvVenda_valorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
 		tvVenda_pagamento.setCellValueFactory(new PropertyValueFactory<>("formaPagamento"));
 		tvVenda_finalizado.setCellValueFactory(new PropertyValueFactory<>("pedidoConfirmado"));
 
+		obsVenda = FXCollections.observableArrayList(
+				new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).listarPedidos());
+		obsLoc = FXCollections.observableArrayList(
+				new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos).listarPedidos());
+		
 		tvLoc.setItems(obsLoc);
 		tvVenda.setItems(obsVenda);
+		
+		tvLoc.getSelectionModel().selectedItemProperty()
+		.addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				pedidoSelecionado = newSelection;
+			}
+		});
+		
+		tvVenda.getSelectionModel().selectedItemProperty()
+		.addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				pedidoSelecionado = newSelection;
+			}
+		});
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
