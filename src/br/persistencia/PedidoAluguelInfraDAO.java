@@ -10,6 +10,7 @@ import java.util.Locale;
 import br.controllers.TelaPrincipalController;
 import br.interfaces.IPedidos;
 import br.model.Identificador;
+import br.model.Infraestrutura;
 import br.model.Pedido;
 
 public class PedidoAluguelInfraDAO implements IPedidos {
@@ -161,22 +162,37 @@ public class PedidoAluguelInfraDAO implements IPedidos {
 		}
 	}
 
-	public void incluirDataAluguelInfra(int codPedidoAluguelInfra, Pedido pedidoAluguelInfra) throws Exception {
+	public void incluirDataAluguelInfra(Pedido pedidoAluguelInfraData) throws Exception {
 		try {
-			ArrayList<Pedido> listaDePedidosAluguelProduto = this.listarPedidos();
+
+			ArrayList<Infraestrutura> listaDePedidosAluguelProduto = pedidoAluguelInfraData.getInfraestrutura();
+			System.out.println(listaDePedidosAluguelProduto.get(0).getDataLocacao());
+			System.out.println(listaDePedidosAluguelProduto.get(0).getCodInfraestrutura());
+			System.out.println("tamanho =" + listaDePedidosAluguelProduto.size());
+
+			ArrayList<String> listaDeDatas = new ArrayList<String>();
+			FileReader fileReader = new FileReader(TelaPrincipalController.nomeArquivoDataLocInfraestrutura);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String linha = "";
+			while ((linha = bufferedReader.readLine()) != null) {
+				listaDeDatas.add(linha);
+			}
+			bufferedReader.close();
+
 			// cria o arquivo
-			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
+			FileWriter fileWriter = new FileWriter(TelaPrincipalController.nomeArquivoDataLocInfraestrutura);
 			// Criar o buffer do arquivo
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-			for (int posicao = 0; posicao < listaDePedidosAluguelProduto.size(); posicao++) {
-				Pedido pedidoAluguelInfraestrutura = listaDePedidosAluguelProduto.get(posicao);
-				if (!(pedidoAluguelInfraestrutura.getCodPedido() == (codPedidoAluguelInfra))) {
-					bufferedWriter.write(pedidoAluguelInfraestrutura.desmaterializarAluguelInfra() + "\r\n");
+			for (int pos = 0; pos < listaDeDatas.size(); pos++) {
+				String linhaData[] = listaDeDatas.get(pos).split(";");
+				if (!linhaData[0].equals(listaDePedidosAluguelProduto.get(pos).getCodInfraestrutura())) {
+					bufferedWriter.write(linhaData + "\r\n");
 				} else {
-					int id = codPedidoAluguelInfra;
-					id--;
-					// bufferedWriter.write(pedidoAluguelInfra.desmaterializarAluguelInfraData(id) +
-					// "\r\n");
+					String datas = "";
+					for (int pos1 = 0; pos1 < listaDePedidosAluguelProduto.size(); pos1++) {
+						datas += listaDePedidosAluguelProduto.get(pos1).getDataLocacao() + ";";
+					}
+					bufferedWriter.write(linha + datas + "\r\n");
 				}
 			}
 			bufferedWriter.close();

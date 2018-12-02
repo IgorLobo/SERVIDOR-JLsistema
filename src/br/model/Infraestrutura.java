@@ -36,6 +36,11 @@ public class Infraestrutura implements TratamentoDeDados {
 		this.dataLocacao = dataLocacao;
 	}
 
+	public Infraestrutura(int codInfraestrutura, String dataLocacao) {
+		this.codInfraestrutura = codInfraestrutura;
+		this.dataLocacao = dataLocacao;
+	}
+	
 	public Infraestrutura() {
 
 	}
@@ -80,6 +85,11 @@ public class Infraestrutura implements TratamentoDeDados {
 	public String desmaterializarData(int id) {
 		id++;
 		this.codInfraestrutura = id;
+		String saida = "";
+		saida += this.codInfraestrutura + ";";
+		return saida;
+	}
+	public String desmaterializarData() {
 		String saida = "";
 		saida += this.codInfraestrutura + ";";
 		return saida;

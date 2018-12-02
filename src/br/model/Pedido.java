@@ -259,12 +259,11 @@ public class Pedido {
 		this.codPedido = Integer.parseInt(vetorString[0]);
 		this.quantidadeInfraestrutura = Integer.parseInt(vetorString[1]);
 		for (int i = 0; i < this.quantidadeInfraestrutura; i++) {
-			// infra = new Infraestrutura(vetorString[2 + (i * 4)],
-			// Float.parseFloat(vetorString[3 + (i * 4)]),
-			// formatoData.parse(vetorString[4 + (i * 4)]), formatoData.parse(vetorString[5
-			// + (i * 4)]));
+			infra = new Infraestrutura(vetorString[2 + (i * 3)], Float.parseFloat(vetorString[3 + (i * 3)]),
+					vetorString[4 + (i * 3)]);
 			infraestrutura.add(infra);
 		}
+		this.dataFim = vetorString[vetorString.length - 4];
 		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
@@ -280,9 +279,9 @@ public class Pedido {
 		for (int posicao = 0; posicao < infraestrutura.size(); posicao++) {
 			saida += getInfraArrayList(posicao).getNomeInfraestrutura() + ";";
 			saida += getInfraArrayList(posicao).getPrecoDiaInfraestrutura() + ";";
-//			saida += getInfraArrayList(posicao).getDataInicio() + ";";
-			// saida += getInfraArrayList(posicao).getDataFim() + ";";
+			saida += getInfraArrayList(posicao).getDataLocacao() + ";";
 		}
+		saida += this.dataFim + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
@@ -297,13 +296,47 @@ public class Pedido {
 		for (int posicao = 0; posicao < infraestrutura.size(); posicao++) {
 			saida += getInfraArrayList(posicao).getNomeInfraestrutura() + ";";
 			saida += getInfraArrayList(posicao).getPrecoDiaInfraestrutura() + ";";
-			// saida += getInfraArrayList(posicao).getDataInicio() + ";";
-			// saida += getInfraArrayList(posicao).getDataFim() + ";";
+			saida += getInfraArrayList(posicao).getDataLocacao() + ";";
 		}
+		saida += this.dataFim + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
 		return saida;
+	}
+
+	public String desmaterializarAluguelInfraData(int id) throws Exception {
+		String saida = "";
+		this.quantidadeInfraestrutura = getTamanhoArray(infraestrutura);
+		saida += this.quantidadeInfraestrutura + ";";
+		for (int posicao = 0; posicao < infraestrutura.size(); posicao++) {
+			saida += getInfraArrayList(posicao).getNomeInfraestrutura() + ";";
+			saida += getInfraArrayList(posicao).getPrecoDiaInfraestrutura() + ";";
+			saida += getInfraArrayList(posicao).getDataLocacao() + ";";
+		}
+		saida += this.dataFim + ";";
+		saida += this.valorTotal + ";";
+		saida += this.formaPagamento + ";";
+		saida += this.pedidoConfirmado + ";";
+		return saida;
+	}
+	
+	public void materializarPedidoAluguelInfraData(String dados) throws Exception {
+		Infraestrutura infra = null;
+		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+		String vetorString[] = dados.split(";");
+
+		this.codPedido = Integer.parseInt(vetorString[0]);
+		this.quantidadeInfraestrutura = Integer.parseInt(vetorString[1]);
+		for (int i = 0; i < this.quantidadeInfraestrutura; i++) {
+			infra = new Infraestrutura(vetorString[2 + (i * 3)], Float.parseFloat(vetorString[3 + (i * 3)]),
+					vetorString[4 + (i * 3)]);
+			infraestrutura.add(infra);
+		}
+		this.dataFim = vetorString[vetorString.length - 4];
+		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
+		this.formaPagamento = vetorString[vetorString.length - 2];
+		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
 	}
 
 }

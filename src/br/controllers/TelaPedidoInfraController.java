@@ -124,12 +124,10 @@ public class TelaPedidoInfraController implements Initializable {
 			alert.show();
 		} else {
 			try {
-				// Pedido pedido = new Pedido(cliente, new ArrayList<Infraestrutura>(obsSalas),
-				// cb_pagamento.getSelectionModel().getSelectedItem().toString(),
-				// Float.parseFloat(lb_precoTotalPedido.getText()), "Aluguel",
-				// txf_data.getText(), "");
-				// new
-				// PedidoAluguelInfraDAO(TelaPrincipalController.nomeArquivoPedidoLocInfra).incluirPedido(pedido);
+				Pedido pedido = new Pedido(cliente, new ArrayList<Infraestrutura>(obsSalas),
+						cb_pagamento.getSelectionModel().getSelectedItem().toString(), "Aluguel", txf_data.getText());
+				new PedidoAluguelInfraDAO(TelaPrincipalController.nomeArquivoPedidoLocInfra).incluirPedido(pedido);
+				new PedidoAluguelInfraDAO(TelaPrincipalController.nomeArquivoDataLocInfraestrutura).incluirDataAluguelInfra(pedido);
 				obsSalas.clear();
 				br.util.Janela.fecharJanela(btn_finalizar);
 			} catch (Exception e) {
