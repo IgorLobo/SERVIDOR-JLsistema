@@ -154,8 +154,9 @@ public class TelaPedidoEscolherInfraController implements Initializable {
 					.addListener((obs, oldSelection, newSelection) -> {
 						if (newSelection != null) {
 							date_inicio.setDisable(false);
+							
 							System.out.println(newSelection.getNomeInfraestrutura());
-
+							
 						}
 					});
 		} catch (Exception e) {

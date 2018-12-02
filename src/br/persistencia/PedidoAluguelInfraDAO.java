@@ -170,32 +170,43 @@ public class PedidoAluguelInfraDAO implements IPedidos {
 			System.out.println(listaDePedidosAluguelProduto.get(0).getCodInfraestrutura());
 			System.out.println("tamanho =" + listaDePedidosAluguelProduto.size());
 
-			ArrayList<String> listaDeDatas = new ArrayList<String>();
 			FileReader fileReader = new FileReader(TelaPrincipalController.nomeArquivoDataLocInfraestrutura);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+			ArrayList<Infraestrutura> listaDeInfraLocadas = new ArrayList<Infraestrutura>();
 			String linha = "";
 			while ((linha = bufferedReader.readLine()) != null) {
-				listaDeDatas.add(linha);
+				Infraestrutura pedido = new Infraestrutura();
+				pedido.materializarDatas(linha);
+				listaDeInfraLocadas.add(pedido);
 			}
 			bufferedReader.close();
 
 			// cria o arquivo
-			FileWriter fileWriter = new FileWriter(TelaPrincipalController.nomeArquivoDataLocInfraestrutura);
+			FileWriter fileWriter = new FileWriter(TelaPrincipalController.nomeArquivoDataLocInfraestrutura, true);
+			FileWriter fileWriter1 = new FileWriter(TelaPrincipalController.nomeArquivoDataLocInfraestrutura);
 			// Criar o buffer do arquivo
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-			for (int pos = 0; pos < listaDeDatas.size(); pos++) {
-				String linhaData[] = listaDeDatas.get(pos).split(";");
-				if (!linhaData[0].equals(listaDePedidosAluguelProduto.get(pos).getCodInfraestrutura())) {
-					bufferedWriter.write(linhaData + "\r\n");
-				} else {
-					String datas = "";
-					for (int pos1 = 0; pos1 < listaDePedidosAluguelProduto.size(); pos1++) {
+			BufferedWriter bufferedWriter1 = new BufferedWriter(fileWriter1);
+			String datas = "";
+			for (int pos = 0; pos < listaDeInfraLocadas.size(); pos++) {
+				for (int pos1 = 0; pos1 < listaDePedidosAluguelProduto.size(); pos1++) {
+					if (listaDeInfraLocadas.get(pos).getCodInfraestrutura() == listaDePedidosAluguelProduto.get(pos1)
+							.getCodInfraestrutura()) {
 						datas += listaDePedidosAluguelProduto.get(pos1).getDataLocacao() + ";";
 					}
-					bufferedWriter.write(linha + datas + "\r\n");
 				}
+				if (!datas.equals("")) {
+					bufferedWriter1.write(listaDeInfraLocadas.get(pos).desmaterializarDatas() + datas + "\r\n");
+				} else {
+					bufferedWriter.write(listaDeInfraLocadas.get(pos).desmaterializarDatas() + "\r\n");
+				}
+				datas = "";
 			}
+			bufferedWriter1.close();
 			bufferedWriter.close();
+
+
 		} catch (Exception erro) {
 			throw erro;
 		}

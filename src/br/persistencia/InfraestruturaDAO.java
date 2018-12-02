@@ -54,7 +54,7 @@ public class InfraestruturaDAO implements IInfraestrutura {
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String linha = "";
 			while ((linha = bufferedReader.readLine()) != null) {
-				Identificador identificador = new Identificador();
+ 				Identificador identificador = new Identificador();
 				identificador.materializar(linha);
 				listaDeIdentificadores.add(identificador);
 			}

@@ -1,6 +1,9 @@
 package br.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import com.sun.org.apache.regexp.internal.recompile;
 
 import br.interfaces.TratamentoDeDados;
 
@@ -12,6 +15,7 @@ public class Infraestrutura implements TratamentoDeDados {
 	private float precoDiaInfraestrutura = 0;
 	private String observacao = " ";
 	private String dataLocacao = "";
+	private ArrayList<String> datas = new ArrayList<>();
 
 	public Infraestrutura(int codInfraestrutura, String nomeInfraestrutura, String descricaoInfraestrutura,
 			float precoDiaInfraestrutura, String observacao) {
@@ -40,7 +44,7 @@ public class Infraestrutura implements TratamentoDeDados {
 		this.codInfraestrutura = codInfraestrutura;
 		this.dataLocacao = dataLocacao;
 	}
-	
+
 	public Infraestrutura() {
 
 	}
@@ -89,9 +93,31 @@ public class Infraestrutura implements TratamentoDeDados {
 		saida += this.codInfraestrutura + ";";
 		return saida;
 	}
+
 	public String desmaterializarData() {
 		String saida = "";
 		saida += this.codInfraestrutura + ";";
+		return saida;
+	}
+
+	public void materializarDatas(String dados) {
+		String vetorString[] = dados.split(";");
+		codInfraestrutura = Integer.parseInt(vetorString[0]);
+		if (vetorString.length > 1) {
+			for (int pos = 1; pos < vetorString.length; pos++) {
+				datas.add(vetorString[pos]);
+			}
+		}
+	}
+
+	public String desmaterializarDatas() {
+		String saida = "";
+		saida += codInfraestrutura + ";";
+		if (datas.size() != 0) {
+			for (int pos = 0; pos < datas.size(); pos++) {
+				saida += datas.get(pos) + ";";
+			}
+		}
 		return saida;
 	}
 
@@ -122,6 +148,18 @@ public class Infraestrutura implements TratamentoDeDados {
 
 	public void setDataLocacao(String dataLocacao) {
 		this.dataLocacao = dataLocacao;
+	}
+
+	public ArrayList<String> getDatas() {
+		return datas;
+	}
+	
+	public String getDatas(int pos) {
+		return datas.get(pos);
+	}
+
+	public void setDatas(ArrayList<String> datas) {
+		this.datas = datas;
 	}
 
 }
