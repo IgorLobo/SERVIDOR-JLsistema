@@ -13,12 +13,11 @@
    <bottom>
       <AnchorPane prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <ButtonBar buttonMinWidth="60.0" layoutX="20.0" layoutY="77.0" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+            <ButtonBar buttonMinWidth="100.0" layoutX="20.0" layoutY="77.0" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="560.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                <buttons>
                   <Button fx:id="btn_datalhe" maxWidth="70.0" minWidth="70.0" onAction="#OnClick_btn_detalhe" prefWidth="70.0" text="Detalhe" ButtonBar.buttonData="LEFT" />
-                  <Button fx:id="btn_alterar" maxWidth="60.0" minWidth="60.0" onAction="#OnClick_btn_alterar" prefWidth="60.0" text="Alterar" ButtonBar.buttonData="RIGHT" />
-                  <Button fx:id="btn_excluir" maxWidth="60.0" minWidth="60.0" onAction="#OnClick_btn_excluir" prefWidth="60.0" text="Excluir" ButtonBar.buttonData="RIGHT" />
-                  <Button fx:id="btn_incluir" onAction="#OnClick_btn_incluir" text="Incluir" ButtonBar.buttonData="RIGHT" />
+                  <Button fx:id="btn_alterar" maxWidth="100.0" minWidth="100.0" onAction="#OnClick_btn_alterar" prefWidth="100.0" text="Devolução" ButtonBar.buttonData="LEFT" />
+                  <Button fx:id="btn_incluir" maxWidth="80.0" minWidth="80.0" onAction="#OnClick_btn_incluir" prefWidth="80.0" text="Incluir" ButtonBar.buttonData="RIGHT" />
                </buttons>
             </ButtonBar>
          </children>

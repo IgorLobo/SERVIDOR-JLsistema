@@ -4,19 +4,22 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import br.model.Pedido;
+import br.model.Produto;
 import br.persistencia.PedidoAluguelProdutoDAO;
 import br.persistencia.PedidoVendaDAO;
+import br.persistencia.ProdutoDAO;
 import br.util.Janela;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TelaPedidoInicial implements Initializable {
@@ -87,8 +90,6 @@ public class TelaPedidoInicial implements Initializable {
 	@FXML
 	private Button btn_incluir;
 
-	@FXML
-	private Button btn_excluir;
 
 //*********************** ON-ACTION *********************************
 	@Override
@@ -105,7 +106,47 @@ public class TelaPedidoInicial implements Initializable {
 
 	@FXML
 	void OnClick_btn_alterar(ActionEvent event) {
-		
+		try {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Atenção");
+			alert.setHeaderText(null);
+			if(pedidoSelecionado!=null) {
+			if(pedidoSelecionado.getTipoPedido().equals("Aluguel") && !pedidoSelecionado.getPedidoConfirmado()) {
+				
+				ObservableList<Produto> produtos = FXCollections.observableArrayList(pedidoSelecionado.getProdutos());
+				for (Produto produto : produtos) {
+					switch (produto.getTipo()) {
+					case "Jogo":
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc).devolucaoDeProduto(produto.getCodProduto(),
+								produto.getQuantidade());
+						break;
+					case "Acessorio":
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc).devolucaoDeProduto(produto.getCodProduto(),
+								produto.getQuantidade());
+						break;
+					case "Console":
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc).devolucaoDeProduto(produto.getCodProduto(),
+								produto.getQuantidade());
+						break;
+					}
+					}
+				pedidoSelecionado.setPedidoConfirmado(true);
+				new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos).alterarPedido(pedidoSelecionado.getCodPedido(),
+						pedidoSelecionado);
+				tvLoc.refresh();
+				
+			}else {
+				alert.setContentText("Somente é possivel devolver itens de pedidos de locação.");
+				if(pedidoSelecionado.getPedidoConfirmado())alert.setContentText("Produtos do pedido já devolvidos.");
+				alert.show();
+			}
+		}else {
+			alert.setContentText("Selecione um pedido para devolução de produtos");
+			alert.show();
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -113,26 +154,7 @@ public class TelaPedidoInicial implements Initializable {
 		janelaUtil.novaJanelaComOwnerWait("/br/view/TelaPedidoDetalhes.fxml", false, "Detalhes do pedido");
 	}
 
-	@FXML
-	void OnClick_btn_excluir(ActionEvent event) {
-		try {
-			if (paneVenda.isExpanded() && !tvVenda.getSelectionModel().isEmpty()) {
-				new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda)
-						.excluirPedido(tvVenda.getSelectionModel().getSelectedItem().getCodPedido());
-				tvVenda.setItems(FXCollections.observableArrayList(
-						new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).listarPedidos()));
-			}
-			if (paneLoc.isExpanded() && !tvLoc.getSelectionModel().isEmpty()) {
-				new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos)
-						.excluirPedido(tvLoc.getSelectionModel().getSelectedItem().getCodPedido());
-				tvLoc.setItems(FXCollections.observableArrayList(
-						new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos)
-								.listarPedidos()));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	@FXML
 	void OnClick_btn_incluir(ActionEvent event) {

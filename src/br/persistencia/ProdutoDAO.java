@@ -254,5 +254,30 @@ public class ProdutoDAO implements IProduto {
 			throw erro;
 		}
 	}
+	
+	public void devolucaoDeProduto(int codProduto, int qnt) throws Exception {
+		try {
+			ArrayList<Produto> listaDeClientes = this.listarProdutos();
+			// cria o arquivo
+			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
+			// Criar o buffer do arquivo
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			for (int posicao = 0; posicao < listaDeClientes.size(); posicao++) {
+				Produto produt = listaDeClientes.get(posicao);
+				if (!(produt.getCodProduto() == (codProduto))) {
+					bufferedWriter.write(produt.desmaterializar() + "\r\n");
+				} else {
+					produt.incrementarQuantidade(qnt);
+					int id = codProduto;
+					id--;
+					bufferedWriter.write(produt.desmaterializar(id) + "\r\n");
+				}
+			}
+			bufferedWriter.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+	}
+
 
 }

@@ -162,4 +162,28 @@ public class PedidoAluguelProdutoDAO implements IPedidos {
 			throw erro;
 		}
 	}
+	
+	public void confimarPedido(Pedido pedidoAluguelProd) throws Exception {
+		try {
+			ArrayList<Pedido> listaDePedidosAluguelProduto = this.listarPedidos();
+			// cria o arquivo
+			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
+			// Criar o buffer do arquivo
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			for (int posicao = 0; posicao < listaDePedidosAluguelProduto.size(); posicao++) {
+				Pedido pedidoAluguelProduto = listaDePedidosAluguelProduto.get(posicao);
+				if (!(pedidoAluguelProduto.getCodPedido() == (pedidoAluguelProd.getCodPedido()))) {
+					bufferedWriter.write(pedidoAluguelProduto.desmaterializarAluguelProduto() + "\r\n");
+				} else {
+					int id = pedidoAluguelProd.getCodPedido();
+					id--;
+					pedidoAluguelProduto.setPedidoConfirmado(true);
+					bufferedWriter.write(pedidoAluguelProduto.desmaterializarAluguelProduto(id) + "\r\n");
+				}
+			}
+			bufferedWriter.close();
+		} catch (Exception erro) {
+			throw erro;
+		}
+	}
 }

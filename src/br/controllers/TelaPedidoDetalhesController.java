@@ -1,8 +1,10 @@
 package br.controllers;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 import br.model.Produto;
@@ -18,11 +20,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.converter.LocalDateStringConverter;
 
 public class TelaPedidoDetalhesController implements Initializable{
 //************************ ATRIBUTOS ********************************
-	static ObservableList<Produto> obsProdutos = FXCollections.observableArrayList();
+	static ObservableList<Produto> obsProdutos;
+	DecimalFormat df = new DecimalFormat("#.00");
 //*********************** COMPONENTES *******************************	
 	    @FXML
 	    private Button btn_ok;
@@ -75,8 +77,14 @@ public class TelaPedidoDetalhesController implements Initializable{
 		LocalDate datafim = LocalDate.parse(TelaPedidoInicial.pedidoSelecionado.getDataFim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		date_inicio.setValue(datainicio);
 		date_fim.setValue(datafim);
-		
-		
+		obsProdutos = FXCollections.observableArrayList(TelaPedidoInicial.pedidoSelecionado.getProdutos());
+		Float temp = 0f;
+		for (Produto produto : obsProdutos) {
+			produto.setDias((int) ChronoUnit.DAYS.between(date_inicio.getValue(), date_fim.getValue()));
+			produto.setSubtotal(produto.getValorUnitarioLocacao() * produto.getDias() * produto.getQuantidade());
+			temp += produto.getSubtotal();
+		}
+		lb_precoTotalPedido.setText(df.format(temp));
 		tc_nome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
 		tc_compatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
 		tc_precoUnid.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));

@@ -39,13 +39,15 @@ public class Produto implements TratamentoDeDados {
 		this.quantidade = quantidade;
 	}
 
-	/*
-	 * // aluguel public Produto(String nomeProduto, String tipo, String
-	 * compatibilidade, float valorUnitarioLocacao, int quantidade) {
-	 * this.nomeProduto = nomeProduto; this.setTipo(tipo); this.compatibilidade =
-	 * compatibilidade; this.valorUnitarioLocacao = valorUnitarioLocacao;
-	 * this.quantidade = quantidade; }
-	 */
+	
+	  public Produto(int codProduto,String nomeProduto, String tipo, String compatibilidade, float valorUnitarioLocacao, int quantidade, boolean CONSTRUTORLOCACAO) {
+	  this.codProduto = codProduto;
+	  this.nomeProduto = nomeProduto; 
+	  this.setTipo(tipo); 
+	  this.compatibilidade = compatibilidade;
+	  this.valorUnitarioLocacao = valorUnitarioLocacao;
+	  this.quantidade = quantidade; }
+	 
 	public Produto(int codProduto, String tipo, String nomeProduto, String descricao, String fabricante,
 			float valorUnitarioVenda, float valorUnitarioLocacao, String compatibilidade) {
 		this.codProduto = codProduto;
@@ -250,4 +252,7 @@ public class Produto implements TratamentoDeDados {
 		this.quantidade -= qntd;
 	}
 
+	public void incrementarQuantidade(int qntd) {
+		this.quantidade += qntd;
+	}
 }

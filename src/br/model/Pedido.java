@@ -76,7 +76,7 @@ public class Pedido {
 		return tipoPedido;
 	}
 
-	public boolean isPedidoConfirmado() {
+	public boolean getPedidoConfirmado() {
 		return pedidoConfirmado;
 	}
 
@@ -104,6 +104,10 @@ public class Pedido {
 		return formaPagamento;
 	}
 
+	public void setPedidoConfirmado(Boolean value) {
+		this.pedidoConfirmado = value;
+	}
+	
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -205,12 +209,13 @@ public class Pedido {
 		String vetorString[] = dados.split(";");
 
 		this.codPedido = Integer.parseInt(vetorString[0]);
-		this.cliente = new Cliente(vetorString[1], vetorString[2]);
-		this.quantidadeProdutos = Integer.parseInt(vetorString[3]);
+		this.tipoPedido = vetorString[1];
+		this.cliente = new Cliente(vetorString[2], vetorString[3]);
+		this.quantidadeProdutos = Integer.parseInt(vetorString[4]);
 		for (int i = 0; i < this.quantidadeProdutos; i++) {
-			produto =  new Produto(Integer.parseInt(vetorString[4 + (i * 6)]), vetorString[5 + (i * 6)],
-					vetorString[6 + (i * 6)], vetorString[7 + (i * 6)], Float.parseFloat(vetorString[8 + (i * 6)]),
-					Integer.parseInt(vetorString[9 + (i * 6)]));
+			produto =  new Produto(Integer.parseInt(vetorString[5 + (i * 6)]), vetorString[6 + (i * 6)],
+					vetorString[7 + (i * 6)], vetorString[8 + (i * 6)], Float.parseFloat(vetorString[9 + (i * 6)]),
+					Integer.parseInt(vetorString[10 + (i * 6)]),true);
 			produtos.add(produto);
 		}
 		this.dataInicio = vetorString[vetorString.length - 5];
@@ -225,11 +230,13 @@ public class Pedido {
 		this.codPedido = id;
 		String saida = "";
 		saida += this.codPedido + ";";
+		saida += this.tipoPedido + ";";
 		saida += this.cliente.getNomeCliente() + ";";
 		saida += this.cliente.getCpfCliente() + ";";
 		this.quantidadeProdutos = getTamanhoArray(produtos);
 		saida += this.quantidadeProdutos + ";";
 		for (int posicao = 0; posicao < produtos.size(); posicao++) {
+			saida += getProdutoArrayList(posicao).getCodProduto() + ";";
 			saida += getProdutoArrayList(posicao).getNomeProduto() + ";";
 			saida += getProdutoArrayList(posicao).getTipo() + ";";
 			saida += getProdutoArrayList(posicao).getCompatibilidade() + ";";
@@ -247,6 +254,7 @@ public class Pedido {
 	public String desmaterializarAluguelProduto() throws Exception {
 		String saida = "";
 		saida += this.codPedido + ";";
+		saida += this.tipoPedido + ";";
 		saida += this.cliente.getNomeCliente() + ";";
 		saida += this.cliente.getCpfCliente() + ";";
 		this.quantidadeProdutos = getTamanhoArray(produtos);
