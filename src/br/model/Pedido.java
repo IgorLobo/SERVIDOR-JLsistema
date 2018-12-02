@@ -15,7 +15,6 @@ public class Pedido {
 	private int quantidadeInfraestrutura = 0;
 	private String tipoPedido = "Venda";
 	private String dataLocal = "";
-	private String dataAluguel = "";
 	private boolean pedidoConfirmado = false;
 	private float valorTotal = 0;
 
@@ -25,7 +24,7 @@ public class Pedido {
 	private ArrayList<Produto> produtos = new ArrayList<>();
 
 	// tipo especifico para venda de produto
-	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento, Float valorTotal,String date) {
+	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento, Float valorTotal, String date) {
 		this.cliente = cliente;
 		this.produtos = produtos;
 		this.formaPagamento = formaPagamento;
@@ -35,7 +34,8 @@ public class Pedido {
 	}
 
 	// tipo especifico para aluguel produto
-	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento, Float valorTotal, String tipoPedido,String date) {
+	public Pedido(Cliente cliente, ArrayList<Produto> produtos, String formaPagamento, Float valorTotal,
+			String tipoPedido, String date) {
 		this.cliente = cliente;
 		this.produtos = produtos;
 		this.formaPagamento = formaPagamento;
@@ -45,13 +45,14 @@ public class Pedido {
 	}
 
 	// tipo especifico para aluguel infra
-	public Pedido(Cliente cliente, ArrayList<Infraestrutura> infraestrutura, String formaPagamento, String tipoPedido,
-			String dataAluguel) {
+	public Pedido(Cliente cliente, ArrayList<Infraestrutura> infraestrutura, String formaPagamento, Float valorTotal,
+			String tipoPedido, String date, String s) {
 		this.cliente = cliente;
 		this.infraestrutura = infraestrutura;
 		this.formaPagamento = formaPagamento;
+		this.valorTotal = valorTotal;
 		this.tipoPedido = tipoPedido;
-		this.dataAluguel = dataAluguel;
+		this.dataLocal = date;
 	}
 
 	public Pedido() {
@@ -134,7 +135,7 @@ public class Pedido {
 					Float.parseFloat(vetorString[7 + (i * 5)]), Integer.parseInt(vetorString[8 + (i * 5)]));
 			produtos.add(produto);
 		}
-		this.dataLocal = vetorString[vetorString.length-4];
+		this.dataLocal = vetorString[vetorString.length - 4];
 		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
@@ -262,10 +263,11 @@ public class Pedido {
 		this.codPedido = Integer.parseInt(vetorString[0]);
 		this.quantidadeInfraestrutura = Integer.parseInt(vetorString[1]);
 		for (int i = 0; i < this.quantidadeInfraestrutura; i++) {
-			infra = new Infraestrutura(vetorString[2 + (i * 4)], Float.parseFloat(vetorString[3 + (i * 4)]),
-					formatoData.parse(vetorString[4 + (i * 4)]), formatoData.parse(vetorString[5 + (i * 4)]));
+			infra = new Infraestrutura(vetorString[2 + (i * 3)], Float.parseFloat(vetorString[3 + (i * 3)]),
+					vetorString[4 + (i * 3)]);
 			infraestrutura.add(infra);
 		}
+		this.dataLocal = vetorString[vetorString.length - 4];
 		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
@@ -281,9 +283,9 @@ public class Pedido {
 		for (int posicao = 0; posicao < infraestrutura.size(); posicao++) {
 			saida += getInfraArrayList(posicao).getNomeInfraestrutura() + ";";
 			saida += getInfraArrayList(posicao).getPrecoDiaInfraestrutura() + ";";
-			saida += getInfraArrayList(posicao).getDataInicio() + ";";
-			saida += getInfraArrayList(posicao).getDataFim() + ";";
+			saida += getInfraArrayList(posicao).getDataLocacao() + ";";
 		}
+		saida += this.dataLocal + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
@@ -298,9 +300,28 @@ public class Pedido {
 		for (int posicao = 0; posicao < infraestrutura.size(); posicao++) {
 			saida += getInfraArrayList(posicao).getNomeInfraestrutura() + ";";
 			saida += getInfraArrayList(posicao).getPrecoDiaInfraestrutura() + ";";
-			saida += getInfraArrayList(posicao).getDataInicio() + ";";
-			saida += getInfraArrayList(posicao).getDataFim() + ";";
+			saida += getInfraArrayList(posicao).getDataLocacao() + ";";
 		}
+		saida += this.dataLocal + ";";
+		saida += this.valorTotal + ";";
+		saida += this.formaPagamento + ";";
+		saida += this.pedidoConfirmado + ";";
+		return saida;
+	}
+
+	public String desmaterializarAluguelInfraData(int id) throws Exception {
+		id++;
+		this.codPedido = id;
+		String saida = "";
+		saida += this.codPedido + ";";
+		this.quantidadeInfraestrutura = getTamanhoArray(infraestrutura);
+		saida += this.quantidadeInfraestrutura + ";";
+		for (int posicao = 0; posicao < infraestrutura.size(); posicao++) {
+			saida += getInfraArrayList(posicao).getNomeInfraestrutura() + ";";
+			saida += getInfraArrayList(posicao).getPrecoDiaInfraestrutura() + ";";
+			saida += getInfraArrayList(posicao).getDataLocacao() + ";";
+		}
+		saida += this.dataLocal + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";

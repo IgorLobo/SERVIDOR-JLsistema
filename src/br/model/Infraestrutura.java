@@ -10,9 +10,8 @@ public class Infraestrutura implements TratamentoDeDados {
 	private String nomeInfraestrutura = "";
 	private String descricaoInfraestrutura = "";
 	private float precoDiaInfraestrutura = 0;
-	private String observacao = "";
-	private Date dataInicio = null;
-	private Date dataFim = null;
+	private String observacao = " ";
+	private String dataLocacao = "";
 
 
 	public Infraestrutura(int codInfraestrutura, String nomeInfraestrutura, String descricaoInfraestrutura,
@@ -34,11 +33,10 @@ public class Infraestrutura implements TratamentoDeDados {
 	
 	
 	//locação
-	public Infraestrutura(String nomeInfraestrutura, float precoDiaInfraestrutura, Date dataInicio, Date dataFim) {
+	public Infraestrutura(String nomeInfraestrutura, float precoDiaInfraestrutura, String dataLocacao) {
 		this.nomeInfraestrutura = nomeInfraestrutura;
 		this.precoDiaInfraestrutura = precoDiaInfraestrutura;
-		this.dataInicio = dataInicio;
-		this.dataFim = dataFim;
+		this.dataLocacao = dataLocacao;
 	}
 
 	public Infraestrutura() {
@@ -50,12 +48,13 @@ public class Infraestrutura implements TratamentoDeDados {
 	@Override
 	public void materializar(String dados) throws Exception {
 		String vetorString[] = dados.split(";");
-		if (vetorString.length != 4)
+		if (vetorString.length != 5)
 			throw new Exception("Faltam dados na String");
 		this.codInfraestrutura = Integer.parseInt(vetorString[0]);
 		this.nomeInfraestrutura = vetorString[1];
 		this.descricaoInfraestrutura = vetorString[2];
 		this.precoDiaInfraestrutura = Float.parseFloat(vetorString[3]);
+		this.observacao = vetorString[4];
 	}
 
 	@Override
@@ -80,6 +79,14 @@ public class Infraestrutura implements TratamentoDeDados {
 		saida += this.observacao + ";";
 		return saida;
 	}
+	
+	public String desmaterializarData(int id) {
+		id++;
+		this.codInfraestrutura = id;
+		String saida = "";
+		saida += this.codInfraestrutura + ";";
+		return saida;
+	}
 
 	// -----------------GETS AND SETERS--------------------
 	public int getCodInfraestrutura() {
@@ -102,12 +109,12 @@ public class Infraestrutura implements TratamentoDeDados {
 		return observacao;
 	}
 
-	public Date getDataInicio() {
-		return dataInicio;
+	public String getDataLocacao() {
+		return dataLocacao;
 	}
 
-	public Date getDataFim() {
-		return dataFim;
+	public void setDataLocacao(String dataLocacao) {
+		this.dataLocacao = dataLocacao;
 	}
 
 	

@@ -25,7 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class TelaInfraController implements Initializable {
 //************************ ATRIBUTOS ********************************
 	private Janela utilJanela = new Janela();
-	String nomeArquivo = TelaPrincipalController.caminhoTxtBancoDados + "Infraestruturas.csv";
+	String nomeArquivo = TelaPrincipalController.nomeArquivoInfra;
 	private InfraestruturaDAO persistencia = new InfraestruturaDAO(nomeArquivo);
 	static String operacao;
 	static Infraestrutura InfraSelecionada;
@@ -124,7 +124,7 @@ public class TelaInfraController implements Initializable {
 
     private void listar() {
 		try {
-			ArrayList<Infraestrutura> listaDeInfra;
+			ArrayList<Infraestrutura> listaDeInfra = null;
 			listaDeInfra = persistencia.listarInfraestruturas();
 			tableView_infra.setItems(FXCollections.observableArrayList(listaDeInfra));
 			

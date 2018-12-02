@@ -94,7 +94,7 @@ public class TelaPedidoInicial implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
 			obsVenda = FXCollections.observableArrayList(new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).listarPedidos());
-			obsLoc = FXCollections.observableArrayList(new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLoc).listarPedidos());
+			obsLoc = FXCollections.observableArrayList(new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos).listarPedidos());
 			prepararComponentes();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,8 +120,8 @@ public class TelaPedidoInicial implements Initializable{
     		tvVenda.setItems(FXCollections.observableArrayList(new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).listarPedidos()));
     	}
     	if(paneLoc.isExpanded() && !tvLoc.getSelectionModel().isEmpty()) {
-    		new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLoc).excluirPedido(tvLoc.getSelectionModel().getSelectedItem().getCodPedido());
-    	tvLoc.setItems(FXCollections.observableArrayList(new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLoc).listarPedidos()));
+    		new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos).excluirPedido(tvLoc.getSelectionModel().getSelectedItem().getCodPedido());
+    	tvLoc.setItems(FXCollections.observableArrayList(new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos).listarPedidos()));
     	}
     	}catch(Exception e) {
     		e.printStackTrace();

@@ -20,7 +20,7 @@ import javafx.scene.control.Alert.AlertType;
 
 public class TelaInfraIncluirController implements Initializable {
 //************************ ATRIBUTOS ********************************
-	String nomeArquivo = TelaPrincipalController.caminhoTxtBancoDados + "Infraestruturas.csv";
+	String nomeArquivo = TelaPrincipalController.nomeArquivoInfra;
 
 //*********************** COMPONENTES *******************************	
 	@FXML
@@ -64,7 +64,7 @@ public class TelaInfraIncluirController implements Initializable {
 			float valor = MaskTextfield.monetaryValueFromField(txf_valor).floatValue();         //Float.parseFloat(txf_valor.getText());
 			String descricao = txa_descricao.getText();
 			Infraestrutura infra = new Infraestrutura(nome, descricao, valor);
-			InfraestruturaDAO arquivo = new InfraestruturaDAO(nomeArquivo); 
+			InfraestruturaDAO arquivo = new InfraestruturaDAO(nomeArquivo);
 			
 			if(TelaInfraController.operacao.equals("alterar")) {
 				arquivo.alterarInfraestrutura(TelaInfraController.InfraSelecionada.getCodInfraestrutura(), infra);

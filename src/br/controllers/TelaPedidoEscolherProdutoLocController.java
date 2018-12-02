@@ -124,10 +124,9 @@ public class TelaPedidoEscolherProdutoLocController implements Initializable{
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		prepararTableViews();
-		Locale.setDefault(new Locale("pt", "BR"));
-		date_inicio.setValue(LocalDate.now());
-		date_inicio.setMouseTransparent(true);
+		Locale.setDefault(new Locale("pt", "BR"));	
+		date_inicio.setValue(LocalDate.now());	
+		date_inicio.setMouseTransparent(true);	
 		checkDataAtual();
 	}
 
