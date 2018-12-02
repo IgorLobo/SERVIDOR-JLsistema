@@ -196,8 +196,8 @@ public class Pedido {
 		this.cliente = new Cliente(vetorString[1], vetorString[2]);
 		this.quantidadeProdutos = Integer.parseInt(vetorString[3]);
 		for (int i = 0; i < this.quantidadeProdutos; i++) {
-			produto = new Produto(vetorString[4 + (i * 7)], vetorString[5 + (i * 7)], vetorString[6 + (i * 7)],
-					Float.parseFloat(vetorString[7 + (i * 7)]), Integer.parseInt(vetorString[8 + (i * 7)]));
+			produto = new Produto(vetorString[4 + (i * 5)], vetorString[5 + (i * 5)], vetorString[6 + (i * 5)],
+					Float.parseFloat(vetorString[7 + (i * 5)]), Integer.parseInt(vetorString[8 + (i * 5)]));
 			produtos.add(produto);
 		}
 		this.dataInicio = vetorString[vetorString.length - 4];
