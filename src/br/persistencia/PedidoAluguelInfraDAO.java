@@ -106,7 +106,7 @@ public class PedidoAluguelInfraDAO implements IPedidos {
 			int id = 0;
 			String linhaDoId = "";
 
- 			ArrayList<Identificador> listaDeIdentificadores = new ArrayList<Identificador>();
+			ArrayList<Identificador> listaDeIdentificadores = new ArrayList<Identificador>();
 			FileReader fileReader = new FileReader(TelaPrincipalController.ids);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String linha = "";
@@ -124,7 +124,7 @@ public class PedidoAluguelInfraDAO implements IPedidos {
 				Identificador identificador = listaDeIdentificadores.get(posicao);
 				if (!(identificador.getTipo().equals("PedidoAluguelInfra"))) {
 					bufferedWriter.write(identificador.desmaterializar() + "\r\n");
-				}else {
+				} else {
 					id = identificador.getId();
 				}
 			}
@@ -147,20 +147,20 @@ public class PedidoAluguelInfraDAO implements IPedidos {
 				Identificador identificador1 = listaDeIdentificadores1.get(posicao);
 				if (!(identificador1.getTipo().equals("PedidoAluguelInfra"))) {
 					bufferedWriter1.write(identificador1.desmaterializar() + "\r\n");
-				} 
+				}
 			}
 			id++;
-			Identificador i = new Identificador(id,"PedidoAluguelInfra");
+			Identificador i = new Identificador(id, "PedidoAluguelInfra");
 			bufferedWriter1.write(i.desmaterializar(id) + "\r\n");
-			
-			bufferedWriter1.close();			
+
+			bufferedWriter1.close();
 			return id;
 
 		} catch (Exception erro) {
 			throw erro;
 		}
 	}
-	
+
 	public void incluirDataAluguelInfra(int codPedidoAluguelInfra, Pedido pedidoAluguelInfra) throws Exception {
 		try {
 			ArrayList<Pedido> listaDePedidosAluguelProduto = this.listarPedidos();
@@ -175,7 +175,8 @@ public class PedidoAluguelInfraDAO implements IPedidos {
 				} else {
 					int id = codPedidoAluguelInfra;
 					id--;
-					bufferedWriter.write(pedidoAluguelInfra.desmaterializarAluguelInfraData(id) + "\r\n");
+					// bufferedWriter.write(pedidoAluguelInfra.desmaterializarAluguelInfraData(id) +
+					// "\r\n");
 				}
 			}
 			bufferedWriter.close();

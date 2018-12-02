@@ -2,17 +2,17 @@ package br.model;
 
 import br.interfaces.TratamentoDeDados;
 
-public class Identificador implements TratamentoDeDados{
+public class Identificador implements TratamentoDeDados {
 	int id = 0;
 	String tipo = "";
-	
+
 	public Identificador(int id, String tipo) {
 		id = id;
 		this.tipo = tipo;
 	}
-	
+
 	public Identificador() {
-		
+
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class Identificador implements TratamentoDeDados{
 		saida += this.id + ";";
 		return saida;
 	}
-	
+
 	public String desmaterializar(int id) throws Exception {
 		this.id = id;
 		String saida = "";
@@ -56,7 +56,4 @@ public class Identificador implements TratamentoDeDados{
 		this.tipo = tipo;
 	}
 
-	
-	
-	
 }

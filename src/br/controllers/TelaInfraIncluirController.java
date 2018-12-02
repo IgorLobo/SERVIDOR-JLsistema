@@ -24,19 +24,19 @@ public class TelaInfraIncluirController implements Initializable {
 
 //*********************** COMPONENTES *******************************	
 	@FXML
-    private TextField txf_nome;
+	private TextField txf_nome;
 
-    @FXML
-    private TextField txf_valor;
+	@FXML
+	private TextField txf_valor;
 
-    @FXML
-    private TextArea txa_descricao;
+	@FXML
+	private TextArea txa_descricao;
 
-    @FXML
-    private Button btn_cancelar;
+	@FXML
+	private Button btn_cancelar;
 
-    @FXML
-    private Button btn_cadastrar;
+	@FXML
+	private Button btn_cadastrar;
 
 //*********************** ON-ACTION *********************************
 	@Override
@@ -47,57 +47,59 @@ public class TelaInfraIncluirController implements Initializable {
 		prepararComponentes();
 	}
 
-    @FXML
-    void OnClick_btn_cadastrar(ActionEvent event) {
-    	if(txf_nome.getText().isEmpty()||txf_valor.getText().isEmpty()||txa_descricao.getText().isEmpty()){
-    		
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Atenção");
-				alert.setHeaderText(null);
-				alert.setContentText("Preencha todos os campos!");
-				alert.show();
-    		
-    	}else {
-    	
-    	try {
-    		String nome = txf_nome.getText();
-			float valor = MaskTextfield.monetaryValueFromField(txf_valor).floatValue();         //Float.parseFloat(txf_valor.getText());
-			String descricao = txa_descricao.getText();
-			Infraestrutura infra = new Infraestrutura(nome, descricao, valor);
-			InfraestruturaDAO arquivo = new InfraestruturaDAO(nomeArquivo);
-			
-			if(TelaInfraController.operacao.equals("alterar")) {
-				arquivo.alterarInfraestrutura(TelaInfraController.InfraSelecionada.getCodInfraestrutura(), infra);
-				limpar();
-			}else {
-				arquivo.incluirInfraestrutura(infra);
-				limpar();
-			}
-			br.util.Janela.fecharJanela(btn_cadastrar);
-    	}catch(Exception erro) {
-    		JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
-    	}
-    	
-    	}
-    }
+	@FXML
+	void OnClick_btn_cadastrar(ActionEvent event) {
+		if (txf_nome.getText().isEmpty() || txf_valor.getText().isEmpty() || txa_descricao.getText().isEmpty()) {
 
-    @FXML
-    void OnClick_btn_cancelar(ActionEvent event) {
-    	br.util.Janela.fecharJanela(btn_cancelar);
-    }
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Atenção");
+			alert.setHeaderText(null);
+			alert.setContentText("Preencha todos os campos!");
+			alert.show();
+
+		} else {
+
+			try {
+				String nome = txf_nome.getText();
+				float valor = MaskTextfield.monetaryValueFromField(txf_valor).floatValue(); // Float.parseFloat(txf_valor.getText());
+				String descricao = txa_descricao.getText();
+				Infraestrutura infra = new Infraestrutura(nome, descricao, valor);
+				InfraestruturaDAO arquivo = new InfraestruturaDAO(nomeArquivo);
+
+				if (TelaInfraController.operacao.equals("alterar")) {
+					arquivo.alterarInfraestrutura(TelaInfraController.InfraSelecionada.getCodInfraestrutura(), infra);
+					limpar();
+				} else {
+					arquivo.incluirInfraestrutura(infra);
+					limpar();
+				}
+				br.util.Janela.fecharJanela(btn_cadastrar);
+			} catch (Exception erro) {
+				JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+			}
+
+		}
+	}
+
+	@FXML
+	void OnClick_btn_cancelar(ActionEvent event) {
+		br.util.Janela.fecharJanela(btn_cancelar);
+	}
 
 //************************** METODOS AUXILIARES *********************
-    private void prepararComponentes() {
-    	MaskTextfield.monetaryField(txf_valor);
-    }
-    private void carregarDados() {
+	private void prepararComponentes() {
+		MaskTextfield.monetaryField(txf_valor);
+	}
+
+	private void carregarDados() {
 		txf_nome.setText(TelaInfraController.InfraSelecionada.getNomeInfraestrutura());
 		txf_valor.setText(String.valueOf(TelaInfraController.InfraSelecionada.getPrecoDiaInfraestrutura()));
 		txa_descricao.setText(TelaInfraController.InfraSelecionada.getDescricaoInfraestrutura());
 	}
-    private void limpar() {
-    	txf_nome.setText("");
+
+	private void limpar() {
+		txf_nome.setText("");
 		txf_valor.setText("");
 		txa_descricao.setText("");
-    }
+	}
 }

@@ -41,7 +41,7 @@ public class Cliente implements TratamentoDeDados {
 		this.telefone1Cliente = telefone1Cliente;
 		this.email1Cliente = email1Cliente;
 	}
-	
+
 	public Cliente(String nomeCliente, String cpfCliente) {
 		this.nomeCliente = nomeCliente;
 		this.cpfCliente = cpfCliente;
@@ -180,5 +180,4 @@ public class Cliente implements TratamentoDeDados {
 		return nomeCliente;
 	}
 
-	
 }

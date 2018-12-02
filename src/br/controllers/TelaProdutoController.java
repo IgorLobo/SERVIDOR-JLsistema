@@ -20,81 +20,81 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class TelaProdutoController implements Initializable{
+public class TelaProdutoController implements Initializable {
 
 //************************ ATRIBUTOS ********************************
 	private Janela utilJanela = new Janela();
 	static String operacao;
 	static Produto produtoSelecionado;
 //*********************** COMPONENTES *******************************	
-		@FXML
-	    private TitledPane paneAcessorios;
-	
-		@FXML
-	    private TitledPane paneJogos;
-	
-		@FXML
-	    private TitledPane paneConsoles;
-	
-		@FXML
-	    private Button btn_incluir;
+	@FXML
+	private TitledPane paneAcessorios;
 
-	    @FXML
-	    private Button btn_alterar;
+	@FXML
+	private TitledPane paneJogos;
 
-	    @FXML
-	    private Button btn_excluir;
+	@FXML
+	private TitledPane paneConsoles;
 
-	    @FXML
-	    private Button btn_observacao;
+	@FXML
+	private Button btn_incluir;
 
-	    @FXML
-	    private TableView<Produto> tv_jogos;
+	@FXML
+	private Button btn_alterar;
 
-	    @FXML
-	    private TableColumn<Produto, String> tv_jogos_tcNome;
+	@FXML
+	private Button btn_excluir;
 
-	    @FXML
-	    private TableColumn<Produto, String> tv_jogos_tcCompatibilidade;
+	@FXML
+	private Button btn_observacao;
 
-	    @FXML
-	    private TableColumn<Produto, Double> tv_jogos_tcValVenda;
+	@FXML
+	private TableView<Produto> tv_jogos;
 
-	    @FXML
-	    private TableColumn<Produto, Double> tv_jogos_tcValLoc;
+	@FXML
+	private TableColumn<Produto, String> tv_jogos_tcNome;
 
-	    @FXML
-	    private TableView<Produto> tv_acessorios;
+	@FXML
+	private TableColumn<Produto, String> tv_jogos_tcCompatibilidade;
 
-	    @FXML
-	    private TableColumn<Produto, String> tv_acessorios_tcNome;
+	@FXML
+	private TableColumn<Produto, Double> tv_jogos_tcValVenda;
 
-	    @FXML
-	    private TableColumn<Produto, String> tv_acessorios_tcCompatibilidade;
+	@FXML
+	private TableColumn<Produto, Double> tv_jogos_tcValLoc;
 
-	    @FXML
-	    private TableColumn<Produto, String> tv_acessorios_fabricante;
+	@FXML
+	private TableView<Produto> tv_acessorios;
 
-	    @FXML
-	    private TableColumn<Produto, Double> tv_acessorios_tcValVenda;
+	@FXML
+	private TableColumn<Produto, String> tv_acessorios_tcNome;
 
-	    @FXML
-	    private TableColumn<Produto, Double> tv_acessorios_tcValLoc;
+	@FXML
+	private TableColumn<Produto, String> tv_acessorios_tcCompatibilidade;
 
-	    @FXML
-	    private TableView<Produto> tv_consoles;
+	@FXML
+	private TableColumn<Produto, String> tv_acessorios_fabricante;
 
-	    @FXML
-	    private TableColumn<Produto, String> tv_consoles_tcNome;
+	@FXML
+	private TableColumn<Produto, Double> tv_acessorios_tcValVenda;
 
-	    @FXML
-	    private TableColumn<Produto, String> tv_consoles_fabricante;
+	@FXML
+	private TableColumn<Produto, Double> tv_acessorios_tcValLoc;
 
-	    @FXML
-	    private TableColumn<Produto, Double> tv_consoles_tcValVenda;
+	@FXML
+	private TableView<Produto> tv_consoles;
 
-	    @FXML
-	    private TableColumn<Produto, Double> tv_consoles_tcValLoc;
+	@FXML
+	private TableColumn<Produto, String> tv_consoles_tcNome;
+
+	@FXML
+	private TableColumn<Produto, String> tv_consoles_fabricante;
+
+	@FXML
+	private TableColumn<Produto, Double> tv_consoles_tcValVenda;
+
+	@FXML
+	private TableColumn<Produto, Double> tv_consoles_tcValLoc;
 
 //*********************** ON-ACTION *********************************
 	@Override
@@ -102,8 +102,9 @@ public class TelaProdutoController implements Initializable{
 		prepararTableViews();
 		listar();
 	}
+
 	@FXML
-    void OnClick_btn_alterar(ActionEvent event) {
+	void OnClick_btn_alterar(ActionEvent event) {
 		try {
 			operacao = "alterar";
 			if (paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()) {
@@ -124,26 +125,32 @@ public class TelaProdutoController implements Initializable{
 				alert.setHeaderText(null);
 				alert.setContentText("Escolha um produto!");
 				alert.show();
-			} 
+			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-    }
+	}
 
-    @FXML
-    void OnClick_btn_excluir(ActionEvent event) {
-    	try {
+	@FXML
+	void OnClick_btn_excluir(ActionEvent event) {
+		try {
 			if (paneJogos.isExpanded() && !tv_jogos.getSelectionModel().isEmpty()) {
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).excluirProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto());
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc).excluirProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos)
+						.excluirProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc)
+						.excluirProduto(tv_jogos.getSelectionModel().getSelectedItem().getCodProduto());
 				listar();
 			} else if (paneAcessorios.isExpanded() && !tv_acessorios.getSelectionModel().isEmpty()) {
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).excluirProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto());
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc).excluirProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios)
+						.excluirProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc)
+						.excluirProduto(tv_acessorios.getSelectionModel().getSelectedItem().getCodProduto());
 				listar();
 			} else if (paneConsoles.isExpanded() && !tv_consoles.getSelectionModel().isEmpty()) {
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).excluirProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto());
-				new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc).excluirProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles)
+						.excluirProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto());
+				new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc)
+						.excluirProduto(tv_consoles.getSelectionModel().getSelectedItem().getCodProduto());
 				listar();
 			} else {
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -151,53 +158,56 @@ public class TelaProdutoController implements Initializable{
 				alert.setHeaderText(null);
 				alert.setContentText("Escolha um produto!");
 				alert.show();
-			} 
+			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-    }
+	}
 
-    @FXML
-    void OnClick_btn_incluir(ActionEvent event) {
-    	operacao = "incluir";
-    	utilJanela.novaJanelaComOwnerWait("/br/view/TelaProdutoIncluir.fxml", false, "Cadastrar produto");
-    	if(operacao.equals("ok"))listar();
-    }
+	@FXML
+	void OnClick_btn_incluir(ActionEvent event) {
+		operacao = "incluir";
+		utilJanela.novaJanelaComOwnerWait("/br/view/TelaProdutoIncluir.fxml", false, "Cadastrar produto");
+		if (operacao.equals("ok"))
+			listar();
+	}
 
-    @FXML
-    void OnClick_btn_observacao(ActionEvent event) {
+	@FXML
+	void OnClick_btn_observacao(ActionEvent event) {
 
-    }
+	}
 
 //************************** METODOS AUXILIARES *********************
-    private void prepararTableViews() {
-    	tv_jogos_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
-    	tv_jogos_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
-    	tv_jogos_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
-    	tv_jogos_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
-    	
-    	tv_acessorios_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
-    	tv_acessorios_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
-    	tv_acessorios_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
-    	tv_acessorios_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
-    	tv_acessorios_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
-    	
-    	tv_consoles_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
-    	tv_consoles_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
-    	tv_consoles_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
-    	tv_consoles_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
-    	
-    	
-    }
+	private void prepararTableViews() {
+		tv_jogos_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
+		tv_jogos_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
+		tv_jogos_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
+		tv_jogos_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
 
-    private void listar() {
-    	try {
-    	tv_jogos.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).listarProdutos()));
-    	tv_acessorios.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).listarProdutos()));
-    	tv_consoles.setItems(FXCollections.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listarProdutos()));
-    	} catch (Exception e) {
+		tv_acessorios_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
+		tv_acessorios_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+		tv_acessorios_tcCompatibilidade.setCellValueFactory(new PropertyValueFactory<>("compatibilidade"));
+		tv_acessorios_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
+		tv_acessorios_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
+
+		tv_consoles_tcNome.setCellValueFactory(new PropertyValueFactory<>("nomeProduto"));
+		tv_consoles_fabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+		tv_consoles_tcValLoc.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioLocacao"));
+		tv_consoles_tcValVenda.setCellValueFactory(new PropertyValueFactory<>("valorUnitarioVenda"));
+
+	}
+
+	private void listar() {
+		try {
+			tv_jogos.setItems(FXCollections
+					.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).listarProdutos()));
+			tv_acessorios.setItems(FXCollections.observableArrayList(
+					new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).listarProdutos()));
+			tv_consoles.setItems(FXCollections
+					.observableArrayList(new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).listarProdutos()));
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 }

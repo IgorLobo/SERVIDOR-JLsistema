@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -32,11 +33,11 @@
    <top>
       <AnchorPane prefHeight="58.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" layoutX="108.0" layoutY="21.0" spacing="10.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="10.0">
+            <HBox alignment="CENTER" layoutX="108.0" layoutY="21.0" spacing="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                <children>
                   <VBox prefHeight="40.0" prefWidth="149.0">
                      <children>
-                        <Label text="Nome do cliente:">
+                        <Label prefHeight="26.0" prefWidth="104.0" text="Nome do cliente:">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
@@ -44,24 +45,26 @@
                         <TextField fx:id="txf_nome" editable="false" prefHeight="25.0" prefWidth="160.0" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="40.0" prefWidth="105.0">
+                  <VBox prefHeight="42.0" prefWidth="134.0">
                      <children>
-                        <Label text="CPF:">
+                        <Label prefHeight="21.0" prefWidth="28.0" text="CPF:">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txf_cpf" editable="false" />
+                        <TextField fx:id="txf_cpf" editable="false" prefHeight="25.0" prefWidth="75.0" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="40.0" prefWidth="96.0">
+                  <VBox>
                      <children>
-                        <Label text="Data:">
-                           <font>
-                              <Font name="Verdana" size="12.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txf_data" editable="false" prefHeight="25.0" prefWidth="102.0" promptText="dd/mm/aaaa" />
+                        <Label text="Data inicio:" />
+                        <DatePicker fx:id="date_inicio" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" promptText="Data inicio" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="Data final:" />
+                        <DatePicker fx:id="date_fim" maxWidth="120.0" minWidth="120.0" onAction="#OnClick_Date" prefWidth="120.0" promptText="Data fim" />
                      </children>
                   </VBox>
                </children>

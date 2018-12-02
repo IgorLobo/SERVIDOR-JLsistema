@@ -5,13 +5,11 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
 
-public class TelaRelatorioController implements Initializable{
+public class TelaRelatorioController implements Initializable {
 
 //************************ ATRIBUTOS ********************************
-		
-		
+
 //*********************** COMPONENTES *******************************	
-			
 
 //*********************** ON-ACTION *********************************
 	@Override

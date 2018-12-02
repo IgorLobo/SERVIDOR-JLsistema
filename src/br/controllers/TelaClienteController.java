@@ -68,19 +68,20 @@ public class TelaClienteController implements Initializable {
 	void OnClick_btn_alterar(ActionEvent event) {
 		try {
 			if (tableView_cliente.getSelectionModel().isEmpty()) {
-				
+
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Atenção");
 				alert.setHeaderText(null);
 				alert.setContentText("Selecione uma Infraestrutura para Exclusão!");
-				alert.show();	
+				alert.show();
 				listar();
 			} else {
 				operacao = "alterar";
 				clienteSelecionado = tableView_cliente.getSelectionModel().getSelectedItem();
-				utilJanela.novaJanelaComOwnerWait("/br/view/TelaClienteIncluir.fxml", false, "Alterar dados do cliente");
+				utilJanela.novaJanelaComOwnerWait("/br/view/TelaClienteIncluir.fxml", false,
+						"Alterar dados do cliente");
 				listar();
-				
+
 			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);

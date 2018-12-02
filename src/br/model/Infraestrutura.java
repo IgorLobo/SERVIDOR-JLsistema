@@ -13,7 +13,6 @@ public class Infraestrutura implements TratamentoDeDados {
 	private String observacao = " ";
 	private String dataLocacao = "";
 
-
 	public Infraestrutura(int codInfraestrutura, String nomeInfraestrutura, String descricaoInfraestrutura,
 			float precoDiaInfraestrutura, String observacao) {
 		this.codInfraestrutura = codInfraestrutura;
@@ -23,16 +22,14 @@ public class Infraestrutura implements TratamentoDeDados {
 		this.observacao = observacao;
 	}
 
-	//sem id
+	// sem id
 	public Infraestrutura(String nomeInfraestrutura, String descricaoInfraestrutura, Float precoDiaInfraestrutura) {
 		this.nomeInfraestrutura = nomeInfraestrutura;
 		this.descricaoInfraestrutura = descricaoInfraestrutura;
 		this.precoDiaInfraestrutura = precoDiaInfraestrutura;
 	}
-	
-	
-	
-	//locação
+
+	// locação
 	public Infraestrutura(String nomeInfraestrutura, float precoDiaInfraestrutura, String dataLocacao) {
 		this.nomeInfraestrutura = nomeInfraestrutura;
 		this.precoDiaInfraestrutura = precoDiaInfraestrutura;
@@ -40,7 +37,7 @@ public class Infraestrutura implements TratamentoDeDados {
 	}
 
 	public Infraestrutura() {
-		
+
 	}
 
 	// -----------------METODOS--------------------
@@ -79,7 +76,7 @@ public class Infraestrutura implements TratamentoDeDados {
 		saida += this.observacao + ";";
 		return saida;
 	}
-	
+
 	public String desmaterializarData(int id) {
 		id++;
 		this.codInfraestrutura = id;
@@ -117,5 +114,4 @@ public class Infraestrutura implements TratamentoDeDados {
 		this.dataLocacao = dataLocacao;
 	}
 
-	
 }

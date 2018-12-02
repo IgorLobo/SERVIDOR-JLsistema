@@ -108,7 +108,7 @@ public class PedidoAluguelProdutoDAO implements IPedidos {
 			int id = 0;
 			String linhaDoId = "";
 
- 			ArrayList<Identificador> listaDeIdentificadores = new ArrayList<Identificador>();
+			ArrayList<Identificador> listaDeIdentificadores = new ArrayList<Identificador>();
 			FileReader fileReader = new FileReader(TelaPrincipalController.ids);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String linha = "";
@@ -126,7 +126,7 @@ public class PedidoAluguelProdutoDAO implements IPedidos {
 				Identificador identificador = listaDeIdentificadores.get(posicao);
 				if (!(identificador.getTipo().equals("PedidoAluguelProduto"))) {
 					bufferedWriter.write(identificador.desmaterializar() + "\r\n");
-				}else {
+				} else {
 					id = identificador.getId();
 				}
 			}
@@ -149,13 +149,13 @@ public class PedidoAluguelProdutoDAO implements IPedidos {
 				Identificador identificador1 = listaDeIdentificadores1.get(posicao);
 				if (!(identificador1.getTipo().equals("PedidoAluguelProduto"))) {
 					bufferedWriter1.write(identificador1.desmaterializar() + "\r\n");
-				} 
+				}
 			}
 			id++;
-			Identificador i = new Identificador(id,"PedidoAluguelProduto");
+			Identificador i = new Identificador(id, "PedidoAluguelProduto");
 			bufferedWriter1.write(i.desmaterializar(id) + "\r\n");
-			
-			bufferedWriter1.close();			
+
+			bufferedWriter1.close();
 			return id;
 
 		} catch (Exception erro) {

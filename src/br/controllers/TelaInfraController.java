@@ -32,102 +32,102 @@ public class TelaInfraController implements Initializable {
 
 //*********************** COMPONENTES *******************************	
 	@FXML
-    private TableView<Infraestrutura> tableView_infra;
+	private TableView<Infraestrutura> tableView_infra;
 
-    @FXML
-    private TableColumn<Infraestrutura, Integer> tc_ID;
+	@FXML
+	private TableColumn<Infraestrutura, Integer> tc_ID;
 
-    @FXML
-    private TableColumn<Infraestrutura, String> tc_nome;
+	@FXML
+	private TableColumn<Infraestrutura, String> tc_nome;
 
-    @FXML
-    private TableColumn<Infraestrutura, String> tc_descricao;
+	@FXML
+	private TableColumn<Infraestrutura, String> tc_descricao;
 
-    @FXML
-    private TableColumn<Infraestrutura, Integer> tc_precoDia;
+	@FXML
+	private TableColumn<Infraestrutura, Integer> tc_precoDia;
 
-    @FXML
-    private Button btn_observacao;
+	@FXML
+	private Button btn_observacao;
 
-    @FXML
-    private Button btn_excluir;
+	@FXML
+	private Button btn_excluir;
 
-    @FXML
-    private Button btn_alterar;
+	@FXML
+	private Button btn_alterar;
 
-    @FXML
-    private Button btn_incluir;
+	@FXML
+	private Button btn_incluir;
 
-   
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableView();
 		listar();
 	}
-	 	
+
 	@FXML
-    void OnClick_btn_alterar(ActionEvent event) {
+	void OnClick_btn_alterar(ActionEvent event) {
 		try {
-			if(tableView_infra.getSelectionModel().isEmpty()) {
-				
+			if (tableView_infra.getSelectionModel().isEmpty()) {
+
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Atenção");
 				alert.setHeaderText(null);
 				alert.setContentText("Selecione uma Infraestrutura para Alteração!");
-				alert.show();	
-			}else {
-			operacao = "alterar";
-			InfraSelecionada = tableView_infra.getSelectionModel().getSelectedItem();
-			utilJanela.novaJanelaComOwnerWait("/br/view/TelaInfraIncluir.fxml", false, "Alterar dados da infraestrutura");
-			listar();
+				alert.show();
+			} else {
+				operacao = "alterar";
+				InfraSelecionada = tableView_infra.getSelectionModel().getSelectedItem();
+				utilJanela.novaJanelaComOwnerWait("/br/view/TelaInfraIncluir.fxml", false,
+						"Alterar dados da infraestrutura");
+				listar();
 			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 		}
-    }
+	}
 
-    @FXML
-    void OnClick_btn_excluir(ActionEvent event) {
-    	try {
+	@FXML
+	void OnClick_btn_excluir(ActionEvent event) {
+		try {
 			if (tableView_infra.getSelectionModel().isEmpty()) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Atenção");
 				alert.setHeaderText(null);
 				alert.setContentText("Selecione uma Infraestrutura para Exclusão!");
-				alert.show();	
+				alert.show();
 				listar();
 			} else {
-				persistencia.excluirInfraestrutura(tableView_infra.getSelectionModel().getSelectedItem().getCodInfraestrutura());
+				persistencia.excluirInfraestrutura(
+						tableView_infra.getSelectionModel().getSelectedItem().getCodInfraestrutura());
 				listar();
 			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 		}
-    }
+	}
 
-    @FXML
-    void OnClick_btn_incluir(ActionEvent event) {
-    	operacao = "incluir";
-    	utilJanela.novaJanelaComOwnerWait("/br/view/TelaInfraIncluir.fxml", false, "Cadastrar nova infraestrutura");
-    	listar();
-    }
+	@FXML
+	void OnClick_btn_incluir(ActionEvent event) {
+		operacao = "incluir";
+		utilJanela.novaJanelaComOwnerWait("/br/view/TelaInfraIncluir.fxml", false, "Cadastrar nova infraestrutura");
+		listar();
+	}
 
-    @FXML
-    void OnClick_btn_observacao(ActionEvent event) {
-    	listar();
-    }
-
+	@FXML
+	void OnClick_btn_observacao(ActionEvent event) {
+		utilJanela.novaJanelaComOwner("/br/view/TelaInfraDetalhes.fxml", false, "Detalhes da sala");
+	}
 
 //************************** METODOS AUXILIARES *********************
 
-    private void listar() {
+	private void listar() {
 		try {
 			ArrayList<Infraestrutura> listaDeInfra = null;
 			listaDeInfra = persistencia.listarInfraestruturas();
 			tableView_infra.setItems(FXCollections.observableArrayList(listaDeInfra));
-			
+
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 		}
@@ -139,5 +139,5 @@ public class TelaInfraController implements Initializable {
 		tc_descricao.setCellValueFactory(new PropertyValueFactory<>("descricaoInfraestrutura"));
 		tc_precoDia.setCellValueFactory(new PropertyValueFactory<>("precoDiaInfraestrutura"));
 	}
-    
+
 }

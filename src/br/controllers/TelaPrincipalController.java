@@ -44,10 +44,10 @@ public class TelaPrincipalController implements Initializable {
 
 	@FXML
 	private Button tbBtn_infra;
-	
+
 	@FXML
 	private Button btn_estoque;
-	
+
 	// --
 //*********************** ON-ACTION *********************************
 	@Override
@@ -76,9 +76,10 @@ public class TelaPrincipalController implements Initializable {
 	}
 
 	@FXML
-    void OnClick_btn_estoque(ActionEvent event) {
+	void OnClick_btn_estoque(ActionEvent event) {
 		utilJanela.novaJanelaComOwner("/br/view/TelaEstoque.fxml", false, "Estoque da loja");
-    }
+	}
+
 //************************** METODOS AUXILIARES *********************
 	private void iniciarServidor() {
 		servidor = new Servidor(5555);

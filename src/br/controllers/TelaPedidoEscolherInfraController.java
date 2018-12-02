@@ -155,7 +155,6 @@ public class TelaPedidoEscolherInfraController implements Initializable {
 						if (newSelection != null) {
 							date_inicio.setDisable(false);
 							System.out.println(newSelection.getNomeInfraestrutura());
-							
 
 						}
 					});

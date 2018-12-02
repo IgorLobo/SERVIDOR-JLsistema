@@ -44,7 +44,7 @@ public class ProdutoDAO implements IProduto {
 			int id = 0;
 			String linhaDoId = "";
 
- 			ArrayList<Identificador> listaDeIdentificadores = new ArrayList<Identificador>();
+			ArrayList<Identificador> listaDeIdentificadores = new ArrayList<Identificador>();
 			FileReader fileReader = new FileReader(TelaPrincipalController.ids);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String linha = "";
@@ -62,7 +62,7 @@ public class ProdutoDAO implements IProduto {
 				Identificador identificador = listaDeIdentificadores.get(posicao);
 				if (!(identificador.getTipo().equals("Produto"))) {
 					bufferedWriter.write(identificador.desmaterializar() + "\r\n");
-				}else {
+				} else {
 					id = identificador.getId();
 				}
 			}
@@ -85,13 +85,13 @@ public class ProdutoDAO implements IProduto {
 				Identificador identificador1 = listaDeIdentificadores1.get(posicao);
 				if (!(identificador1.getTipo().equals("Produto"))) {
 					bufferedWriter1.write(identificador1.desmaterializar() + "\r\n");
-				} 
+				}
 			}
 			id++;
-			Identificador i = new Identificador(id,"Produto");
+			Identificador i = new Identificador(id, "Produto");
 			bufferedWriter1.write(i.desmaterializar(id) + "\r\n");
-			
-			bufferedWriter1.close();			
+
+			bufferedWriter1.close();
 			return id;
 
 		} catch (Exception erro) {
@@ -141,7 +141,7 @@ public class ProdutoDAO implements IProduto {
 	@Override
 	public void alterarProduto(int codProduto, Produto produto) throws Exception {
 		try {
-			
+
 			ArrayList<Produto> listaDeClientes = this.listarProdutos();
 			// cria o arquivo
 			FileWriter fileWriter = new FileWriter(nomeDoArquivo);
@@ -172,17 +172,17 @@ public class ProdutoDAO implements IProduto {
 			while ((linha = bufferedReader.readLine()) != null) {
 				Produto produto = new Produto();
 				produto.materializar(linha);
-				if(produto.getCodProduto() == codProduto) return produto;
+				if (produto.getCodProduto() == codProduto)
+					return produto;
 			}
 			bufferedReader.close();
 		} catch (Exception erro) {
 			throw erro;
 		}
-		
-		
+
 		return null;
 	}
-	
+
 	public Produto getProduto(int codProduto, int novoQnt) throws Exception {
 		try {
 			FileReader fileReader = new FileReader(nomeDoArquivo);
@@ -191,7 +191,7 @@ public class ProdutoDAO implements IProduto {
 			while ((linha = bufferedReader.readLine()) != null) {
 				Produto produto = new Produto();
 				produto.materializar(linha);
-				if(produto.getCodProduto() == codProduto) {
+				if (produto.getCodProduto() == codProduto) {
 					produto.definirQuantidade(novoQnt);
 					produto.setSubtotal(produto.getValorUnitarioVenda() * produto.getQuantidade());
 					return produto;
@@ -201,12 +201,11 @@ public class ProdutoDAO implements IProduto {
 		} catch (Exception erro) {
 			throw erro;
 		}
-		
-		
+
 		return null;
 	}
 
-	public Produto getProdutoLoc(int codProduto, int novoQnt, String dataInicio, String dataFinal,int diasDesejados) throws Exception {
+	public Produto getProdutoLoc(int codProduto, int novoQnt, int diasDesejados) throws Exception {
 		try {
 			Locale.setDefault(Locale.US);
 			FileReader fileReader = new FileReader(nomeDoArquivo);
@@ -215,11 +214,10 @@ public class ProdutoDAO implements IProduto {
 			while ((linha = bufferedReader.readLine()) != null) {
 				Produto produto = new Produto();
 				produto.materializar(linha);
-				if(produto.getCodProduto() == codProduto) {
+				if (produto.getCodProduto() == codProduto) {
 					produto.definirQuantidade(novoQnt);
-					produto.setDataInicio(dataInicio);
-					produto.setDataFim(dataFinal);
-					produto.setSubtotal(Float.parseFloat(String.format("%.2f", produto.getValorUnitarioLocacao() * produto.getQuantidade() * diasDesejados)));
+					produto.setSubtotal(Float.parseFloat(String.format("%.2f",
+							produto.getValorUnitarioLocacao() * produto.getQuantidade() * diasDesejados)));
 					produto.setDias(diasDesejados);
 					return produto;
 				}
@@ -228,8 +226,7 @@ public class ProdutoDAO implements IProduto {
 		} catch (Exception erro) {
 			throw erro;
 		}
-		
-		
+
 		return null;
 	}
 
@@ -256,5 +253,5 @@ public class ProdutoDAO implements IProduto {
 			throw erro;
 		}
 	}
-	
+
 }

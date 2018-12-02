@@ -84,37 +84,39 @@ public class TelaClienteIncluirController implements Initializable {
 
 	@FXML
 	void OnClick_btn_salvar(ActionEvent event) {
-		
-		if(Verificar()) Alertar();
-		else if(VerificarCpf()==false) AlertaCpf("Cpf Invalido");
+
+		if (Verificar())
+			Alertar();
+		else if (VerificarCpf() == false)
+			AlertaCpf("Cpf Invalido");
 		else {
-		try {
-			String nome = txf_nome.getText();
-			String cpf = txf_CPF.getText();
-			String cep = txf_CEP.getText();
-			String estado = cb_estados.getValue();
-			String cidade = txf_cidade.getText();
-			String setor = txf_bairro.getText();
-			String endereco = txf_edereco.getText();
-			String complemento = txf_complemento.getText();
-			String telefone1 = txf_telefone.getText();
-			String telefone2 = txf_telefoneSecundario.getText();
-			String email1 = txf_email.getText();
-			String email2 = txf_emailSecundario.getText();
-			Cliente cliente = new Cliente(nome, cpf, cep, estado, cidade, setor, endereco, complemento, telefone1,
-					telefone2, email1, email2);
-			ClienteDAO arquivo = new ClienteDAO(nomeArquivo);
-			if (TelaClienteController.operacao.equals("alterar")) {
-				arquivo.alterarCliente(TelaClienteController.clienteSelecionado.getCodCliente(), cliente);
-				limpar();
-			} else {
-				arquivo.incluirCliente(cliente);
-				limpar();
+			try {
+				String nome = txf_nome.getText();
+				String cpf = txf_CPF.getText();
+				String cep = txf_CEP.getText();
+				String estado = cb_estados.getValue();
+				String cidade = txf_cidade.getText();
+				String setor = txf_bairro.getText();
+				String endereco = txf_edereco.getText();
+				String complemento = txf_complemento.getText();
+				String telefone1 = txf_telefone.getText();
+				String telefone2 = txf_telefoneSecundario.getText();
+				String email1 = txf_email.getText();
+				String email2 = txf_emailSecundario.getText();
+				Cliente cliente = new Cliente(nome, cpf, cep, estado, cidade, setor, endereco, complemento, telefone1,
+						telefone2, email1, email2);
+				ClienteDAO arquivo = new ClienteDAO(nomeArquivo);
+				if (TelaClienteController.operacao.equals("alterar")) {
+					arquivo.alterarCliente(TelaClienteController.clienteSelecionado.getCodCliente(), cliente);
+					limpar();
+				} else {
+					arquivo.incluirCliente(cliente);
+					limpar();
+				}
+				br.util.Janela.fecharJanela(btn_cancelar);
+			} catch (Exception erro) {
+				JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 			}
-			br.util.Janela.fecharJanela(btn_cancelar);
-		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
-		}
 		}
 	}
 //************************** METODOS AUXILIARES *********************
@@ -166,46 +168,55 @@ public class TelaClienteIncluirController implements Initializable {
 		cb_estados.getSelectionModel().select(TelaClienteController.clienteSelecionado.getEstadoCliente());
 		txf_CPF.setDisable(true);
 	}
+
 	private boolean Verificar() {
-		if(txf_nome.getText().isEmpty()||txf_CEP.getText().isEmpty()||txf_cidade.getText().isEmpty()||txf_CPF.getText().isEmpty()||txf_edereco.getText().isEmpty()||txf_email.getText().isEmpty()||txf_bairro.getText().isEmpty()||txf_telefone.getText().isEmpty()||cb_estados.getSelectionModel().isEmpty()) {
+		if (txf_nome.getText().isEmpty() || txf_CEP.getText().isEmpty() || txf_cidade.getText().isEmpty()
+				|| txf_CPF.getText().isEmpty() || txf_edereco.getText().isEmpty() || txf_email.getText().isEmpty()
+				|| txf_bairro.getText().isEmpty() || txf_telefone.getText().isEmpty()
+				|| cb_estados.getSelectionModel().isEmpty()) {
 			return true;
 		}
 		return false;
 	}
+
 	private String EmBraco() {
-		String vazio="";
-		if(txf_nome.getText().isEmpty()) vazio="Nome"
-				+ "\n";
-		if(txf_CEP.getText().isEmpty()) vazio+="CEP"
-				+ "\n";
-		if(txf_cidade.getText().isEmpty()) vazio+="Cidade"
-				+ "\n";
-		if(txf_CPF.getText().isEmpty()) vazio+="CPF"
-				+ "\n";
-		if(txf_edereco.getText().isEmpty()) vazio+="Endereço"
-				+ "\n";
-		if(txf_email.getText().isEmpty()) vazio+="Email"
-				+ "\n";
-		if(txf_bairro.getText().isEmpty()) vazio+="Bairro"
-				+ "\n";
-		if(txf_telefone.getText().isEmpty()) vazio+="Telefone"
-				+ "\n";
-		if(cb_estados.getSelectionModel().isEmpty()) vazio+="Estado"
-				+ "\n";
+		String vazio = "";
+		if (txf_nome.getText().isEmpty())
+			vazio = "Nome" + "\n";
+		if (txf_CEP.getText().isEmpty())
+			vazio += "CEP" + "\n";
+		if (txf_cidade.getText().isEmpty())
+			vazio += "Cidade" + "\n";
+		if (txf_CPF.getText().isEmpty())
+			vazio += "CPF" + "\n";
+		if (txf_edereco.getText().isEmpty())
+			vazio += "Endereço" + "\n";
+		if (txf_email.getText().isEmpty())
+			vazio += "Email" + "\n";
+		if (txf_bairro.getText().isEmpty())
+			vazio += "Bairro" + "\n";
+		if (txf_telefone.getText().isEmpty())
+			vazio += "Telefone" + "\n";
+		if (cb_estados.getSelectionModel().isEmpty())
+			vazio += "Estado" + "\n";
 		return vazio;
 	}
+
 	private void Alertar() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Atenção");
 		alert.setHeaderText(null);
-		alert.setContentText("Campos Obrigatórios sem Preenchimento:"+"\n"+EmBraco());
+		alert.setContentText("Campos Obrigatórios sem Preenchimento:" + "\n" + EmBraco());
 		alert.show();
 	}
+
 	private boolean VerificarCpf() {
 		Validador Cpf = new Validador(txf_CPF.getText());
-    	if(Cpf.isCPF()==false) return false;
-    	return true;
+		if (Cpf.isCPF() == false)
+			return false;
+		return true;
 	}
+
 	private void AlertaCpf(String valido) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Atenção");

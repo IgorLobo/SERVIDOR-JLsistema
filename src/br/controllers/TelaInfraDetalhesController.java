@@ -13,20 +13,20 @@ import javafx.scene.control.TextField;
 
 public class TelaInfraDetalhesController implements Initializable {
 //************************ ATRIBUTOS ********************************
-		
+
 	static Infraestrutura infra;
 //*********************** COMPONENTES *******************************	
-	    @FXML
-	    private TextField txf_nome;
+	@FXML
+	private TextField txf_nome;
 
-	    @FXML
-	    private TextField txf_valor;
+	@FXML
+	private TextField txf_valor;
 
-	    @FXML
-	    private TextArea txa_descricao;
+	@FXML
+	private TextArea txa_descricao;
 
-	    @FXML
-	    private Button btn_ok;
+	@FXML
+	private Button btn_ok;
 
 //*********************** ON-ACTION *********************************
 	@Override
@@ -36,11 +36,10 @@ public class TelaInfraDetalhesController implements Initializable {
 		txa_descricao.setText(infra.getDescricaoInfraestrutura());
 	}
 
-    @FXML
-    void OnClick_btn_ok(ActionEvent event) {
-    	br.util.Janela.fecharJanela(btn_ok);
-    }
+	@FXML
+	void OnClick_btn_ok(ActionEvent event) {
+		br.util.Janela.fecharJanela(btn_ok);
+	}
 //************************** METODOS AUXILIARES *********************
-
 
 }

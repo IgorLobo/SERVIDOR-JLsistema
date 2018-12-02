@@ -31,7 +31,6 @@ public class TelaProdutoIncluirController implements Initializable {
 	@FXML
 	private ComboBox<String> cb_tipo;
 
-
 	@FXML
 	private ComboBox<Produto> cb_compatibilidade;
 
@@ -74,7 +73,7 @@ public class TelaProdutoIncluirController implements Initializable {
 	void OnClick_btn_cancelar(ActionEvent event) {
 		br.util.Janela.fecharJanela(btn_cancelar);
 	}
-	
+
 	@FXML
 	void OnClick_btn_salvar(ActionEvent event) {
 		if (txa_descricao.getText().isEmpty() || txf_fabricante.getText().isEmpty() || txf_nome.getText().isEmpty()
@@ -120,10 +119,10 @@ public class TelaProdutoIncluirController implements Initializable {
 												"Acessorio", nome, descricao, fabricante, precoVenda, precoLoc,
 												compatibilidade));
 						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc)
-						.alterarProduto(TelaProdutoController.produtoSelecionado.getCodProduto(),
-								new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(),
-										"Acessorio", nome, descricao, fabricante, precoVenda, precoLoc,
-										compatibilidade));
+								.alterarProduto(TelaProdutoController.produtoSelecionado.getCodProduto(),
+										new Produto(TelaProdutoController.produtoSelecionado.getCodProduto(),
+												"Acessorio", nome, descricao, fabricante, precoVenda, precoLoc,
+												compatibilidade));
 						break;
 					case "Console":
 						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).alterarProduto(
@@ -142,22 +141,22 @@ public class TelaProdutoIncluirController implements Initializable {
 					switch (cb_tipo.getSelectionModel().getSelectedItem()) {
 
 					case "Jogo":
-						new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).incluirProduto(new Produto("Jogo", nome,
-								descricao, fabricante, compatibilidade, precoVenda, precoLoc));
-						new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc).incluirProduto(new Produto("Jogo", nome,
-								descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoJogos).incluirProduto(new Produto("Jogo",
+								nome, descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc).incluirProduto(new Produto("Jogo",
+								nome, descricao, fabricante, compatibilidade, precoVenda, precoLoc));
 						break;
 					case "Acessorio":
-						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).incluirProduto(new Produto("Acessorio",
-								nome, descricao, fabricante, compatibilidade, precoVenda, precoLoc));
-						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc).incluirProduto(new Produto("Acessorio",
-								nome, descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessorios).incluirProduto(new Produto(
+								"Acessorio", nome, descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc).incluirProduto(new Produto(
+								"Acessorio", nome, descricao, fabricante, compatibilidade, precoVenda, precoLoc));
 						break;
 					case "Console":
-						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).incluirProduto(new Produto("Console", nome,
-								descricao, fabricante, compatibilidade, precoVenda, precoLoc));
-						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc).incluirProduto(new Produto("Console", nome,
-								descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsoles).incluirProduto(new Produto(
+								"Console", nome, descricao, fabricante, compatibilidade, precoVenda, precoLoc));
+						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc).incluirProduto(new Produto(
+								"Console", nome, descricao, fabricante, compatibilidade, precoVenda, precoLoc));
 						break;
 					}
 
