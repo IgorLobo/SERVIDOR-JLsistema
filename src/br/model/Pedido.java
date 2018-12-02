@@ -76,7 +76,6 @@ public class Pedido {
 		return tipoPedido;
 	}
 
-	
 	public boolean isPedidoConfirmado() {
 		return pedidoConfirmado;
 	}
@@ -84,7 +83,7 @@ public class Pedido {
 	public float getValorTotal() {
 		return valorTotal;
 	}
-	
+
 	public String getDataInicio() {
 		return dataInicio;
 	}
@@ -144,8 +143,9 @@ public class Pedido {
 		this.cliente = new Cliente(vetorString[1], vetorString[2]);
 		this.quantidadeProdutos = Integer.parseInt(vetorString[3]);
 		for (int i = 0; i < this.quantidadeProdutos; i++) {
-			produto = new Produto(vetorString[4 + (i * 5)], vetorString[5 + (i * 5)], vetorString[6 + (i * 5)],
-					Float.parseFloat(vetorString[7 + (i * 5)]), Integer.parseInt(vetorString[8 + (i * 5)]));
+			produto = new Produto(Integer.parseInt(vetorString[4 + (i * 6)]), vetorString[5 + (i * 6)],
+					vetorString[6 + (i * 6)], vetorString[7 + (i * 6)], Float.parseFloat(vetorString[8 + (i * 6)]),
+					Integer.parseInt(vetorString[9 + (i * 6)]));
 			produtos.add(produto);
 		}
 		this.dataInicio = vetorString[vetorString.length - 4];
@@ -208,8 +208,9 @@ public class Pedido {
 		this.cliente = new Cliente(vetorString[1], vetorString[2]);
 		this.quantidadeProdutos = Integer.parseInt(vetorString[3]);
 		for (int i = 0; i < this.quantidadeProdutos; i++) {
-			produto = new Produto(vetorString[4 + (i * 5)], vetorString[5 + (i * 5)], vetorString[6 + (i * 5)],
-					Float.parseFloat(vetorString[7 + (i * 5)]), Integer.parseInt(vetorString[8 + (i * 5)]));
+			produto =  new Produto(Integer.parseInt(vetorString[4 + (i * 6)]), vetorString[5 + (i * 6)],
+					vetorString[6 + (i * 6)], vetorString[7 + (i * 6)], Float.parseFloat(vetorString[8 + (i * 6)]),
+					Integer.parseInt(vetorString[9 + (i * 6)]));
 			produtos.add(produto);
 		}
 		this.dataInicio = vetorString[vetorString.length - 5];
@@ -258,6 +259,7 @@ public class Pedido {
 			saida += getProdutoArrayList(posicao).getQuantidade() + ";";
 		}
 		saida += this.dataInicio + ";";
+		saida += this.dataFim + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
@@ -334,7 +336,7 @@ public class Pedido {
 		saida += this.pedidoConfirmado + ";";
 		return saida;
 	}
-	
+
 	public void materializarPedidoAluguelInfraData(String dados) throws Exception {
 		Infraestrutura infra = null;
 		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
