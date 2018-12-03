@@ -189,7 +189,7 @@ public class PedidoAluguelInfraDAO implements IPedidos {
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			BufferedWriter bufferedWriter1 = new BufferedWriter(fileWriter1);
 			String datas = "";
-			for (int pos = 0; pos < listaDeInfraLocadas.size(); pos++) {
+ 			for (int pos = 0; pos < listaDeInfraLocadas.size(); pos++) {
 				for (int pos1 = 0; pos1 < listaDePedidosAluguelProduto.size(); pos1++) {
 					if (listaDeInfraLocadas.get(pos).getCodInfraestrutura() == listaDePedidosAluguelProduto.get(pos1)
 							.getCodInfraestrutura()) {
@@ -207,6 +207,30 @@ public class PedidoAluguelInfraDAO implements IPedidos {
 			bufferedWriter.close();
 
 
+		} catch (Exception erro) {
+			throw erro;
+		}
+	}
+	
+	public ArrayList<String> listarPedidosDatas(int codInfra) throws Exception {
+		try {
+			ArrayList<Infraestrutura> listaDePedidosAluguelInfra = new ArrayList<Infraestrutura>();
+			FileReader fileReader = new FileReader(TelaPrincipalController.nomeArquivoDataLocInfraestrutura);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String linha = "";
+			while ((linha = bufferedReader.readLine()) != null) {
+				Infraestrutura pedidoAluguelInfra = new Infraestrutura();
+				pedidoAluguelInfra.materializarDatas(linha);
+				listaDePedidosAluguelInfra.add(pedidoAluguelInfra);
+			}
+			ArrayList<String> datas = new ArrayList<String>();
+			for (int pos = 0; pos < listaDePedidosAluguelInfra.size(); pos++) {
+				if (listaDePedidosAluguelInfra.get(pos).getCodInfraestrutura() == codInfra) {
+					datas.addAll(listaDePedidosAluguelInfra.get(pos).getDatas());
+				}
+			}
+			bufferedReader.close();
+			return datas;
 		} catch (Exception erro) {
 			throw erro;
 		}

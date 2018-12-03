@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import br.model.Pedido;
 import br.model.Produto;
+import br.persistencia.PedidoAluguelInfraDAO;
 import br.persistencia.PedidoAluguelProdutoDAO;
 import br.persistencia.PedidoVendaDAO;
 import br.persistencia.ProdutoDAO;
@@ -27,6 +28,7 @@ public class TelaPedidoInicial implements Initializable {
 	private Janela janelaUtil = new Janela();
 	ObservableList<Pedido> obsLoc;
 	ObservableList<Pedido> obsVenda;
+	ObservableList<Pedido> obsInfra;
 	static Pedido pedidoSelecionado;
 //*********************** COMPONENTES *******************************	
 //venda	 	
@@ -65,7 +67,7 @@ public class TelaPedidoInicial implements Initializable {
 
 	@FXML
 	private TableColumn<Pedido, String> tvLoc_dataInicio;
-	
+
 	@FXML
 	private TableColumn<Pedido, String> tvLoc_dataFinal;
 
@@ -81,6 +83,31 @@ public class TelaPedidoInicial implements Initializable {
 	@FXML
 	private TableColumn<Pedido, Boolean> tvLoc_finalizado;
 
+//INFRA	
+	@FXML
+	private TitledPane paneInfra;
+
+	@FXML
+	private TableView<Pedido> tvInfra;
+
+	@FXML
+	private TableColumn<Pedido, Integer> tvInfra_ID;
+
+	@FXML
+	private TableColumn<Pedido, String> tvInfra_data;
+
+	@FXML
+	private TableColumn<Pedido, String> tvInfra_Cliente;
+
+	@FXML
+	private TableColumn<Pedido, Float> tvInfra_vt;
+
+	@FXML
+	private TableColumn<Pedido, String> tvInfra_Pagamento;
+
+	@FXML
+	private TableColumn<Pedido, Boolean> tvInfra_Finalizado;
+
 	@FXML
 	private Button btn_datalhe;
 
@@ -90,14 +117,12 @@ public class TelaPedidoInicial implements Initializable {
 	@FXML
 	private Button btn_incluir;
 
-
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
 			prepararComponentes();
-			
-		
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -110,41 +135,43 @@ public class TelaPedidoInicial implements Initializable {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Atenção");
 			alert.setHeaderText(null);
-			if(pedidoSelecionado!=null) {
-			if(pedidoSelecionado.getTipoPedido().equals("Aluguel") && !pedidoSelecionado.getPedidoConfirmado()) {
-				
-				ObservableList<Produto> produtos = FXCollections.observableArrayList(pedidoSelecionado.getProdutos());
-				for (Produto produto : produtos) {
-					switch (produto.getTipo()) {
-					case "Jogo":
-						new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc).devolucaoDeProduto(produto.getCodProduto(),
-								produto.getQuantidade());
-						break;
-					case "Acessorio":
-						new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc).devolucaoDeProduto(produto.getCodProduto(),
-								produto.getQuantidade());
-						break;
-					case "Console":
-						new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc).devolucaoDeProduto(produto.getCodProduto(),
-								produto.getQuantidade());
-						break;
+			if (pedidoSelecionado != null) {
+				if (pedidoSelecionado.getTipoPedido().equals("Aluguel") && !pedidoSelecionado.getPedidoConfirmado()) {
+
+					ObservableList<Produto> produtos = FXCollections
+							.observableArrayList(pedidoSelecionado.getProdutos());
+					for (Produto produto : produtos) {
+						switch (produto.getTipo()) {
+						case "Jogo":
+							new ProdutoDAO(TelaPrincipalController.nomeArquivoJogosLoc)
+									.devolucaoDeProduto(produto.getCodProduto(), produto.getQuantidade());
+							break;
+						case "Acessorio":
+							new ProdutoDAO(TelaPrincipalController.nomeArquivoAcessoriosLoc)
+									.devolucaoDeProduto(produto.getCodProduto(), produto.getQuantidade());
+							break;
+						case "Console":
+							new ProdutoDAO(TelaPrincipalController.nomeArquivoConsolesLoc)
+									.devolucaoDeProduto(produto.getCodProduto(), produto.getQuantidade());
+							break;
+						}
 					}
-					}
-				pedidoSelecionado.setPedidoConfirmado(true);
-				new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos).alterarPedido(pedidoSelecionado.getCodPedido(),
-						pedidoSelecionado);
-				tvLoc.refresh();
-				
-			}else {
-				alert.setContentText("Somente é possivel devolver itens de pedidos de locação.");
-				if(pedidoSelecionado.getPedidoConfirmado())alert.setContentText("Produtos do pedido já devolvidos.");
+					pedidoSelecionado.setPedidoConfirmado(true);
+					new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos)
+							.alterarPedido(pedidoSelecionado.getCodPedido(), pedidoSelecionado);
+					tvLoc.refresh();
+
+				} else {
+					alert.setContentText("Somente é possivel devolver itens de pedidos de locação.");
+					if (pedidoSelecionado.getPedidoConfirmado())
+						alert.setContentText("Produtos do pedido já devolvidos.");
+					alert.show();
+				}
+			} else {
+				alert.setContentText("Selecione um pedido para devolução de produtos");
 				alert.show();
 			}
-		}else {
-			alert.setContentText("Selecione um pedido para devolução de produtos");
-			alert.show();
-		}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -153,8 +180,6 @@ public class TelaPedidoInicial implements Initializable {
 	void OnClick_btn_detalhe(ActionEvent event) {
 		janelaUtil.novaJanelaComOwnerWait("/br/view/TelaPedidoDetalhes.fxml", false, "Detalhes do pedido");
 	}
-
-
 
 	@FXML
 	void OnClick_btn_incluir(ActionEvent event) {
@@ -165,43 +190,56 @@ public class TelaPedidoInicial implements Initializable {
 //************************** METODOS AUXILIARES *********************
 	private void prepararComponentes() {
 		try {
-		tvLoc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-		tvLoc_dataInicio.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
-		tvLoc_dataFinal.setCellValueFactory(new PropertyValueFactory<>("dataFim"));
-		tvLoc_ID.setCellValueFactory(new PropertyValueFactory<>("codPedido"));
-		tvLoc_valorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
-		tvLoc_pagamento.setCellValueFactory(new PropertyValueFactory<>("formaPagamento"));
-		tvLoc_finalizado.setCellValueFactory(new PropertyValueFactory<>("pedidoConfirmado"));
+			tvLoc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
+			tvLoc_dataInicio.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
+			tvLoc_dataFinal.setCellValueFactory(new PropertyValueFactory<>("dataFim"));
+			tvLoc_ID.setCellValueFactory(new PropertyValueFactory<>("codPedido"));
+			tvLoc_valorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+			tvLoc_pagamento.setCellValueFactory(new PropertyValueFactory<>("formaPagamento"));
+			tvLoc_finalizado.setCellValueFactory(new PropertyValueFactory<>("pedidoConfirmado"));
 
-		tvVenda_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-		tvVenda_data.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
-		tvVenda_ID.setCellValueFactory(new PropertyValueFactory<>("codPedido"));
-		tvVenda_valorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
-		tvVenda_pagamento.setCellValueFactory(new PropertyValueFactory<>("formaPagamento"));
-		tvVenda_finalizado.setCellValueFactory(new PropertyValueFactory<>("pedidoConfirmado"));
+			tvVenda_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
+			tvVenda_data.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
+			tvVenda_ID.setCellValueFactory(new PropertyValueFactory<>("codPedido"));
+			tvVenda_valorTotal.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+			tvVenda_pagamento.setCellValueFactory(new PropertyValueFactory<>("formaPagamento"));
+			tvVenda_finalizado.setCellValueFactory(new PropertyValueFactory<>("pedidoConfirmado"));
 
-		obsVenda = FXCollections.observableArrayList(
-				new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).listarPedidos());
-		obsLoc = FXCollections.observableArrayList(
-				new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos).listarPedidos());
-		
-		tvLoc.setItems(obsLoc);
-		tvVenda.setItems(obsVenda);
-		
-		tvLoc.getSelectionModel().selectedItemProperty()
-		.addListener((obs, oldSelection, newSelection) -> {
-			if (newSelection != null) {
-				pedidoSelecionado = newSelection;
-			}
-		});
-		
-		tvVenda.getSelectionModel().selectedItemProperty()
-		.addListener((obs, oldSelection, newSelection) -> {
-			if (newSelection != null) {
-				pedidoSelecionado = newSelection;
-			}
-		});
-		}catch(Exception e) {
+			tvInfra_ID.setCellValueFactory(new PropertyValueFactory<>("codPedido"));
+			tvInfra_Cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
+			tvInfra_data.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
+			tvInfra_Pagamento.setCellValueFactory(new PropertyValueFactory<>("formaPagamento"));
+			tvInfra_vt.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
+			tvInfra_Finalizado.setCellValueFactory(new PropertyValueFactory<>("pedidoConfirmado"));
+
+			obsVenda = FXCollections.observableArrayList(
+					new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).listarPedidos());
+			obsLoc = FXCollections.observableArrayList(
+					new PedidoAluguelProdutoDAO(TelaPrincipalController.nomeArquivoPedidoLocProdutos).listarPedidos());
+			obsInfra = FXCollections.observableArrayList(
+					new PedidoAluguelInfraDAO(TelaPrincipalController.nomeArquivoPedidoLocInfra).listarPedidos());
+			tvLoc.setItems(obsLoc);
+			tvVenda.setItems(obsVenda);
+			tvInfra.setItems(obsInfra);
+
+			tvLoc.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+				if (newSelection != null) {
+					pedidoSelecionado = newSelection;
+				}
+			});
+
+			tvVenda.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+				if (newSelection != null) {
+					pedidoSelecionado = newSelection;
+				}
+			});
+
+			tvInfra.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+				if (newSelection != null) {
+					pedidoSelecionado = newSelection;
+				}
+			});
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

@@ -69,6 +69,24 @@
                   </AnchorPane>
                </content>
             </TitledPane>
+            <TitledPane fx:id="paneInfra" animated="false" text="Infraestrutura">
+              <content>
+                <AnchorPane>
+                     <children>
+                        <TableView fx:id="tvInfra" prefHeight="291.0" prefWidth="628.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="tvInfra_ID" minWidth="60.0" prefWidth="60.0" text="ID" />
+                            <TableColumn fx:id="tvInfra_data" minWidth="80.0" text="Data" />
+                              <TableColumn fx:id="tvInfra_Cliente" prefWidth="250.0" text="Cliente" />
+                              <TableColumn fx:id="tvInfra_vt" minWidth="60.0" prefWidth="70.0" text="VT" />
+                              <TableColumn fx:id="tvInfra_Pagamento" prefWidth="75.0" text="Pagamento" />
+                              <TableColumn fx:id="tvInfra_Finalizado" prefWidth="70.0" text="Finalizado" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
         </panes>
       </Accordion>
    </center>

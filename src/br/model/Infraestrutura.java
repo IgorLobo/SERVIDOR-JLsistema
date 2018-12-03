@@ -154,8 +154,8 @@ public class Infraestrutura implements TratamentoDeDados {
 		return datas;
 	}
 	
-	public String getDatas(int pos) {
-		return datas.get(pos);
+	public String getDatas(int codInfra) {
+		return datas.get(codInfra);
 	}
 
 	public void setDatas(ArrayList<String> datas) {

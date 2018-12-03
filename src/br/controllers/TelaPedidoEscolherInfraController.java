@@ -147,6 +147,34 @@ public class TelaPedidoEscolherInfraController implements Initializable {
 		date_inicio.setDayCellFactory(dayCellFactory);
 	}
 
+	private void checkDataAtual(ArrayList<String> datas) {
+		hoje.setValue(LocalDate.now());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+			@Override
+			public DateCell call(final DatePicker datePicker) {
+				return new DateCell() {
+					@Override
+					public void updateItem(LocalDate item, boolean empty) {
+						super.updateItem(item, empty);
+
+						if (item.isBefore(hoje.getValue().plusDays(1))) {
+							setDisable(true);
+							setStyle("-fx-background-color: #ffc0cb;");
+						}
+						for (int i = 0; i < datas.size(); i++) {
+							if (item.isEqual(LocalDate.parse(datas.get(i),formatter))) {
+								setDisable(true);
+								setStyle("-fx-background-color: #ffc0cb;");
+							}
+						}						
+					}
+				};
+			}
+		};
+		date_inicio.setDayCellFactory(dayCellFactory);
+	}
+
 	private void datasDisponiveis() {
 		try {
 			ArrayList<Pedido> listaDePedidosAluguelInfra = aluguelInfra.listarPedidos();
@@ -154,13 +182,19 @@ public class TelaPedidoEscolherInfraController implements Initializable {
 					.addListener((obs, oldSelection, newSelection) -> {
 						if (newSelection != null) {
 							date_inicio.setDisable(false);
-							
-							System.out.println(newSelection.getNomeInfraestrutura());
-							
+							PedidoAluguelInfraDAO pedidos = new PedidoAluguelInfraDAO(
+									TelaPrincipalController.nomeArquivoDataLocInfraestrutura);
+							try {
+								ArrayList<String> datas = pedidos
+										.listarPedidosDatas(newSelection.getCodInfraestrutura());
+								System.out.println(newSelection.getCodInfraestrutura());
+								checkDataAtual(datas);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					});
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 

@@ -76,10 +76,7 @@ public class TelaPedidoInfraController implements Initializable {
 	private TableColumn<Infraestrutura, String> tc_descricao;
 
 	@FXML
-	private TableColumn<Infraestrutura, Float> tc_precoUnid;
-
-	@FXML
-	private TableColumn<Infraestrutura, Integer> tc_dias;
+	private TableColumn<Infraestrutura, String> tc_dias;
 
 	@FXML
 	private TableColumn<Infraestrutura, Float> tc_precoTotal;
@@ -153,7 +150,8 @@ public class TelaPedidoInfraController implements Initializable {
 	private void prepararTableView() {
 		tc_nome.setCellValueFactory(new PropertyValueFactory<>("nomeInfraestrutura"));
 		tc_descricao.setCellValueFactory(new PropertyValueFactory<>("descricaoInfraestrutura"));
-		tc_precoUnid.setCellValueFactory(new PropertyValueFactory<>("precoDiaInfraestrutura"));
+		tc_dias.setCellValueFactory(new PropertyValueFactory<>("dataLocacao"));
+		tc_precoTotal.setCellValueFactory(new PropertyValueFactory<>("precoDiaInfraestrutura"));
 		tv_salas.setItems(obsSalas);
 
 		obsSalas.addListener(new ListChangeListener<Infraestrutura>() {
