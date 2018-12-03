@@ -47,7 +47,7 @@ public class PedidoVendaDAO implements IPedidos {
 			String linha = "";
 			while ((linha = bufferedReader.readLine()) != null) {
 				Pedido pedidoVenda = new Pedido();
-				pedidoVenda.materializarPedidoVenda(linha);
+ 				pedidoVenda.materializarPedidoVenda(linha);
 				listaDePedidosVendas.add(pedidoVenda);
 			}
 			bufferedReader.close();

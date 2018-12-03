@@ -108,7 +108,7 @@ public class Pedido {
 	public void setPedidoConfirmado(Boolean value) {
 		this.pedidoConfirmado = value;
 	}
-	
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -148,9 +148,8 @@ public class Pedido {
 		this.cliente = new Cliente(vetorString[1], vetorString[2]);
 		this.quantidadeProdutos = Integer.parseInt(vetorString[3]);
 		for (int i = 0; i < this.quantidadeProdutos; i++) {
-			produto = new Produto(Integer.parseInt(vetorString[4 + (i * 6)]), vetorString[5 + (i * 6)],
-					vetorString[6 + (i * 6)], vetorString[7 + (i * 6)], Float.parseFloat(vetorString[8 + (i * 6)]),
-					Integer.parseInt(vetorString[9 + (i * 6)]));
+			produto = new Produto(vetorString[4 + (i * 5)], vetorString[5 + (i * 5)], vetorString[6 + (i * 5)],
+					Float.parseFloat(vetorString[7 + (i * 5)]), Integer.parseInt(vetorString[8 + (i * 5)]));
 			produtos.add(produto);
 		}
 		this.dataInicio = vetorString[vetorString.length - 4];
@@ -214,9 +213,9 @@ public class Pedido {
 		this.cliente = new Cliente(vetorString[2], vetorString[3]);
 		this.quantidadeProdutos = Integer.parseInt(vetorString[4]);
 		for (int i = 0; i < this.quantidadeProdutos; i++) {
-			produto =  new Produto(Integer.parseInt(vetorString[5 + (i * 6)]), vetorString[6 + (i * 6)],
+			produto = new Produto(Integer.parseInt(vetorString[5 + (i * 6)]), vetorString[6 + (i * 6)],
 					vetorString[7 + (i * 6)], vetorString[8 + (i * 6)], Float.parseFloat(vetorString[9 + (i * 6)]),
-					Integer.parseInt(vetorString[10 + (i * 6)]),true);
+					Integer.parseInt(vetorString[10 + (i * 6)]), true);
 			produtos.add(produto);
 		}
 		this.dataInicio = vetorString[vetorString.length - 5];

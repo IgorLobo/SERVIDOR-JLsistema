@@ -29,9 +29,8 @@ public class Produto implements TratamentoDeDados {
 	}
 
 	// venda
-	public Produto(int codProduto, String nomeProduto, String tipo, String compatibilidade, float valorUnitarioVenda,
+	public Produto(String nomeProduto, String tipo, String compatibilidade, float valorUnitarioVenda,
 			int quantidade) {
-		this.codProduto = codProduto;
 		this.nomeProduto = nomeProduto;
 		this.setTipo(tipo);
 		this.compatibilidade = compatibilidade;
