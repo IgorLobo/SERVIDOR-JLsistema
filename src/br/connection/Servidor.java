@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import br.controllers.TelaConfiguracaoController;
 import br.controllers.TelaPrincipalController;
 import br.model.ClientUser;
 
@@ -100,7 +101,6 @@ public class Servidor implements Runnable {
 			this.runServidor = null;
 			try {
 				this.serverSocket.close();
-
 			} catch (IOException e) {
 				System.out.println(e.getLocalizedMessage());
 			}
@@ -117,19 +117,16 @@ public class Servidor implements Runnable {
 				Socket socket = this.serverSocket.accept();
 				System.out.println("Entrou o trodos");
 
-				/*objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+				objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
-				objectOutputStream.writeUTF("");
-				objectOutputStream.flush();*/
-
+				objectOutputStream.writeUTF(TelaConfiguracaoController.caminhoArquivoDB);
+				objectOutputStream.flush();
+				System.out.println("Enviou o trodos");
 
 				ipClientUser = socket.getInetAddress().getHostAddress();
 				clientUser = new ClientUser(socket, id, ipClientUser);
 				TelaPrincipalController.servidor.setClientsUsers(clientUser);
 				id++;
-				/*objectInputStream.close();
-				objectOutputStream.close();
-				socket.close();*/
 			}
 		} catch (Exception erro) {
 			JOptionPane.showMessageDialog(null, erro.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);

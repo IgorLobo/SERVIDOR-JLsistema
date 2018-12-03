@@ -10,14 +10,19 @@ import br.util.Janela;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 
 public class TelaPrincipalController implements Initializable {
 //************************ ATRIBUTOS ********************************
 	private Janela utilJanela = new Janela();
-	private Thread servidorON = null;
+	private Thread servidorStart = null;
+	public static boolean servidorON = false;
 	public static Servidor servidor = null;
+
 	public static String caminhoTxtBancoDados = "C:\\Projetos\\SERVIDOR-JLsistema\\src\\br\\arquivos\\";
+	public static String nomeArquivoCliente = caminhoTxtBancoDados + "Clientes.csv";
 	public static String nomeArquivoJogos = caminhoTxtBancoDados + "Jogos.csv";
 	public static String nomeArquivoAcessorios = caminhoTxtBancoDados + "Acessorios.csv";
 	public static String nomeArquivoConsoles = caminhoTxtBancoDados + "Consoles.csv";
@@ -48,23 +53,32 @@ public class TelaPrincipalController implements Initializable {
 	@FXML
 	private Button btn_estoque;
 
-	   @FXML
-	    private Button btn_configuracoes;
-
+	@FXML
+	private Button btn_configuracoes;
 
 	// --
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		iniciarServidor();
+
 	}
 
-    @FXML
-    void OnClick_btn_configuracoes(ActionEvent event) {
-    	utilJanela.novaJanelaComOwnerWait("/br/view/TelaConfiguracao.fxml", false, "Configurações");
-    }
+	@FXML
+	void OnClick_btn_configuracoes(ActionEvent event) {
+		if (servidorON) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Atenção");
+			alert.setHeaderText(null);
+			alert.setContentText("Servidor configurado e online");
+			alert.show();
+		} else {
+			utilJanela.novaJanelaComOwnerWait("/br/view/TelaConfiguracao.fxml", false, "Configurações");
+			if (servidorON) {
+				iniciarServidor();
+			}
+		}
+	}
 
-	
 	@FXML
 	void OnClick_tbBtn_clientes(ActionEvent event) {
 		utilJanela.novaJanelaComOwner("/br/view/TelaCliente.fxml", true, "Gerenciar clientes");
@@ -92,8 +106,8 @@ public class TelaPrincipalController implements Initializable {
 
 //************************** METODOS AUXILIARES *********************
 	private void iniciarServidor() {
-		servidor = new Servidor(5555);
-		servidorON = new Thread() {
+		servidor = new Servidor(TelaConfiguracaoController.porta);
+		servidorStart = new Thread() {
 			@Override
 			public void run() {
 				try {
@@ -104,7 +118,7 @@ public class TelaPrincipalController implements Initializable {
 				}
 			}
 		};
-		servidorON.start();
+		servidorStart.start();
 	}
 
 }
