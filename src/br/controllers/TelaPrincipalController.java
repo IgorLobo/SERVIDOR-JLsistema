@@ -48,6 +48,10 @@ public class TelaPrincipalController implements Initializable {
 	@FXML
 	private Button btn_estoque;
 
+	   @FXML
+	    private Button btn_configuracoes;
+
+
 	// --
 //*********************** ON-ACTION *********************************
 	@Override
@@ -55,6 +59,12 @@ public class TelaPrincipalController implements Initializable {
 		iniciarServidor();
 	}
 
+    @FXML
+    void OnClick_btn_configuracoes(ActionEvent event) {
+    	utilJanela.novaJanelaComOwnerWait("/br/view/TelaConfiguracao.fxml", false, "Configurações");
+    }
+
+	
 	@FXML
 	void OnClick_tbBtn_clientes(ActionEvent event) {
 		utilJanela.novaJanelaComOwner("/br/view/TelaCliente.fxml", true, "Gerenciar clientes");

@@ -7,31 +7,37 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.controllers.TelaConfiguracaoController">
+<AnchorPane prefHeight="200.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.controllers.TelaConfiguracaoController">
    <children>
-      <VBox alignment="CENTER" layoutX="70.0" layoutY="108.0" spacing="5.0">
+      <VBox alignment="CENTER" layoutX="36.0" layoutY="32.0" spacing="5.0">
          <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="50.0" text="Host:" textFill="WHITE" />
+                  <Label fx:id="lb_host" prefHeight="17.0" prefWidth="143.0" />
+               </children>
+            </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="50.0" text="IP:" textAlignment="CENTER" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="50.0" text="IP:" textAlignment="CENTER" textFill="WHITE" />
                   <TextField fx:id="txf_IP" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="50.0" text="Porta:" textAlignment="CENTER" />
+                  <Label alignment="CENTER_RIGHT" prefWidth="50.0" text="Porta:" textAlignment="CENTER" textFill="WHITE" />
                   <TextField fx:id="txf_porta" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="50.0" text="Diretório:" textAlignment="CENTER" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="50.0" text="Diretório:" textAlignment="CENTER" textFill="WHITE" />
                   <TextField fx:id="txf_diretorio" />
-                  <Button fx:id="btn_definir" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#OnClick_btn_definir" text="Definir" />
+                  <Button fx:id="btn_definir" alignment="CENTER" maxWidth="70.0" minWidth="70.0" mnemonicParsing="false" onAction="#OnClick_btn_definir" prefWidth="70.0" text="Definir" textAlignment="CENTER" />
                </children>
             </HBox>
+            <Button fx:id="btn_aplicar" maxWidth="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#OnClick_btn_aplicar" prefWidth="80.0" text="Aplicar" />
          </children>
       </VBox>
-      <Button fx:id="btn_aplicar" layoutX="317.0" layoutY="252.0" mnemonicParsing="false" onAction="#OnClick_btn_aplicar" text="Aplicar" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
    </children>
 </AnchorPane>
