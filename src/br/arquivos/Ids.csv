@@ -1,6 +1,6 @@
 Cliente;6;
 Produto;18;
-Infraestrutura;1;
 PedidoVenda;1;
 PedidoAluguelProduto;2;
-PedidoAluguelInfra;3;
+Infraestrutura;2;
+PedidoAluguelInfra;5;
