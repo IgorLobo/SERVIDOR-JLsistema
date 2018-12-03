@@ -43,26 +43,6 @@
                   </AnchorPane>
                </content>
             </TitledPane>
-            <TitledPane fx:id="paneInfra" animated="false" text="Infraestrutura">
-              <content>
-                <AnchorPane>
-                     <children>
-                        <TableView fx:id="tvInfra" prefHeight="291.0" prefWidth="628.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <columns>
-                            <TableColumn fx:id="tvInfra_ID" minWidth="60.0" prefWidth="60.0" text="ID" />
-                            <TableColumn fx:id="tvInfra_data" minWidth="80.0" text="Data" />
-                              <TableColumn fx:id="tvInfra_Cliente" prefWidth="250.0" text="Cliente" />
-                              <TableColumn fx:id="tvInfra_vt" minWidth="60.0" prefWidth="70.0" text="VT" />
-                              <TableColumn fx:id="tvInfra_Pagamento" prefWidth="75.0" text="Pagamento" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </TitledPane>
           <TitledPane fx:id="paneLoc" animated="false" text="Locação">
                <content>
                   <AnchorPane>
@@ -84,6 +64,26 @@
                      </children>
                   </AnchorPane>
                </content>
+            </TitledPane>
+            <TitledPane fx:id="paneInfra" animated="false" text="Infraestrutura">
+              <content>
+                <AnchorPane>
+                     <children>
+                        <TableView fx:id="tvInfra" prefHeight="291.0" prefWidth="628.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="tvInfra_ID" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" resizable="false" text="ID" />
+                            <TableColumn fx:id="tvInfra_data" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Data" />
+                              <TableColumn fx:id="tvInfra_Cliente" prefWidth="250.0" text="Cliente" />
+                              <TableColumn fx:id="tvInfra_vt" maxWidth="80.0" minWidth="80.0" resizable="false" text="VT" />
+                              <TableColumn fx:id="tvInfra_Pagamento" maxWidth="80.0" minWidth="80.0" resizable="false" text="Pagamento" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
             </TitledPane>
         </panes>
       </Accordion>

@@ -1,6 +1,6 @@
+Cliente;0;
+PedidoVenda;0;
+Produto;0;
 PedidoAluguelProduto;0;
-PedidoAluguelInfra;0;
 Infraestrutura;0;
-Produto;2;
-Cliente;1;
-PedidoVenda;1;
+PedidoAluguelInfra;0;

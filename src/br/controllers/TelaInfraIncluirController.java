@@ -61,7 +61,7 @@ public class TelaInfraIncluirController implements Initializable {
 
 			try {
 				String nome = txf_nome.getText();
-				float valor = MaskTextfield.monetaryValueFromField(txf_valor).floatValue(); // Float.parseFloat(txf_valor.getText());
+				float valor =  Float.parseFloat(txf_valor.getText());
 				String descricao = txa_descricao.getText();
 				Infraestrutura infra = new Infraestrutura(nome, descricao, valor);
 				InfraestruturaDAO arquivo = new InfraestruturaDAO(nomeArquivo);
@@ -88,7 +88,7 @@ public class TelaInfraIncluirController implements Initializable {
 
 //************************** METODOS AUXILIARES *********************
 	private void prepararComponentes() {
-		MaskTextfield.monetaryField(txf_valor);
+		MaskTextfield.campoNumerico(txf_valor);
 	}
 
 	private void carregarDados() {

@@ -70,8 +70,6 @@ public class TelaPedidoEscolherInfraController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prepararTableViews();
-		date_inicio.setDisable(true);
-		date_inicio.setValue(LocalDate.now());
 		datasDisponiveis();
 	}
 

@@ -224,7 +224,7 @@ public class TelaPedidoLocController implements Initializable {
 
 						if (item.isBefore(date_inicio.getValue().plusDays(1))) {
 							setDisable(true);
-							setStyle("-fx-background-color: #ffc0cb;");
+							setStyle("-fx-background-color: #333333;");
 						}
 					}
 				};

@@ -52,7 +52,7 @@ public class Pedido {
 		this.infraestrutura = infraestrutura;
 		this.formaPagamento = formaPagamento;
 		this.tipoPedido = tipoPedido;
-		this.dataFim = dataAluguel;
+		this.dataInicio = dataAluguel;
 		this.valorTotal = valorTotal;
 	}
 
