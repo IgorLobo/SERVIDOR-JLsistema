@@ -47,12 +47,13 @@ public class Pedido {
 
 	// tipo especifico para aluguel infra
 	public Pedido(Cliente cliente, ArrayList<Infraestrutura> infraestrutura, String formaPagamento, String tipoPedido,
-			String dataAluguel) {
+			String dataAluguel, float valorTotal) {
 		this.cliente = cliente;
 		this.infraestrutura = infraestrutura;
 		this.formaPagamento = formaPagamento;
 		this.tipoPedido = tipoPedido;
 		this.dataFim = dataAluguel;
+		this.valorTotal = valorTotal;
 	}
 
 	public Pedido() {
@@ -287,7 +288,8 @@ public class Pedido {
 					vetorString[4 + (i * 3)]);
 			infraestrutura.add(infra);
 		}
-		this.dataFim = vetorString[vetorString.length - 4];
+		this.cliente = new Cliente(vetorString[vetorString.length - 6], vetorString[vetorString.length - 5]);
+		this.dataInicio = vetorString[vetorString.length - 4];
 		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
 		this.formaPagamento = vetorString[vetorString.length - 2];
 		this.pedidoConfirmado = Boolean.parseBoolean(vetorString[vetorString.length - 1]);
@@ -305,7 +307,9 @@ public class Pedido {
 			saida += getInfraArrayList(posicao).getPrecoDiaInfraestrutura() + ";";
 			saida += getInfraArrayList(posicao).getDataLocacao() + ";";
 		}
-		saida += this.dataFim + ";";
+		saida += cliente.getNomeCliente() + ";";
+		saida += cliente.getCpfCliente() + ";";
+		saida += this.dataInicio + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
 		saida += this.pedidoConfirmado + ";";
@@ -322,6 +326,8 @@ public class Pedido {
 			saida += getInfraArrayList(posicao).getPrecoDiaInfraestrutura() + ";";
 			saida += getInfraArrayList(posicao).getDataLocacao() + ";";
 		}
+		saida += cliente.getNomeCliente() + ";";
+		saida += cliente.getCpfCliente() + ";";
 		saida += this.dataFim + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
@@ -338,6 +344,8 @@ public class Pedido {
 			saida += getInfraArrayList(posicao).getPrecoDiaInfraestrutura() + ";";
 			saida += getInfraArrayList(posicao).getDataLocacao() + ";";
 		}
+		saida += cliente.getNomeCliente() + ";";
+		saida += cliente.getCpfCliente() + ";";
 		saida += this.dataFim + ";";
 		saida += this.valorTotal + ";";
 		saida += this.formaPagamento + ";";
@@ -357,6 +365,7 @@ public class Pedido {
 					vetorString[4 + (i * 3)]);
 			infraestrutura.add(infra);
 		}
+		this.cliente = new Cliente(vetorString[vetorString.length - 6], vetorString[vetorString.length - 5]);
 		this.dataFim = vetorString[vetorString.length - 4];
 		this.valorTotal = Float.parseFloat(vetorString[vetorString.length - 3]);
 		this.formaPagamento = vetorString[vetorString.length - 2];

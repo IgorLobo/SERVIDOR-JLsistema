@@ -46,9 +46,6 @@ public class TelaProdutoController implements Initializable {
 	private Button btn_excluir;
 
 	@FXML
-	private Button btn_observacao;
-
-	@FXML
 	private TableView<Produto> tv_jogos;
 
 	@FXML
@@ -172,10 +169,6 @@ public class TelaProdutoController implements Initializable {
 			listar();
 	}
 
-	@FXML
-	void OnClick_btn_observacao(ActionEvent event) {
-
-	}
 
 //************************** METODOS AUXILIARES *********************
 	private void prepararTableViews() {

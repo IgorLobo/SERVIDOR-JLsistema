@@ -18,6 +18,7 @@ public class Janela {
 			Parent root;
 			root = FXMLLoader.load(getClass().getResource(caminhoFXML));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/br/view/estilo.css").toExternalForm());
 			Stage stage = new Stage();
 			stage.setScene(scene);
 			stage.getIcons().add(new Image("/br/images/JLsistemaLOGO.png"));
@@ -36,6 +37,7 @@ public class Janela {
 			Parent root;
 			root = FXMLLoader.load(getClass().getResource(caminhoFXML));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/br/view/estilo.css").toExternalForm());
 			Stage stage = new Stage();
 			stage.setScene(scene);
 			stage.setTitle(nomeDaJanela);

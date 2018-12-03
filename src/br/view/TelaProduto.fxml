@@ -14,7 +14,7 @@
    <center>
       <Accordion BorderPane.alignment="CENTER">
         <panes>
-          <TitledPane animated="false" text="Jogos" fx:id="paneJogos">
+          <TitledPane fx:id="paneJogos" animated="false" text="Jogos">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -35,14 +35,14 @@
                   <Font name="Verdana" size="12.0" />
                </font>
           </TitledPane>
-          <TitledPane animated="false" text="Acessórios" fx:id="paneAcessorios">
+          <TitledPane fx:id="paneAcessorios" animated="false" text="Acessórios">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <TableView fx:id="tv_acessorios" layoutX="151.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
                               <TableColumn fx:id="tv_acessorios_tcNome" editable="false" prefWidth="75.0" text="Nome" />
-                              <TableColumn fx:id="tv_acessorios_tcCompatibilidade" editable="false" prefWidth="124.99996185302734" text="Compatibilidade" />
+                              <TableColumn fx:id="tv_acessorios_tcCompatibilidade" editable="false" prefWidth="125" text="Compatibilidade" />
                               <TableColumn fx:id="tv_acessorios_fabricante" prefWidth="105.0" text="Fabricante" />
                               <TableColumn fx:id="tv_acessorios_tcValVenda" editable="false" prefWidth="75.0" text="Valor unid." />
                               <TableColumn fx:id="tv_acessorios_tcValLoc" editable="false" prefWidth="75.0" text="Valor loc." />
@@ -57,7 +57,7 @@
                   <Font name="Verdana" size="12.0" />
                </font>
           </TitledPane>
-          <TitledPane animated="false" text="Consoles" fx:id="paneConsoles">
+          <TitledPane fx:id="paneConsoles" animated="false" text="Consoles">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -84,12 +84,11 @@
    <bottom>
       <AnchorPane prefHeight="43.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <ButtonBar layoutX="20.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+            <ButtonBar buttonOrder="button" layoutX="20.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
                <buttons>
-                  <Button fx:id="btn_observacao" onAction="#OnClick_btn_observacao" text="Observação" ButtonBar.buttonData="LEFT" />
-                  <Button fx:id="btn_excluir" onAction="#OnClick_btn_excluir" text="Excluir" ButtonBar.buttonData="RIGHT" />
-                  <Button fx:id="btn_alterar" onAction="#OnClick_btn_alterar" text="Alterar" ButtonBar.buttonData="RIGHT" />
-                  <Button fx:id="btn_incluir" onAction="#OnClick_btn_incluir" text="Incluir" ButtonBar.buttonData="RIGHT" />
+                  <Button fx:id="btn_excluir" onAction="#OnClick_btn_excluir" text="Excluir" />
+                  <Button fx:id="btn_alterar" onAction="#OnClick_btn_alterar" text="Alterar" />
+                  <Button fx:id="btn_incluir" onAction="#OnClick_btn_incluir" text="Incluir" />
                </buttons>
             </ButtonBar>
          </children>

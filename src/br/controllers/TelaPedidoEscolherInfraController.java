@@ -27,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 public class TelaPedidoEscolherInfraController implements Initializable {
 
@@ -121,6 +122,28 @@ public class TelaPedidoEscolherInfraController implements Initializable {
 			tableView_infra.setItems(FXCollections.observableArrayList(
 					new InfraestruturaDAO(TelaPrincipalController.nomeArquivoInfra).listarInfraestruturas()));
 			checkDataAtual();
+			date_inicio.setConverter(new StringConverter<LocalDate>() {
+				DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+				@Override
+				public String toString(LocalDate date) {
+					if (date != null) {
+						return dateFormatter.format(date);
+					} else {
+						return "";
+					}
+				}
+
+				@Override
+				public LocalDate fromString(String string) {
+					if (string != null && !string.isEmpty()) {
+						return LocalDate.parse(string, dateFormatter);
+					} else {
+						return null;
+					}
+				}
+			});
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -138,7 +161,7 @@ public class TelaPedidoEscolherInfraController implements Initializable {
 
 						if (item.isBefore(hoje.getValue().plusDays(1))) {
 							setDisable(true);
-							setStyle("-fx-background-color: #ffc0cb;");
+							setStyle("-fx-background-color: #333333;");
 						}
 					}
 				};
@@ -160,12 +183,12 @@ public class TelaPedidoEscolherInfraController implements Initializable {
 
 						if (item.isBefore(hoje.getValue().plusDays(1))) {
 							setDisable(true);
-							setStyle("-fx-background-color: #ffc0cb;");
+							setStyle("-fx-background-color: #333333;");
 						}
 						for (int i = 0; i < datas.size(); i++) {
 							if (item.isEqual(LocalDate.parse(datas.get(i),formatter))) {
 								setDisable(true);
-								setStyle("-fx-background-color: #ffc0cb;");
+								setStyle("-fx-background-color: #333333;");
 							}
 						}						
 					}

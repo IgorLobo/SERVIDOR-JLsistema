@@ -122,7 +122,7 @@ public class TelaPedidoInfraController implements Initializable {
 		} else {
 			try {
 				Pedido pedido = new Pedido(cliente, new ArrayList<Infraestrutura>(obsSalas),
-						cb_pagamento.getSelectionModel().getSelectedItem().toString(), "Aluguel", txf_data.getText());
+						cb_pagamento.getSelectionModel().getSelectedItem().toString(), "Infra", txf_data.getText(),Float.parseFloat(lb_precoTotalPedido.getText()));
 				new PedidoAluguelInfraDAO(TelaPrincipalController.nomeArquivoPedidoLocInfra).incluirPedido(pedido);
 				new PedidoAluguelInfraDAO(TelaPrincipalController.nomeArquivoDataLocInfraestrutura).incluirDataAluguelInfra(pedido);
 				obsSalas.clear();

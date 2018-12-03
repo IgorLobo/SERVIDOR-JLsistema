@@ -11,11 +11,11 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.controllers.TelaPrincipalController">
    <top>
-      <ToolBar prefHeight="65.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <ToolBar prefHeight="79.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <items>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="588.0" spacing="5.0">
                <children>
-                <Button fx:id="tbBtn_clientes" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" onAction="#OnClick_tbBtn_clientes" prefHeight="60.0" prefWidth="105.0" text="Clientes" textAlignment="CENTER">
+                <Button fx:id="tbBtn_clientes" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" onAction="#OnClick_tbBtn_clientes" prefHeight="60.0" prefWidth="120.0" text="Clientes" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -25,7 +25,7 @@
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font></Button>
-                  <Button fx:id="tbBtn_produtos" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#OnClick_tbBtn_produtos" prefHeight="60.0" prefWidth="105.0" text="Produtos" textAlignment="CENTER">
+                  <Button fx:id="tbBtn_produtos" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#OnClick_tbBtn_produtos" prefHeight="60.0" prefWidth="120.0" text="Produtos" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -37,7 +37,7 @@
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="tbBtn_infra" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" onAction="#OnClick_tbBtn_Infra" prefHeight="60.0" prefWidth="105.0" text="Infraestrutura" textAlignment="CENTER">
+                  <Button fx:id="tbBtn_infra" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" onAction="#OnClick_tbBtn_Infra" prefHeight="60.0" prefWidth="120.0" text="Infraestrutura" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -50,7 +50,7 @@
                      </font>
                   </Button>
                   <Separator orientation="VERTICAL" prefHeight="63.0" prefWidth="0.0" />
-                  <Button fx:id="tbBtn_pedidos" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="95.0" layoutY="10.0" mnemonicParsing="false" onAction="#OnClick_tbBtn_pedidos" prefHeight="60.0" prefWidth="105.0" text="Pedidos" textAlignment="CENTER">
+                  <Button fx:id="tbBtn_pedidos" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="95.0" layoutY="10.0" mnemonicParsing="false" onAction="#OnClick_tbBtn_pedidos" prefHeight="60.0" prefWidth="120.0" text="Pedidos" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -62,7 +62,7 @@
                         <Font name="Verdana" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_estoque" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="191.0" layoutY="10.0" mnemonicParsing="false" onAction="#OnClick_btn_estoque" prefHeight="60.0" prefWidth="105.0" text="Estoque" textAlignment="CENTER">
+                  <Button fx:id="btn_estoque" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="191.0" layoutY="10.0" mnemonicParsing="false" onAction="#OnClick_btn_estoque" prefHeight="60.0" prefWidth="120.0" text="Estoque" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
