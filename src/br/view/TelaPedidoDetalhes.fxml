@@ -15,9 +15,9 @@
 
 <BorderPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.controllers.TelaPedidoDetalhesController">
    <bottom>
-      <AnchorPane prefHeight="31.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="31.0" prefWidth="600.0" style="-fx-background-color: #222325;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btn_ok" layoutX="261.0" layoutY="4.0" mnemonicParsing="false" onAction="#OnClick_btn_ok" prefHeight="26.0" prefWidth="79.0" text="OK" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="2.0" />
+            <Button fx:id="btn_ok" layoutX="261.0" layoutY="4.0" mnemonicParsing="false" onAction="#OnClick_btn_ok" prefHeight="26.0" prefWidth="79.0" text="OK" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="260.0" AnchorPane.topAnchor="2.0" />
          </children>
       </AnchorPane>
    </bottom>
@@ -82,14 +82,14 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="600.0" spacing="10.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #222325;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Preço do pedido:">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Preço do pedido:">
                            <font>
                               <Font name="Verdana Bold" size="12.0" />
                            </font>
                         </Text>
-                        <Label fx:id="lb_precoTotalPedido" prefHeight="24.0" prefWidth="49.0" />
+                        <Label fx:id="lb_precoTotalPedido" prefHeight="24.0" prefWidth="49.0" textFill="WHITE" />
                      </children>
                   </HBox>
                </children>

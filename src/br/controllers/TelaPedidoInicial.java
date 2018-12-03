@@ -210,7 +210,6 @@ public class TelaPedidoInicial implements Initializable {
 			tvInfra_data.setCellValueFactory(new PropertyValueFactory<>("dataInicio"));
 			tvInfra_Pagamento.setCellValueFactory(new PropertyValueFactory<>("formaPagamento"));
 			tvInfra_vt.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
-			tvInfra_Finalizado.setCellValueFactory(new PropertyValueFactory<>("pedidoConfirmado"));
 
 			obsVenda = FXCollections.observableArrayList(
 					new PedidoVendaDAO(TelaPrincipalController.nomeArquivoPedidoVenda).listarPedidos());

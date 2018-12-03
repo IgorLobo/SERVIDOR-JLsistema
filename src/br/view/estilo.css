@@ -26,5 +26,9 @@
 }
 .table-row-cell:selected .text {
        -fx-fill: #ffffff ;
+}
 
+.button-bar{
+	-fx-background-color:#222325;
+	-fx-border-color: #000000;
 }

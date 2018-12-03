@@ -117,6 +117,7 @@ public class TelaInfraController implements Initializable {
 
 	@FXML
 	void OnClick_btn_observacao(ActionEvent event) {
+		InfraSelecionada = tableView_infra.getSelectionModel().getSelectedItem();
 		utilJanela.novaJanelaComOwner("/br/view/TelaInfraDetalhes.fxml", false, "Detalhes da sala");
 	}
 

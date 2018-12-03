@@ -46,7 +46,7 @@
                               <Font name="Verdana" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txf_CEP" prefHeight="25.0" prefWidth="87.0" promptText="XXXXX-XX"/>
+                        <TextField fx:id="txf_CEP" prefHeight="25.0" prefWidth="87.0" promptText="XXXXX-XX" />
                      </children>
                   </VBox>
                   <VBox prefHeight="42.0" prefWidth="94.0">
@@ -153,10 +153,10 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox prefWidth="456.0" spacing="325.0">
+            <HBox prefWidth="456.0" spacing="300.0">
                <children>
-                  <Button fx:id="btn_cancelar" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" prefWidth="65.0" text="Cancelar" />
-                  <Button fx:id="btn_salvar" mnemonicParsing="false" onAction="#OnClick_btn_salvar" prefHeight="25.0" prefWidth="65.0" text="Salvar" />
+                  <Button fx:id="btn_cancelar" maxWidth="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" prefWidth="80.0" text="Cancelar" />
+                  <Button fx:id="btn_salvar" maxWidth="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#OnClick_btn_salvar" prefHeight="25.0" prefWidth="80.0" text="Salvar" />
                </children>
             </HBox>
          </children>

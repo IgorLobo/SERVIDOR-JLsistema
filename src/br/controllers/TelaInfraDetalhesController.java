@@ -31,6 +31,7 @@ public class TelaInfraDetalhesController implements Initializable {
 //*********************** ON-ACTION *********************************
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		infra = TelaInfraController.InfraSelecionada;
 		txf_nome.setText(infra.getNomeInfraestrutura());
 		txf_valor.setText(Float.toString(infra.getPrecoDiaInfraestrutura()));
 		txa_descricao.setText(infra.getDescricaoInfraestrutura());

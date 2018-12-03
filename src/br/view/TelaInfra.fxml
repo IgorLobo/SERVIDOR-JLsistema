@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.controllers.TelaInfraController">
@@ -22,17 +21,13 @@
       </TableView>
    </center>
    <bottom>
-      <AnchorPane BorderPane.alignment="CENTER">
-         <children>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
-               <buttons>
-                  <Button fx:id="btn_observacao" onAction="#OnClick_btn_observacao" text="Observação" ButtonBar.buttonData="LEFT" />
-                  <Button fx:id="btn_excluir" onAction="#OnClick_btn_excluir" text="Excluir" ButtonBar.buttonData="RIGHT" />
-                  <Button fx:id="btn_alterar" onAction="#OnClick_btn_alterar" text="Alterar" ButtonBar.buttonData="RIGHT" />
-                  <Button fx:id="btn_incluir" onAction="#OnClick_btn_incluir" text="Incluir" ButtonBar.buttonData="RIGHT" />
-               </buttons>
-            </ButtonBar>
-         </children>
-      </AnchorPane>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0">
+         <buttons>
+            <Button fx:id="btn_observacao" onAction="#OnClick_btn_observacao" text="Observação" translateX="10.0" ButtonBar.buttonData="LEFT" />
+            <Button fx:id="btn_excluir" onAction="#OnClick_btn_excluir" text="Excluir" translateX="-10.0" ButtonBar.buttonData="RIGHT" />
+            <Button fx:id="btn_alterar" onAction="#OnClick_btn_alterar" text="Alterar" translateX="-10.0" ButtonBar.buttonData="RIGHT" />
+            <Button fx:id="btn_incluir" onAction="#OnClick_btn_incluir" text="Incluir" translateX="-10.0" ButtonBar.buttonData="RIGHT" />
+         </buttons>
+      </ButtonBar>
    </bottom>
 </BorderPane>

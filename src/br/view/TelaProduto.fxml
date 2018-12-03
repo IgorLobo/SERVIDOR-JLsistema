@@ -82,16 +82,12 @@
       </Accordion>
    </center>
    <bottom>
-      <AnchorPane prefHeight="43.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <ButtonBar buttonOrder="button" layoutX="20.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
-               <buttons>
-                  <Button fx:id="btn_excluir" onAction="#OnClick_btn_excluir" text="Excluir" />
-                  <Button fx:id="btn_alterar" onAction="#OnClick_btn_alterar" text="Alterar" />
-                  <Button fx:id="btn_incluir" onAction="#OnClick_btn_incluir" text="Incluir" />
-               </buttons>
-            </ButtonBar>
-         </children>
-      </AnchorPane>
+      <ButtonBar buttonOrder="button" prefHeight="40.0" prefWidth="200.0">
+         <buttons>
+            <Button fx:id="btn_excluir" onAction="#OnClick_btn_excluir" text="Excluir" />
+            <Button fx:id="btn_alterar" onAction="#OnClick_btn_alterar" text="Alterar" />
+            <Button fx:id="btn_incluir" onAction="#OnClick_btn_incluir" text="Incluir" />
+         </buttons>
+      </ButtonBar>
    </bottom>
 </BorderPane>

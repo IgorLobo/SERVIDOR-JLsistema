@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.controllers.TelaInfraIncluirController">
    <children>
       <VBox layoutX="96.0" layoutY="50.0" spacing="10.0">
@@ -48,10 +47,10 @@
                   <TextArea fx:id="txa_descricao" prefHeight="92.0" prefWidth="308.0" />
                </children>
             </VBox>
-            <HBox alignment="BOTTOM_CENTER" prefHeight="34.0" prefWidth="309.0" spacing="180.0">
+            <HBox alignment="BOTTOM_CENTER" prefHeight="34.0" prefWidth="309.0" spacing="150.0">
                <children>
-                  <Button fx:id="btn_cancelar" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" text="Cancelar" />
-                  <Button fx:id="btn_cadastrar" mnemonicParsing="false" onAction="#OnClick_btn_cadastrar" text="Cadastrar" />
+                  <Button fx:id="btn_cancelar" maxWidth="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" prefWidth="80.0" text="Cancelar" />
+                  <Button fx:id="btn_cadastrar" maxWidth="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#OnClick_btn_cadastrar" prefWidth="80.0" text="Cadastrar" />
                </children>
             </HBox>
          </children>

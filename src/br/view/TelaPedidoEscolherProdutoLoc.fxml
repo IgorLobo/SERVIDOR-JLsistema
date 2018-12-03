@@ -10,7 +10,6 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.controllers.TelaPedidoEscolherProdutoLocController">
@@ -88,21 +87,13 @@
       </Accordion>
    </center>
    <bottom>
-      <AnchorPane BorderPane.alignment="CENTER">
-         <children>
-            <ButtonBar buttonMinWidth="30.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
-               <buttons>
-                  <Button fx:id="btn_adicionar" maxWidth="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#OnClick_btn_adicionar" prefWidth="80.0" text="Adicionar" ButtonBar.buttonData="RIGHT" />
-                  <Button fx:id="btn_cancelar" maxWidth="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" prefWidth="80.0" text="Cancelar" ButtonBar.buttonData="LEFT" />
-                  <HBox alignment="CENTER">
-                     <children>
-                        <Label maxWidth="30.0" minWidth="30.0" prefHeight="17.0" prefWidth="30.0" text="Qnt:" />
-                        <TextField fx:id="txf_qnt" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
-                     </children>
-                  </HBox>
-               </buttons>
-            </ButtonBar>
-         </children>
-      </AnchorPane>
+      <ButtonBar buttonMinWidth="30.0" prefHeight="40.0" prefWidth="200.0">
+         <buttons>
+            <Button fx:id="btn_cancelar" maxWidth="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" prefWidth="80.0" text="Cancelar" translateX="10.0" ButtonBar.buttonData="LEFT" />
+            <Label maxWidth="30.0" minWidth="30.0" prefHeight="17.0" prefWidth="30.0" text="Qnt:" ButtonBar.buttonData="RIGHT" />
+            <TextField fx:id="txf_qnt" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" translateX="-10.0" ButtonBar.buttonData="RIGHT" />
+            <Button fx:id="btn_adicionar" maxWidth="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#OnClick_btn_adicionar" prefWidth="80.0" text="Adicionar" translateX="-10.0" ButtonBar.buttonData="RIGHT" />
+         </buttons>
+      </ButtonBar>
    </bottom>
 </BorderPane>

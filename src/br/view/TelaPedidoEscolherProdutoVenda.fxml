@@ -87,17 +87,13 @@
       </Accordion>
    </center>
    <bottom>
-      <AnchorPane BorderPane.alignment="CENTER">
-         <children>
-            <ButtonBar buttonMinWidth="0.0" buttonOrder="l+r" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
-               <buttons>
-                  <Button fx:id="btn_cancelar" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" text="Cancelar" ButtonBar.buttonData="LEFT" />
-                  <Label alignment="CENTER_RIGHT" maxWidth="66.0" minWidth="66.0" prefHeight="17.0" prefWidth="60.0" text="Quantidade:" ButtonBar.buttonData="RIGHT" />
-                  <TextField fx:id="txf_qnt" maxWidth="55.0" minWidth="55.0" prefHeight="25.0" prefWidth="50.0" ButtonBar.buttonData="RIGHT" />
-                  <Button fx:id="btn_adicionar" mnemonicParsing="false" onAction="#OnClick_btn_adicionar" text="Adicionar" ButtonBar.buttonData="RIGHT" />
-               </buttons>
-            </ButtonBar>
-         </children>
-      </AnchorPane>
+      <ButtonBar buttonMinWidth="0.0" buttonOrder="l+r" prefHeight="40.0" prefWidth="200.0">
+         <buttons>
+            <Button fx:id="btn_cancelar" mnemonicParsing="false" onAction="#OnClick_btn_cancelar" text="Cancelar" translateX="10.0" ButtonBar.buttonData="LEFT" />
+            <Label alignment="CENTER_RIGHT" maxWidth="66.0" minWidth="66.0" prefHeight="17.0" prefWidth="60.0" text="Quantidade:" translateX="-10.0" ButtonBar.buttonData="RIGHT" />
+            <TextField fx:id="txf_qnt" maxWidth="55.0" minWidth="55.0" prefHeight="25.0" prefWidth="50.0" translateX="-10.0" ButtonBar.buttonData="RIGHT" />
+            <Button fx:id="btn_adicionar" mnemonicParsing="false" onAction="#OnClick_btn_adicionar" text="Adicionar" translateX="-10.0" ButtonBar.buttonData="RIGHT" />
+         </buttons>
+      </ButtonBar>
    </bottom>
 </BorderPane>
